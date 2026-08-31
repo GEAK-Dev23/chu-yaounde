@@ -1,0 +1,47 @@
+# Dépendances (tous les sous-projets)
+node_modules/
+*/node_modules/
+
+# Variables d'environnement — NE JAMAIS COMMITER
+.env
+.env.local
+.env.production
+*/.env
+*/.env.local
+*/.env.production
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build / cache
+dist/
+build/
+.cache/
+
+# Coverage de tests
+coverage/
+.nyc_output/
+*.lcov
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Fichiers temporaires
+tmp/
+temp/
+*.tmp
+
+# Certificats
+*.pem
+*.key
+*.cert

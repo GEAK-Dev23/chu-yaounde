@@ -1,0 +1,462 @@
+/* STYLES SPÉCIFIQUES À LA PAGE CONTACT */
+
+/* Hero Section Contact */
+.contact-hero {
+    background: linear-gradient(135deg, var(--chu-blue) 0%, var(--chu-dark-blue) 100%);
+    color: white;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../assets/images/contact/contact-pattern.svg') no-repeat center center;
+    background-size: cover;
+    opacity: 0.1;
+}
+
+.contact-hero-image {
+    text-align: center;
+    padding: 40px;
+}
+
+.contact-hero-image i {
+    font-size: 8rem;
+    color: rgba(255, 255, 255, 0.9);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background: transparent;
+    padding: 0;
+}
+
+.breadcrumb-item a {
+    color: var(--chu-blue);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--chu-dark-blue);
+}
+
+.breadcrumb-item.active {
+    color: var(--chu-dark);
+}
+
+/* Cartes d'information de contact */
+.contact-info-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.contact-info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.contact-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--chu-blue) 0%, var(--chu-dark-blue) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    color: white;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+}
+
+.contact-info-card:hover .contact-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.contact-info-card h4 {
+    color: var(--chu-dark);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.contact-info-card p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* Carte des horaires */
+.schedule-card {
+    background: linear-gradient(135deg, var(--chu-light-blue) 0%, #f0f7ff 100%);
+    border-radius: 20px;
+    padding: 40px;
+    border-left: 5px solid var(--chu-blue);
+}
+
+.schedule-item {
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.schedule-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-item h5 {
+    color: var(--chu-blue);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.schedule-item p {
+    color: #666;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+/* Conteneur de carte */
+.map-container {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    height: 100%;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.map-placeholder {
+    text-align: center;
+    color: var(--chu-dark);
+    padding: 40px;
+}
+
+.map-placeholder i {
+    font-size: 4rem;
+    color: var(--chu-blue);
+    margin-bottom: 20px;
+    display: block;
+}
+
+.map-placeholder h4 {
+    color: var(--chu-dark);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.map-placeholder p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Instructions d'accès */
+.access-instructions {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.access-instructions h4 {
+    color: var(--chu-dark);
+    margin-bottom: 25px;
+    font-weight: 600;
+    border-bottom: 2px solid var(--chu-light-blue);
+    padding-bottom: 10px;
+}
+
+.transport-option {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #eee;
+}
+
+.transport-option:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.transport-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--chu-light-blue);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--chu-blue);
+    font-size: 1.2rem;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.transport-option h5 {
+    color: var(--chu-dark);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.transport-option p {
+    color: #666;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+}
+
+.parking-info {
+    background: linear-gradient(135deg, #e8f5e8 0%, #f0f9f0 100%);
+    border-radius: 15px;
+    padding: 20px;
+    border-left: 4px solid #28a745;
+}
+
+.parking-info h5 {
+    color: #28a745;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.parking-info p {
+    color: #666;
+    margin-bottom: 0;
+}
+
+/* Formulaire de contact */
+.contact-form-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.contact-form-card .form-label {
+    font-weight: 600;
+    color: var(--chu-dark);
+    margin-bottom: 8px;
+}
+
+.contact-form-card .form-control,
+.contact-form-card .form-select {
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+}
+
+.contact-form-card .form-control:focus,
+.contact-form-card .form-select:focus {
+    border-color: var(--chu-blue);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.1);
+}
+
+.contact-form-card textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-check-label {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.form-check-input:checked {
+    background-color: var(--chu-blue);
+    border-color: var(--chu-blue);
+}
+
+/* Carte contact urgent */
+.emergency-contact-card {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
+    border-radius: 20px;
+    padding: 50px 30px;
+    text-align: center;
+    border: 2px solid var(--chu-red);
+    position: relative;
+    overflow: hidden;
+}
+
+.emergency-contact-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--chu-red);
+}
+
+.emergency-icon {
+    font-size: 4rem;
+    color: var(--chu-red);
+    margin-bottom: 20px;
+    display: block;
+}
+
+.emergency-contact-card h3 {
+    color: var(--chu-red);
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.emergency-contact-card .lead {
+    color: #666;
+    margin-bottom: 0;
+}
+
+/* Animations et transitions */
+.section-padding {
+    padding: 80px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-hero {
+        padding: 60px 0;
+        text-align: center;
+    }
+    
+    .contact-hero-image {
+        padding: 20px;
+    }
+    
+    .contact-hero-image i {
+        font-size: 5rem;
+    }
+    
+    .contact-info-card {
+        padding: 30px 20px;
+        margin-bottom: 20px;
+    }
+    
+    .schedule-card {
+        padding: 30px 20px;
+    }
+    
+    .map-container {
+        padding: 20px;
+        min-height: 300px;
+        margin-bottom: 30px;
+    }
+    
+    .access-instructions {
+        padding: 25px;
+    }
+    
+    .contact-form-card {
+        padding: 30px 20px;
+    }
+    
+    .transport-option {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .transport-icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .emergency-contact-card {
+        padding: 40px 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-hero .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .section-padding {
+        padding: 60px 0;
+    }
+    
+    .contact-form-card {
+        padding: 25px 15px;
+    }
+}
+
+/* États de validation du formulaire */
+.was-validated .form-control:valid,
+.was-validated .form-select:valid {
+    border-color: #28a745;
+}
+
+.was-validated .form-control:invalid,
+.was-validated .form-select:invalid {
+    border-color: #dc3545;
+}
+
+/* Boutons avec effet de hover amélioré */
+.btn-primary {
+    background: linear-gradient(135deg, var(--chu-blue) 0%, var(--chu-dark-blue) 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+}
+
+.btn-danger {
+    border-radius: 12px;
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+}
+
+/* Amélioration de l'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+    .contact-info-card,
+    .schedule-item,
+    .transport-option,
+    .btn-primary,
+    .btn-danger {
+        transition: none;
+    }
+    
+    .contact-hero-image i {
+        animation: none;
+    }
+}

@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Actualités & Publications - CHU Yaoundé</title>
+
+    <!-- CSS EXTERNES -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- NOS FICHIERS CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/header.css" />
+    <link rel="stylesheet" href="../css/footer.css" />
+    <link rel="stylesheet" href="../css/chatbot.css" />
+    <link rel="stylesheet" href="../css/actualites.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+
+    <!-- META TAGS -->
+    <meta
+      name="description"
+      content="Actualités, événements et publications scientifiques du CHU Yaoundé"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header-top">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <span data-translate="emergency">
+              <i class="fas fa-phone me-1"></i> Urgences : 651 94 80 64
+            </span>
+            <span class="ms-3">
+              <i class="fas fa-envelope me-1"></i>
+              <a href="mailto:chudeyaounde@gmail.com">chudeyaounde@gmail.com</a>
+            </span>
+          </div>
+          <div class="col-md-6 text-end">
+            <select
+              class="form-select form-select-sm d-inline-block w-auto"
+              aria-label="Sélection de la langue"
+              id="languageSelector"
+            >
+              <option value="fr">Français</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <header class="chu-header">
+      <div class="container">
+        <div class="row align-items-center py-3">
+          <div class="col-md-6">
+            <div class="logo-container">
+              <a
+                class="navbar-brand"
+                href="../index.html"
+                aria-label="CHU Yaoundé - Retour à l'accueil"
+              >
+                <img
+                  src="../assets/logos/chu-logo.png"
+                  alt="CHU Yaoundé"
+                  class="chu-logo"
+                  id="mainLogo"
+                  data-logo
+                />
+              </a>
+              <div class="menu-container">
+                <button
+                  class="hamburger-menu"
+                  id="menuToggle"
+                  aria-label="Ouvrir le menu"
+                  aria-expanded="false"
+                >
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+                <span class="menu-text" data-translate="menu">Menu</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 text-end">
+            <div class="d-flex align-items-center justify-content-end gap-3">
+              <div class="search-box d-none-mobile">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Rechercher..."
+                  aria-label="Rechercher sur le site"
+                />
+                <button class="search-btn" aria-label="Lancer la recherche">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+              <button
+                class="btn btn-outline-primary"
+                onclick="window.location.href = 'espace-patient.html'"
+              >
+                <i class="fas fa-user me-1"></i>
+                <span data-translate="patient-space">Espace Patient</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="emergency-alert">
+        <div class="container">
+          <i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>
+          <strong data-translate="emergency-service">Service d'Urgences</strong>
+          <span class="ms-3">
+            <span data-translate="wait-time">Temps d'attente moyen</span> :
+            <strong id="waitTime">25 minutes</strong>
+          </span>
+          <a href="urgences.html" class="btn btn-light btn-sm ms-3">
+            <span data-translate="view-emergency">Voir les urgences</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section Actualités -->
+    <section
+      class="page-hero actualites-hero"
+      aria-labelledby="actualites-hero-title"
+    >
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <h1 class="display-4 fw-bold mb-4" id="actualites-hero-title">
+              <i class="fas fa-newspaper me-3"></i>
+              <span data-translate="news-publications"
+                >Actualités & Publications</span
+              >
+            </h1>
+            <p class="lead mb-4" data-translate="news-subtitle">
+              Restez informé des dernières actualités, événements et découvertes
+              scientifiques du CHU Yaoundé
+            </p>
+
+            <div class="hero-actions">
+              <div class="search-box-large">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Rechercher une actualité..."
+                  data-translate="search-news"
+                />
+                <button class="search-btn-large">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+              <div class="filter-buttons">
+                <button
+                  class="btn btn-outline-light active"
+                  data-filter="all"
+                  data-translate="all"
+                >
+                  Tout
+                </button>
+                <button
+                  class="btn btn-outline-light"
+                  data-filter="news"
+                  data-translate="news"
+                >
+                  Actualités
+                </button>
+                <button
+                  class="btn btn-outline-light"
+                  data-filter="events"
+                  data-translate="events"
+                >
+                  Événements
+                </button>
+                <button
+                  class="btn btn-outline-light"
+                  data-filter="publications"
+                  data-translate="publications"
+                >
+                  Publications
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="news-stats">
+              <div class="stat-item">
+                <h3>50+</h3>
+                <p data-translate="articles-year">Articles par an</p>
+              </div>
+              <div class="stat-item">
+                <h3>12</h3>
+                <p data-translate="events-year">Événements majeurs</p>
+              </div>
+              <div class="stat-item">
+                <h3>30+</h3>
+                <p data-translate="publications-year">
+                  Publications scientifiques
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Interne -->
+    <section class="actualites-navigation">
+      <div class="container">
+        <div class="actualites-nav">
+          <a href="#news" class="nav-item active" data-translate="news"
+            >Actualités</a
+          >
+          <a href="#events" class="nav-item" data-translate="events"
+            >Événements</a
+          >
+          <a href="#publications" class="nav-item" data-translate="publications"
+            >Publications Scientifiques</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Actualités -->
+    <section id="news" class="section-padding">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="text-primary" data-translate="latest-news">
+            Dernières Actualités
+          </h2>
+          <p class="section-subtitle" data-translate="news-description">
+            Les dernières nouvelles et développements du CHU Yaoundé
+          </p>
+        </div>
+
+        <!-- Article à la une + secondaires -->
+        <div class="row g-4 mb-5">
+          <div class="col-lg-7" id="featuredNewsSection">
+            <div class="text-center py-5">
+              <i class="fas fa-circle-notch fa-spin fa-2x text-primary"></i>
+            </div>
+          </div>
+          <div
+            class="col-lg-5 d-flex flex-column gap-3"
+            id="secondaryNewsSection"
+          >
+            <!-- Articles secondaires injectés par actualites.js -->
+          </div>
+        </div>
+
+        <!-- Grille d'articles supplémentaires -->
+        <div id="newsGrid">
+          <!-- Les articles seront chargés dynamiquement en grille Bootstrap -->
+        </div>
+
+        <div class="text-center mt-5">
+          <button
+            class="btn btn-outline-primary btn-lg"
+            id="loadMoreNews"
+            data-translate="load-more"
+          >
+            <i class="fas fa-plus me-2"></i>Charger plus d'actualités
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Événements -->
+    <section id="events" class="section-padding bg-light">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="text-primary" data-translate="upcoming-events">
+            Événements à Venir
+          </h2>
+          <p class="section-subtitle" data-translate="events-description">
+            Conférences, séminaires et événements spéciaux organisés par le CHU
+          </p>
+        </div>
+
+        <div class="events-filters">
+          <div class="filter-group">
+            <label data-translate="filter-by">Filtrer par :</label>
+            <select class="form-select" id="eventTypeFilter">
+              <option value="all" data-translate="all-events">
+                Tous les événements
+              </option>
+              <option value="conference" data-translate="conferences">
+                Conférences
+              </option>
+              <option value="seminar" data-translate="seminars">
+                Séminaires
+              </option>
+              <option value="workshop" data-translate="workshops">
+                Ateliers
+              </option>
+              <option value="training" data-translate="training">
+                Formations
+              </option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label data-translate="sort-by">Trier par :</label>
+            <select class="form-select" id="eventSort">
+              <option value="date" data-translate="date">Date</option>
+              <option value="popularity" data-translate="popularity">
+                Popularité
+              </option>
+              <option value="recent" data-translate="recent">Récents</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="events-timeline">
+          <!-- Événements à venir -->
+          <div class="timeline-section">
+            <h4 class="timeline-title" data-translate="upcoming">À venir</h4>
+            <div id="upcomingEvents">
+              <!-- Événements chargés dynamiquement en grille Bootstrap -->
+            </div>
+          </div>
+
+          <!-- Événements passés -->
+          <div class="timeline-section">
+            <h4 class="timeline-title" data-translate="past-events">
+              Événements passés
+            </h4>
+            <div id="pastEvents">
+              <!-- Événements passés chargés dynamiquement -->
+            </div>
+          </div>
+        </div>
+
+        <div class="events-cta text-center mt-5">
+          <div class="cta-content">
+            <h3 data-translate="organize-event">
+              Vous souhaitez organiser un événement ?
+            </h3>
+            <p data-translate="event-contact">
+              Contactez notre service des événements pour plus d'informations
+            </p>
+            <a href="contact.html" class="btn btn-primary btn-lg">
+              <i class="fas fa-calendar-plus me-2"></i>
+              <span data-translate="contact-us">Nous Contacter</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Publications Scientifiques -->
+    <section id="publications" class="section-padding">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="text-primary" data-translate="scientific-publications">
+            Publications Scientifiques
+          </h2>
+          <p class="section-subtitle" data-translate="publications-description">
+            Recherches et découvertes scientifiques de nos équipes médicales
+          </p>
+        </div>
+
+        <div class="publications-filters">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div class="filter-group">
+                <label data-translate="specialty">Spécialité</label>
+                <select class="form-select" id="specialtyFilter">
+                  <option value="all" data-translate="all-specialties">
+                    Toutes spécialités
+                  </option>
+                  <option value="cardiology" data-translate="cardiology">
+                    Cardiologie
+                  </option>
+                  <option value="oncology" data-translate="oncology">
+                    Oncologie
+                  </option>
+                  <option value="neurology" data-translate="neurology">
+                    Neurologie
+                  </option>
+                  <option value="pediatrics" data-translate="pediatrics">
+                    Pédiatrie
+                  </option>
+                  <option value="surgery" data-translate="surgery">
+                    Chirurgie
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="filter-group">
+                <label data-translate="year">Année</label>
+                <select class="form-select" id="yearFilter">
+                  <option value="all" data-translate="all-years">
+                    Toutes années
+                  </option>
+                  <option value="2024">2024</option>
+                  <option value="2023">2023</option>
+                  <option value="2022">2022</option>
+                  <option value="2021">2021</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="filter-group">
+                <label data-translate="publication-type"
+                  >Type de publication</label
+                >
+                <select class="form-select" id="publicationTypeFilter">
+                  <option value="all" data-translate="all-types">
+                    Tous types
+                  </option>
+                  <option value="journal" data-translate="journal">
+                    Article de journal
+                  </option>
+                  <option value="conference" data-translate="conference">
+                    Communication
+                  </option>
+                  <option value="thesis" data-translate="thesis">Thèse</option>
+                  <option value="book" data-translate="book">Livre</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="publications-stats">
+          <div class="stats-cards">
+            <div class="stat-card">
+              <i class="fas fa-file-alt"></i>
+              <div>
+                <h4>150+</h4>
+                <p data-translate="total-publications">Publications totales</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <i class="fas fa-quote-right"></i>
+              <div>
+                <h4>2,500+</h4>
+                <p data-translate="citations">Citations</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <i class="fas fa-users"></i>
+              <div>
+                <h4>50+</h4>
+                <p data-translate="researchers">Chercheurs actifs</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <i class="fas fa-graduation-cap"></i>
+              <div>
+                <h4>25</h4>
+                <p data-translate="international-journals">
+                  Journaux internationaux
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="publicationsGrid">
+          <!-- Publications chargées dynamiquement -->
+        </div>
+
+        <div class="publications-actions text-center mt-5">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <h4 data-translate="access-research">Accédez à nos recherches</h4>
+              <p data-translate="research-access-desc">
+                Consultez l'ensemble de nos publications scientifiques et
+                contributions à la recherche médicale
+              </p>
+              <div class="action-buttons">
+                <a
+                  href="#"
+                  onclick="
+                    actualitesPage.openResearchDatabase();
+                    return false;
+                  "
+                  class="btn btn-outline-primary"
+                >
+                  <i class="fas fa-database me-2"></i>
+                  <span data-translate="research-database"
+                    >Base de données recherche</span
+                  >
+                </a>
+                <a
+                  href="#"
+                  id="btn-download-catalogue"
+                  class="btn btn-primary"
+                  onclick="
+                    actualitesPage.downloadCatalogue();
+                    return false;
+                  "
+                >
+                  <i class="fas fa-download me-2"></i>
+                  <span data-translate="download-catalog"
+                    >Télécharger le catalogue</span
+                  >
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="section-padding bg-primary text-white">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h3 data-translate="stay-informed">Restez Informé</h3>
+            <p data-translate="newsletter-desc">
+              Abonnez-vous à notre newsletter pour recevoir les dernières
+              actualités et publications directement dans votre boîte mail
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <div class="newsletter-form">
+              <div class="input-group">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Votre adresse email"
+                  data-translate="email-placeholder"
+                />
+                <button
+                  class="btn btn-light"
+                  type="button"
+                  data-translate="subscribe"
+                >
+                  S'abonner
+                </button>
+              </div>
+              <small class="form-text" data-translate="privacy-policy"
+                >Nous respectons votre vie privée. Désabonnez-vous à tout
+                moment.</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer" role="contentinfo">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 mb-4">
+            <img
+              src="../assets/logos/chu-logo.png"
+              alt="CHU Yaoundé"
+              class="footer-logo mb-3"
+              id="footerLogo"
+              data-logo-white
+            />
+            <p data-translate="footer-description">
+              Centre Hospitalier Universitaire de Yaoundé<br />
+              Excellence en santé, enseignement et recherche
+            </p>
+            <div class="social-links">
+              <a href="#" aria-label="Facebook"
+                ><i class="fab fa-facebook fa-lg"></i
+              ></a>
+              <a href="#" aria-label="Twitter"
+                ><i class="fab fa-twitter fa-lg"></i
+              ></a>
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fab fa-linkedin fa-lg"></i
+              ></a>
+              <a href="#" aria-label="YouTube"
+                ><i class="fab fa-youtube fa-lg"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="patient-services">Services Patients</h5>
+            <div class="footer-links">
+              <a href="rendezvous.html" data-translate="make-appointment"
+                >Prendre Rendez-vous</a
+              >
+              <a href="services.html" data-translate="medical-services"
+                >Services Médicaux</a
+              >
+              <a href="urgences.html" data-translate="emergency">Urgences</a>
+              <a href="infos-pratiques.html" data-translate="practical-info"
+                >Informations Pratiques</a
+              >
+              <a href="#" data-translate="pricing">Tarifs et Remboursements</a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="professionals">Professionnels</h5>
+            <div class="footer-links">
+              <a href="#" data-translate="job-offers">Offres d'Emploi</a>
+              <a href="#" data-translate="training">Formations Continues</a>
+              <a href="#" data-translate="medical-resources"
+                >Ressources Médicales</a
+              >
+              <a href="etudiants.html" data-translate="student-space"
+                >Espace Étudiant</a
+              >
+              <a href="#" data-translate="research">Recherche et Innovation</a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="contact">Contact</h5>
+            <div class="footer-links">
+              <p>
+                <i class="fas fa-map-marker-alt me-2"></i>
+                <span data-translate="address">Yaoundé, Cameroun</span>
+              </p>
+              <p>
+                <i class="fas fa-phone me-2"></i>
+                <span data-translate="emergency">Urgences</span>
+              </p>
+              <p>
+                <i class="fas fa-phone me-2"></i>
+                <span data-translate="standard">Standard</span> : +237 672 59 26
+                95
+              </p>
+              <p>
+                <i class="fas fa-envelope me-2"></i>
+                <a href="mailto:chudeyaounde@gmail.com"
+                  >chudeyaounde@gmail.com</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="mb-0">
+            &copy; 2024 CHU Yaoundé -
+            <span data-translate="all-rights">Tous droits réservés</span>. |
+            <a href="#" class="text-light" data-translate="legal"
+              >Mentions légales</a
+            >
+            |
+            <a href="#" class="text-light" data-translate="privacy"
+              >Politique de confidentialité</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget">
+      <div
+        class="chatbot-container"
+        id="chatbotContainer"
+        role="dialog"
+        aria-label="Assistant conversationnel"
+        aria-hidden="true"
+      >
+        <div class="chat-header">
+          <h6 class="mb-0">
+            <i class="fas fa-robot me-2" aria-hidden="true"></i
+            ><span data-translate="assistant-title">Assistant CHU</span>
+          </h6>
+          <small data-translate="assistant-subtitle"
+            >Comment puis-je vous aider ?</small
+          >
+        </div>
+        <div
+          class="chat-messages"
+          id="chatMessages"
+          role="log"
+          aria-live="polite"
+        >
+          <div class="message bot-message" data-translate="welcome-message">
+            Bonjour ! Je suis l'assistant du CHU Yaoundé. Comment puis-je vous
+            aider aujourd'hui ?
+          </div>
+        </div>
+        <div class="quick-actions" id="quickActions"></div>
+        <div class="chat-input">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              id="chatInput"
+              placeholder="Tapez votre message..."
+              aria-label="Message à envoyer"
+              data-translate="chat-placeholder"
+            />
+            <button
+              class="btn btn-primary"
+              id="sendMessage"
+              aria-label="Envoyer le message"
+            >
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        class="btn btn-primary chatbot-btn"
+        id="chatbotToggle"
+        aria-label="Ouvrir la conversation"
+      >
+        <i class="fas fa-robot"></i>
+      </button>
+    </div>
+
+    <!-- Panneau latéral -->
+    <div
+      class="side-panel"
+      id="sidePanel"
+      role="dialog"
+      aria-label="Menu principal"
+      aria-hidden="true"
+    >
+      <div class="panel-header">
+        <h5 class="mb-0" data-translate="menu">Menu</h5>
+        <button class="close-panel" id="closePanel" aria-label="Fermer le menu">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <nav
+        class="panel-nav"
+        role="navigation"
+        aria-label="Navigation principale"
+      >
+        <div class="panel-nav-item">
+          <a href="../index.html" data-translate="home">Accueil</a>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="presentation.html" data-translate="presentation"
+            >Présentation du CHU</a
+          >
+          <div class="panel-submenu">
+            <a href="presentation.html#histoire" data-translate="history"
+              >Histoire et Mission</a
+            >
+            <a
+              href="presentation.html#organigramme"
+              data-translate="organization"
+              >Organigramme</a
+            >
+            <a href="presentation.html#chiffres" data-translate="key-figures"
+              >Chiffres Clés</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="services.html" data-translate="services-directory"
+            >Annuaire des Services</a
+          >
+          <div class="panel-submenu" id="services-menu">
+            <a href="services.html#medical" data-translate="medical-services"
+              >Services Médicaux</a
+            >
+            <a href="services.html#surgical" data-translate="surgical-services"
+              >Services Chirurgicaux</a
+            >
+            <a
+              href="services.html#technical"
+              data-translate="technical-services"
+              >Services Techniques</a
+            >
+            <a
+              href="services.html#specialized"
+              data-translate="specialized-services"
+              >Services Spécialisés</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="infos-pratiques.html" data-translate="practical-info"
+            >Informations Pratiques</a
+          >
+          <div class="panel-submenu">
+            <a href="infos-pratiques.html#rdv" data-translate="appointment"
+              >Prise de Rendez-vous</a
+            >
+            <a href="infos-pratiques.html#admission" data-translate="admission"
+              >Admission</a
+            >
+            <a href="infos-pratiques.html#visites" data-translate="visits"
+              >Règlement des Visites</a
+            >
+            <a href="infos-pratiques.html#urgence" data-translate="emergency"
+              >Urgences</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="actualites.html" data-translate="news-publications"
+            >Actualités & Publications</a
+          >
+          <div class="panel-submenu" id="news-menu">
+            <a href="actualites.html#news" data-translate="news">Actualités</a>
+            <a href="actualites.html#events" data-translate="events"
+              >Événements</a
+            >
+            <a href="actualites.html#publications" data-translate="publications"
+              >Publications Scientifiques</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="etudiants.html" data-translate="student-space"
+            >Espace Étudiant</a
+          >
+          <div class="panel-submenu">
+            <a href="etudiants.html#stages" data-translate="internships"
+              >Stages</a
+            >
+            <a href="etudiants.html#formations" data-translate="training"
+              >Formations</a
+            >
+            <a href="etudiants.html#concours" data-translate="exams"
+              >Concours</a
+            >
+            <a href="etudiants.html#pedagogie" data-translate="platform"
+              >Plateforme Pédagogique</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="documents.html" data-translate="useful-documents"
+            >Documents Utiles</a
+          >
+          <div class="panel-submenu">
+            <a href="documents.html#formulaires" data-translate="forms"
+              >Formulaires</a
+            >
+            <a href="documents.html#appels-offres" data-translate="tenders"
+              >Appels d'Offres</a
+            >
+            <a href="documents.html#rapports" data-translate="reports"
+              >Rapports</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="contact.html" data-translate="contact-access"
+            >Contacts & Accès</a
+          >
+          <div class="panel-submenu">
+            <a href="contact.html#coordonnees" data-translate="coordinates"
+              >Coordonnées</a
+            >
+            <a href="contact.html#plan-acces" data-translate="access-plan"
+              >Plan d'Accès</a
+            >
+            <a href="contact.html#formulaire" data-translate="contact-form"
+              >Formulaire de Contact</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a
+            href="urgences.html"
+            style="color: var(--chu-red); font-weight: bold"
+          >
+            <i class="fas fa-ambulance me-2"></i>
+            <span data-translate="emergency">Urgences</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <div
+      class="panel-overlay"
+      id="panelOverlay"
+      tabindex="-1"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Modal Lecture Article -->
+    <div
+      class="modal fade"
+      id="articleModal"
+      tabindex="-1"
+      aria-labelledby="articleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title"
+              id="articleModalLabel"
+              data-translate="article"
+            >
+              Article
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="articleModalContent">
+            <!-- Contenu chargé dynamiquement -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- NOS FICHIERS JS -->
+    <script src="../js/config.js"></script>
+    <script src="../js/main.js?v=2"></script>
+    <script src="../js/navigation.js"></script>
+    <script src="../js/chatbot.js?v=2"></script>
+    <script src="../js/actualites.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (window.chuApp) {
+          setTimeout(() => {
+            if (window.chuApp.languageManager) {
+              window.chuApp.languageManager.updateContent();
+              window.chuApp.languageManager.updateLogos();
+            }
+          }, 100);
+        }
+
+        const langSelect = document.getElementById("languageSelector");
+        if (langSelect && window.chuApp) {
+          langSelect.value = window.chuApp.languageManager.getCurrentLanguage();
+          langSelect.addEventListener("change", function () {
+            window.chuApp.languageManager.setLanguage(this.value);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

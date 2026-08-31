@@ -1,0 +1,37 @@
+/* CORRECTEUR TEMPORAIRE POUR LOGOS */
+.chu-logo, .footer-logo {
+    border: 2px solid red !important; /* Visuel debug */
+    background-color: rgba(255, 0, 0, 0.1) !important;
+    min-height: 40px !important;
+    min-width: 100px !important;
+}
+
+.chu-logo::after, .footer-logo::after {
+    content: "LOGO MANQUANT";
+    color: red;
+    font-size: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Fallback si les logos ne chargent pas */
+.logo-fallback {
+    background: linear-gradient(135deg, #0056A6, #003366);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.chu-logo-fallback::after {
+    content: "CHU Yaoundé";
+}
+
+.footer-logo-fallback::after {
+    content: "CHU";
+    filter: brightness(0) invert(1);
+}

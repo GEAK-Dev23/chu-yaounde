@@ -1,0 +1,1514 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Présentation - CHU Yaoundé</title>
+
+    <!-- CSS EXTERNES -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- NOS FICHIERS CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/header.css" />
+    <link rel="stylesheet" href="../css/footer.css" />
+    <link rel="stylesheet" href="../css/chatbot.css" />
+    <link rel="stylesheet" href="../css/presentation.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+
+    <!-- META TAGS -->
+    <meta
+      name="description"
+      content="Découvrez l'histoire, la mission et l'organisation du CHU Yaoundé"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header-top">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <span data-translate="emergency">
+              <i class="fas fa-phone me-1"></i> Urgences : 651 94 80 64
+            </span>
+            <span class="ms-3">
+              <i class="fas fa-envelope me-1"></i>
+              <a href="mailto:chudeyaounde@gmail.com">chudeyaounde@gmail.com</a>
+            </span>
+          </div>
+          <div class="col-md-6 text-end">
+            <select
+              class="form-select form-select-sm d-inline-block w-auto"
+              aria-label="Sélection de la langue"
+              id="languageSelector"
+            >
+              <option value="fr">Français</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <header class="chu-header">
+      <div class="container">
+        <div class="row align-items-center py-3">
+          <div class="col-md-6">
+            <div class="logo-container">
+              <a
+                class="navbar-brand"
+                href="../index.html"
+                aria-label="CHU Yaoundé - Retour à l'accueil"
+              >
+                <!-- Logo simple avec gestion d'erreur -->
+                <img
+                  src="../assets/logos/chu-logo.png"
+                  alt="CHU Yaoundé"
+                  class="chu-logo"
+                  data-logo
+                  id="mainLogo"
+                  onerror="handleLogoError(this)"
+                />
+              </a>
+              <div class="menu-container">
+                <button
+                  class="hamburger-menu"
+                  id="menuToggle"
+                  aria-label="Ouvrir le menu"
+                  aria-expanded="false"
+                >
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+                <span class="menu-text" data-translate="menu">Menu</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 text-end">
+            <div class="d-flex align-items-center justify-content-end gap-3">
+              <div class="search-box d-none-mobile">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Rechercher..."
+                  aria-label="Rechercher sur le site"
+                />
+                <button class="search-btn" aria-label="Lancer la recherche">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+              <button
+                class="btn btn-outline-primary"
+                onclick="window.location.href = 'espace-patient.html'"
+              >
+                <i class="fas fa-user me-1"></i>
+                <span data-translate="patient-space">Espace Patient</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="emergency-alert">
+        <div class="container">
+          <i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>
+          <strong data-translate="emergency-service">Service d'Urgences</strong>
+          <span class="ms-3">
+            <span data-translate="wait-time">Temps d'attente moyen</span> :
+            <strong id="waitTime">25 minutes</strong>
+          </span>
+          <a href="urgences.html" class="btn btn-light btn-sm ms-3">
+            <span data-translate="view-emergency">Voir les urgences</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section Présentation -->
+    <section
+      class="page-hero presentation-hero"
+      aria-labelledby="presentation-hero-title"
+    >
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <h1
+              class="display-4 fw-bold mb-4"
+              id="presentation-hero-title"
+              data-translate="presentation-title"
+            >
+              Présentation du CHU Yaoundé
+            </h1>
+            <p class="lead mb-4" data-translate="presentation-subtitle">
+              Centre Hospitalier Universitaire de Référence au Cameroun depuis
+              1985
+            </p>
+            <div class="hero-stats-presentation">
+              <div class="stat-item">
+                <h3>40+</h3>
+                <p data-translate="years-experience">Années d'expérience</p>
+              </div>
+              <div class="stat-item">
+                <h3>500+</h3>
+                <p data-translate="medical-professionals">
+                  Professionnels de santé
+                </p>
+              </div>
+              <div class="stat-item">
+                <h3>30K+</h3>
+                <p data-translate="patients-year">Patients par an</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="hero-badge">
+              <i class="fas fa-award fa-3x"></i>
+              <h4 data-translate="reference-center">Centre de Référence</h4>
+              <p data-translate="national-recognition">
+                Reconnu au niveau national
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Interne -->
+    <section class="presentation-navigation">
+      <div class="container">
+        <div class="presentation-nav">
+          <a href="#histoire" class="nav-item active" data-translate="history"
+            >Histoire</a
+          >
+          <a href="#mission" class="nav-item" data-translate="mission"
+            >Mission & Valeurs</a
+          >
+          <a href="#organigramme" class="nav-item" data-translate="organization"
+            >Organisation</a
+          >
+          <a href="#chiffres" class="nav-item" data-translate="key-figures"
+            >Chiffres Clés</a
+          >
+          <a href="#equipements" class="nav-item" data-translate="equipments"
+            >Équipements</a
+          >
+          <a href="#partenaires" class="nav-item" data-translate="partners"
+            >Partenaires</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Histoire -->
+    <section id="histoire" class="section-padding">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h2 class="mb-4 text-primary" data-translate="our-history">
+              Notre Histoire
+            </h2>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-year">1985</div>
+                <div class="timeline-content">
+                  <h4 data-translate="foundation">Fondation</h4>
+                  <p data-translate="foundation-desc">
+                    Création du CHU Yaoundé comme centre hospitalier
+                    universitaire de référence
+                  </p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">1995</div>
+                <div class="timeline-content">
+                  <h4 data-translate="expansion">Expansion</h4>
+                  <p data-translate="expansion-desc">
+                    Ouverture de nouvelles spécialités et modernisation des
+                    équipements
+                  </p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">2005</div>
+                <div class="timeline-content">
+                  <h4 data-translate="recognition">Reconnaissance</h4>
+                  <p data-translate="recognition-desc">
+                    Reconnaissance nationale comme centre d'excellence en
+                    formation médicale
+                  </p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">2015</div>
+                <div class="timeline-content">
+                  <h4 data-translate="modernization">Modernisation</h4>
+                  <p data-translate="modernization-desc">
+                    Digitalisation complète et acquisition de technologies
+                    médicales de pointe
+                  </p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">2024</div>
+                <div class="timeline-content">
+                  <h4 data-translate="excellence">Excellence</h4>
+                  <p data-translate="excellence-desc">
+                    Centre de référence régional avec plus de 40 spécialités
+                    médicales
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="history-visual">
+              <div class="visual-container">
+                <!-- Image historique avec fallback -->
+                <picture>
+                  <source
+                    srcset="../assets/images/presentation/DG.jpg"
+                    type="image/webp"
+                  />
+                  <source
+                    srcset="../assets/images/presentation/b2.jpg"
+                    type="image/jpeg"
+                  />
+                  <img
+                    src="../assets/images/presentation/DG.jpg"
+                    alt="Bâtiment historique du CHU Yaoundé"
+                    class="history-image adaptive-image"
+                    onerror="
+                      this.onerror = null;
+                      this.classList.add('error');
+                      this.nextElementSibling.style.display = 'flex';
+                    "
+                  />
+                </picture>
+                <div class="image-placeholder" style="display: none">
+                  <i class="fas fa-landmark fa-4x"></i>
+                  <p data-translate="history-building">
+                    Bâtiment historique du CHU
+                  </p>
+                </div>
+              </div>
+              <div class="history-quote">
+                <blockquote>
+                  <i class="fas fa-quote-left"></i>
+                  <p data-translate="history-quote">
+                    "40 ans d'excellence au service de la santé des camerounais
+                    et de la formation des professionnels de santé"
+                  </p>
+                  <footer data-translate="director-quote">
+                    — Pr. DJIENTCHEU Vincent de Paul, Directeur Général
+                  </footer>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Mission et Valeurs -->
+    <section id="mission" class="section-padding bg-light">
+      <div class="container">
+        <h2
+          class="text-center mb-5 text-primary"
+          data-translate="mission-values"
+        >
+          Mission & Valeurs
+        </h2>
+
+        <div class="row">
+          <div class="col-lg-4 mb-4">
+            <div class="mission-card">
+              <div class="mission-icon">
+                <i class="fas fa-heartbeat"></i>
+              </div>
+              <h4 data-translate="care-mission">Soins</h4>
+              <p data-translate="care-mission-desc">
+                Offrir des soins médicaux de qualité accessibles à tous, avec
+                une approche humaine et bienveillante
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <div class="mission-card">
+              <div class="mission-icon">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <h4 data-translate="teaching-mission">Formations</h4>
+              <p data-translate="teaching-mission-desc">
+                Former la prochaine génération de professionnels de santé avec
+                des standards d'excellence
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <div class="mission-card">
+              <div class="mission-icon">
+                <i class="fas fa-flask"></i>
+              </div>
+              <h4 data-translate="research-mission">Recherche</h4>
+              <p data-translate="research-mission-desc">
+                Développer la recherche médicale innovante pour améliorer les
+                pratiques et traitements
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-4">
+            <div class="mission-card">
+              <div class="mission-icon">
+                <i class="fas fa-handshake"></i>
+              </div>
+              <h4 data-translate="research-mission">Coopération</h4>
+              <p data-translate="research-mission-desc">
+                Coopération nationale et internationale pour le partage
+                d'expertise, la formation et l'innovation au service de la santé
+                mondiale.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="values-section mt-5">
+          <h3 class="text-center mb-4" data-translate="our-values">
+            Nos Valeurs
+          </h3>
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+              <div class="value-item">
+                <i class="fas fa-users"></i>
+                <h5 data-translate="value-humanism">Humanisme</h5>
+                <p data-translate="value-humanism-desc">
+                  Respect et dignité de chaque personne
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="value-item">
+                <i class="fas fa-star"></i>
+                <h5 data-translate="value-excellence">Excellence</h5>
+                <p data-translate="value-excellence-desc">
+                  Qualité et rigueur dans tous nos services
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="value-item">
+                <i class="fas fa-handshake"></i>
+                <h5 data-translate="value-solidarity">Solidarité</h5>
+                <p data-translate="value-solidarity-desc">
+                  Entraide et collaboration d'équipe
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="value-item">
+                <i class="fas fa-shield-alt"></i>
+                <h5 data-translate="value-ethics">Éthique</h5>
+                <p data-translate="value-ethics-desc">
+                  Intégrité et transparence dans nos actions
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Organigramme -->
+    <section id="organigramme" class="section-padding">
+      <div class="container">
+        <h2
+          class="text-center mb-5 text-primary"
+          data-translate="organization-chart"
+        >
+          Organigramme
+        </h2>
+
+        <div class="organization-chart">
+          <!-- Conseil d'Administration -->
+          <div class="org-level board">
+            <div class="org-card board-card">
+              <div class="org-avatar">
+                <i class="fas fa-users-cog"></i>
+              </div>
+              <h4>Conseil d'Administration</h4>
+              <p>Instance décisionnelle suprême</p>
+            </div>
+          </div>
+
+          <div class="org-connector">
+            <div class="connector-line"></div>
+          </div>
+
+          <!-- Direction Générale -->
+          <div class="org-level director">
+            <div class="org-card">
+              <div class="org-avatar">
+                <i class="fas fa-user-tie"></i>
+              </div>
+              <h4 data-translate="general-director">Direction Générale</h4>
+              <p data-translate="director-name">
+                Pr. DJIENTCHEU Vincent de Paul
+              </p>
+              <small data-translate="director-role"
+                >Direction générale et stratégique</small
+              >
+            </div>
+          </div>
+
+          <div class="org-connector">
+            <div class="connector-line"></div>
+          </div>
+
+          <!-- Services rattachés à la Direction Générale -->
+          <div class="org-level attached-services">
+            <div class="org-row">
+              <div class="org-card small">
+                <i class="fas fa-comments mb-2"></i>
+                <h5>Communication Technique Consultative et Comités</h5>
+              </div>
+              <div class="org-card small">
+                <i class="fas fa-user-secret mb-2"></i>
+                <h5>Secrétariat Particulier du Directeur Général</h5>
+              </div>
+              <div class="org-card small">
+                <i class="fas fa-laptop-code mb-2"></i>
+                <h5>
+                  Cellule de l'Informatique, des Statistiques et de la
+                  Planification
+                </h5>
+              </div>
+              <div class="org-card small">
+                <i class="fas fa-bullhorn mb-2"></i>
+                <h5>Service de la Communication et des Relations Publiques</h5>
+              </div>
+              <div class="org-card small">
+                <i class="fas fa-graduation-cap mb-2"></i>
+                <h5>
+                  Cellule d'Appui pédagogique, de la recherche et de la
+                  Coopération
+                </h5>
+              </div>
+              <div class="org-card small">
+                <i class="fas fa-gavel mb-2"></i>
+                <h5>Service des Affaires Juridique et du Contentieux</h5>
+              </div>
+              <div class="org-card small">
+                <i class="fas fa-chart-line mb-2"></i>
+                <h5>Cellule de l'Audit et du Contrôle Interne</h5>
+              </div>
+              <div class="org-card small">
+                <i class="fas fa-calculator mb-2"></i>
+                <h5>Service de la Comptabilité - Matières</h5>
+              </div>
+              <div class="org-card small">
+                <i class="fas fa-door-open mb-2"></i>
+                <h5>Service de l'Accueil et de l'Orientation</h5>
+              </div>
+              <div class="org-card small">
+                <i class="fas fa-envelope mb-2"></i>
+                <h5>Service du Courrier et de la Documentation</h5>
+              </div>
+              <div class="org-card small">
+                <i class="fas fa-print mb-2"></i>
+                <h5>Bureau de l'Imprimerie</h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="org-connector">
+            <div class="connector-line"></div>
+          </div>
+
+          <!-- Directions principales -->
+          <div class="org-level main-directions">
+            <div class="org-row">
+              <div class="org-card">
+                <div class="org-avatar">
+                  <i class="fas fa-user-md"></i>
+                </div>
+                <h4>Direction Médicale</h4>
+                <p>Coordination des activités médicales</p>
+              </div>
+              <div class="org-card">
+                <div class="org-avatar">
+                  <i class="fas fa-tools"></i>
+                </div>
+                <h4>
+                  Direction des Infrastructures, des Equipements et de la
+                  Maintenance
+                </h4>
+                <p>Gestion technique et maintenance</p>
+              </div>
+              <div class="org-card">
+                <div class="org-avatar">
+                  <i class="fas fa-users"></i>
+                </div>
+                <h4>Direction des Ressources Humaines et Financières</h4>
+                <p>Gestion RH et financière</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="org-connector">
+            <div class="connector-line"></div>
+          </div>
+
+          <!-- Sous-structure Direction Médicale -->
+          <div class="org-level medical-sub">
+            <h5 class="text-center mb-4">Structure Direction Médicale</h5>
+            <div class="org-grid">
+              <div class="org-card small">
+                <h6>
+                  Sous-Direction des Soins Infirmiers et des Techniques
+                  Médico-Sanitaires
+                </h6>
+                <small>Coordination soins infirmiers</small>
+              </div>
+              <div class="org-card small">
+                <h6>Service Nursing</h6>
+                <small>Soins infirmiers</small>
+              </div>
+              <div class="org-card small">
+                <h6>Service des Techniciens Médico-sanitaires</h6>
+                <small>Techniques médico-sanitaires</small>
+              </div>
+              <div class="org-card small">
+                <h6>Service de Pharmacie</h6>
+                <small>Gestion pharmaceutique</small>
+              </div>
+              <div class="org-card small">
+                <h6>Service des Blocs Opératoires</h6>
+                <small>Chirurgie et interventions</small>
+              </div>
+              <div class="org-card small">
+                <h6>
+                  Service de Kinésithérapie, de l'Exploration Fonctionnelle et
+                  Médecine du Sport
+                </h6>
+                <small>Rééducation et exploration</small>
+              </div>
+              <div class="org-card small">
+                <h6>Bureau des archives Médicales</h6>
+                <small>Gestion des dossiers médicaux</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="org-connector">
+            <div class="connector-line"></div>
+          </div>
+
+          <!-- Départements médicaux -->
+          <div class="org-level medical-departments">
+            <h5 class="text-center mb-4">Départements Médicaux</h5>
+            <div class="org-grid">
+              <div class="org-card small">
+                <h6>Département d'Urgences - Anesthésie-Réanimation</h6>
+                <small>Urgences et réanimation</small>
+              </div>
+              <div class="org-card small">
+                <h6>Département de Médecine et Spécialités</h6>
+                <small>Médecine générale et spécialisée</small>
+              </div>
+              <div class="org-card small">
+                <h6>Département de Chirurgie et Spécialités</h6>
+                <small>Chirurgie générale et spécialisée</small>
+              </div>
+              <div class="org-card small">
+                <h6>Département de Pédiatrie et Spécialités</h6>
+                <small>Soins pédiatriques</small>
+              </div>
+              <div class="org-card small">
+                <h6>Département de Gynéco-obstétrique et Spécialité</h6>
+                <small>Santé féminine et obstétrique</small>
+              </div>
+              <div class="org-card small">
+                <h6>Département d'Ophtalmologie-ORL-Odontostomatologie</h6>
+                <small>Spécialités ORL et dentaires</small>
+              </div>
+              <div class="org-card small">
+                <h6>Département de Biologie Clinique</h6>
+                <small>Analyses biologiques</small>
+              </div>
+              <div class="org-card small">
+                <h6>Département d'Imagerie Médicale</h6>
+                <small>Radiologie et imagerie</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="org-connector">
+            <div class="connector-line"></div>
+          </div>
+
+          <!-- Structure Direction Infrastructures -->
+          <div class="org-level infrastructure-sub">
+            <h5 class="text-center mb-4">
+              Structure Direction Infrastructures
+            </h5>
+            <div class="org-grid">
+              <div class="org-card small">
+                <h6>Service des Infrastructures et des Equipements Généraux</h6>
+                <small>Gestion infrastructures</small>
+              </div>
+              <div class="org-card small">
+                <h6>Service des Equipements Biomédicaux</h6>
+                <small>Équipements médicaux</small>
+              </div>
+              <div class="org-card small">
+                <h6>Service d'Hygiène et d'Assainissement</h6>
+                <small>Hygiène hospitalière</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="org-connector">
+            <div class="connector-line"></div>
+          </div>
+
+          <!-- Structure Direction RH et Finances -->
+          <div class="org-level rh-sub">
+            <h5 class="text-center mb-4">Structure Direction RH et Finances</h5>
+            <div class="org-grid">
+              <div class="org-card small">
+                <h6>Sous-Direction des Finances et de la Comptabilité</h6>
+                <small>Gestion financière</small>
+              </div>
+              <div class="org-card small">
+                <h6>Sous-Direction des Ressources Humaines</h6>
+                <small>Gestion du personnel</small>
+              </div>
+              <div class="org-card small">
+                <h6>Service Administratif</h6>
+                <small>Administration générale</small>
+              </div>
+              <div class="org-card small">
+                <h6>Service de la Solde et des Pensions</h6>
+                <small>Paie et retraite</small>
+              </div>
+              <div class="org-card small">
+                <h6>Service des Achats et Approvisionnements</h6>
+                <small>Approvisionnements</small>
+              </div>
+              <div class="org-card small">
+                <h6>Service de la Comptabilité et du Budget</h6>
+                <small>Comptabilité et budget</small>
+              </div>
+              <div class="org-card small">
+                <h6>Sous-Direction de la Gestion de la Clientèle</h6>
+                <small>Relation clientèle</small>
+              </div>
+              <div class="org-card small">
+                <h6>Service de la Gestion de la Clientèle</h6>
+                <small>Gestion patients</small>
+              </div>
+              <div class="org-card small">
+                <h6>Service de l'Hôtellerie</h6>
+                <small>Services hôteliers</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Chiffres Clés -->
+    <section id="chiffres" class="section-padding bg-light">
+      <div class="container">
+        <h2 class="text-center mb-5 text-primary" data-translate="key-figures">
+          Chiffres Clés
+        </h2>
+
+        <div class="key-figures-grid">
+          <div class="figure-card">
+            <div class="figure-icon">
+              <i class="fas fa-procedures"></i>
+            </div>
+            <div class="figure-content">
+              <h3>30,000+</h3>
+              <p data-translate="patients-year">Patients par an</p>
+            </div>
+          </div>
+          <div class="figure-card">
+            <div class="figure-icon">
+              <i class="fas fa-user-md"></i>
+            </div>
+            <div class="figure-content">
+              <h3>500+</h3>
+              <p data-translate="medical-professionals">
+                Professionnels de santé
+              </p>
+            </div>
+          </div>
+          <div class="figure-card">
+            <div class="figure-icon">
+              <i class="fas fa-bed"></i>
+            </div>
+            <div class="figure-content">
+              <h3>350</h3>
+              <p data-translate="hospital-beds">Lits d'hospitalisation</p>
+            </div>
+          </div>
+          <div class="figure-card">
+            <div class="figure-icon">
+              <i class="fas fa-stethoscope"></i>
+            </div>
+            <div class="figure-content">
+              <h3>25+</h3>
+              <p data-translate="medical-specialties">Spécialités médicales</p>
+            </div>
+          </div>
+          <div class="figure-card">
+            <div class="figure-icon">
+              <i class="fas fa-ambulance"></i>
+            </div>
+            <div class="figure-content">
+              <h3>24/7</h3>
+              <p data-translate="emergency-service">Service d'urgences</p>
+            </div>
+          </div>
+          <div class="figure-card">
+            <div class="figure-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="figure-content">
+              <h3>200+</h3>
+              <p data-translate="students-year">Étudiants formés par an</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="stats-breakdown mt-5">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="stats-chart">
+                <h4 data-translate="activity-distribution">
+                  Répartition des Activités
+                </h4>
+                <div class="chart-bars">
+                  <div class="chart-bar">
+                    <span class="bar-label" data-translate="consultations"
+                      >Consultations</span
+                    >
+                    <div class="bar-container">
+                      <div
+                        class="bar-fill"
+                        style="width: 45%"
+                        data-percentage="45%"
+                      ></div>
+                    </div>
+                    <span class="bar-value">45%</span>
+                  </div>
+                  <div class="chart-bar">
+                    <span class="bar-label" data-translate="hospitalizations"
+                      >Hospitalisations</span
+                    >
+                    <div class="bar-container">
+                      <div
+                        class="bar-fill"
+                        style="width: 30%"
+                        data-percentage="30%"
+                      ></div>
+                    </div>
+                    <span class="bar-value">30%</span>
+                  </div>
+                  <div class="chart-bar">
+                    <span class="bar-label" data-translate="emergencies"
+                      >Urgences</span
+                    >
+                    <div class="bar-container">
+                      <div
+                        class="bar-fill"
+                        style="width: 15%"
+                        data-percentage="15%"
+                      ></div>
+                    </div>
+                    <span class="bar-value">15%</span>
+                  </div>
+                  <div class="chart-bar">
+                    <span class="bar-label" data-translate="surgeries"
+                      >Chirurgies</span
+                    >
+                    <div class="bar-container">
+                      <div
+                        class="bar-fill"
+                        style="width: 10%"
+                        data-percentage="10%"
+                      ></div>
+                    </div>
+                    <span class="bar-value">10%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="stats-info">
+                <h4 data-translate="performance-indicators">
+                  Indicateurs de Performance
+                </h4>
+                <div class="performance-list">
+                  <div class="performance-item">
+                    <i class="fas fa-check-circle text-success"></i>
+                    <span data-translate="satisfaction-rate"
+                      >Taux de satisfaction patients</span
+                    >
+                    <strong>92%</strong>
+                  </div>
+                  <div class="performance-item">
+                    <i class="fas fa-check-circle text-success"></i>
+                    <span data-translate="success-rate-surgery"
+                      >Taux de réussite chirurgie</span
+                    >
+                    <strong>96%</strong>
+                  </div>
+                  <div class="performance-item">
+                    <i class="fas fa-check-circle text-success"></i>
+                    <span data-translate="emergency-response"
+                      >Temps réponse urgences</span
+                    >
+                    <strong>&lt; 15min</strong>
+                  </div>
+                  <div class="performance-item">
+                    <i class="fas fa-check-circle text-success"></i>
+                    <span data-translate="research-publications"
+                      >Publications recherche/an</span
+                    >
+                    <strong>50+</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Équipements -->
+    <section id="equipements" class="section-padding">
+      <div class="container">
+        <h2
+          class="text-center mb-5 text-primary"
+          data-translate="modern-equipments"
+        >
+          Équipements Modernes
+        </h2>
+
+        <div class="equipment-showcase">
+          <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+              <div class="equipment-card">
+                <div class="equipment-image">
+                  <i class="fas fa-magnet fa-3x"></i>
+                </div>
+                <div class="equipment-content">
+                  <h4 data-translate="mri-scanner">IRM 3 Tesla</h4>
+                  <p data-translate="mri-desc">
+                    Imagerie par résonance magnétique haute définition pour
+                    diagnostics précis
+                  </p>
+                  <div class="equipment-specs">
+                    <span class="spec" data-translate="installed-2022"
+                      >Installé 2022</span
+                    >
+                    <span class="spec" data-translate="high-precision"
+                      >Haute précision</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="equipment-card">
+                <div class="equipment-image">
+                  <i class="fas fa-x-ray fa-3x"></i>
+                </div>
+                <div class="equipment-content">
+                  <h4 data-translate="ct-scanner">Scanner CT 128 slices</h4>
+                  <p data-translate="ct-desc">
+                    Tomodensitométrie multicoupes pour imagerie détaillée
+                  </p>
+                  <div class="equipment-specs">
+                    <span class="spec" data-translate="fast-acquisition"
+                      >Acquisition rapide</span
+                    >
+                    <span class="spec" data-translate="low-radiation"
+                      >Faible radiation</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="equipment-card">
+                <div class="equipment-image">
+                  <i class="fas fa-heartbeat fa-3x"></i>
+                </div>
+                <div class="equipment-content">
+                  <h4 data-translate="cardio-lab">
+                    Laboratoire de Cardiologie
+                  </h4>
+                  <p data-translate="cardio-lab-desc">
+                    Équipements cardiovasculaires interventionnels de pointe
+                  </p>
+                  <div class="equipment-specs">
+                    <span class="spec" data-translate="angioplasty"
+                      >Angioplastie</span
+                    >
+                    <span class="spec" data-translate="pacemakers"
+                      >Stimulateurs</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="technology-section mt-5">
+          <div class="row align-items-center">
+            <div class="col-lg-6">
+              <h3 data-translate="digital-transformation">
+                Transformation Digitale
+              </h3>
+              <p data-translate="digital-desc">
+                Le CHU Yaoundé s'est engagé dans une transformation digitale
+                complète pour améliorer la qualité des soins et l'expérience
+                patient.
+              </p>
+              <div class="digital-features">
+                <div class="feature-item">
+                  <i class="fas fa-laptop-medical"></i>
+                  <span data-translate="emr-system"
+                    >Dossier Médical Électronique</span
+                  >
+                </div>
+                <div class="feature-item">
+                  <i class="fas fa-mobile-alt"></i>
+                  <span data-translate="telemedicine">Télémédecine</span>
+                </div>
+                <div class="feature-item">
+                  <i class="fas fa-robot"></i>
+                  <span data-translate="ai-diagnostics"
+                    >IA pour diagnostics</span
+                  >
+                </div>
+                <div class="feature-item">
+                  <i class="fas fa-cloud"></i>
+                  <span data-translate="cloud-storage"
+                    >Stockage cloud sécurisé</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="digital-visual">
+                <div class="visual-container">
+                  <!-- Image digitale avec fallback -->
+                  <picture>
+                    <source
+                      srcset="../assets/images/presentation/e1.jpg"
+                      type="image/webp"
+                    />
+                    <source
+                      srcset="../assets/images/presentation/e3.jpg"
+                      type="image/jpeg"
+                    />
+                    <img
+                      src="../assets/images/presentation/e4.jpg"
+                      alt="Hôpital digital CHU Yaoundé"
+                      class="digital-image adaptive-image"
+                      onerror="
+                        this.onerror = null;
+                        this.classList.add('error');
+                        this.nextElementSibling.style.display = 'flex';
+                      "
+                    />
+                  </picture>
+                  <div class="image-placeholder" style="display: none">
+                    <i class="fas fa-laptop-medical fa-4x"></i>
+                    <p data-translate="digital-hospital">
+                      Hôpital digital moderne
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Partenaires -->
+    <section id="partenaires" class="section-padding bg-light">
+      <div class="container">
+        <h2 class="text-center mb-5 text-primary" data-translate="our-partners">
+          Nos Partenaires
+        </h2>
+
+        <div class="partners-grid">
+          <div class="partner-card">
+            <div class="partner-logo">
+              <i class="fas fa-globe-africa fa-3x"></i>
+            </div>
+            <h5 data-translate="who">OMS</h5>
+            <p data-translate="who-desc">Organisation Mondiale de la Santé</p>
+          </div>
+          <div class="partner-card">
+            <div class="partner-logo">
+              <i class="fas fa-hand-holding-medical fa-3x"></i>
+            </div>
+            <h5 data-translate="red-cross">Croix-Rouge</h5>
+            <p data-translate="red-cross-desc">Coopération humanitaire</p>
+          </div>
+          <div class="partner-card">
+            <div class="partner-logo">
+              <i class="fas fa-university fa-3x"></i>
+            </div>
+            <h5 data-translate="ministry-health">Ministère Santé</h5>
+            <p data-translate="ministry-health-desc">
+              Partenariat institutionnel
+            </p>
+          </div>
+          <div class="partner-card">
+            <div class="partner-logo">
+              <i class="fas fa-graduation-cap fa-3x"></i>
+            </div>
+            <h5 data-translate="university">Universités</h5>
+            <p data-translate="university-desc">Partenariats académiques</p>
+          </div>
+        </div>
+
+        <div class="collaboration-section mt-5">
+          <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+              <h3 data-translate="international-collaboration">
+                Collaboration Internationale
+              </h3>
+              <p data-translate="collaboration-desc">
+                Le CHU Yaoundé collabore avec des institutions médicales
+                prestigieuses à travers le monde pour l'échange d'expertise et
+                la recherche collaborative.
+              </p>
+              <div class="collaboration-stats">
+                <div class="stat">
+                  <h4>15+</h4>
+                  <p data-translate="international-partners">
+                    Partenaires internationaux
+                  </p>
+                </div>
+                <div class="stat">
+                  <h4>50+</h4>
+                  <p data-translate="joint-projects">Projets conjoints</p>
+                </div>
+                <div class="stat">
+                  <h4>100+</h4>
+                  <p data-translate="exchange-programs">Programmes d'échange</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer" role="contentinfo">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 mb-4">
+            <!-- Logo footer simple avec gestion d'erreur -->
+            <img
+              src="../assets/logos/chu-logo.png"
+              alt="CHU Yaoundé"
+              class="footer-logo mb-3"
+              id="footerLogo"
+              data-logo-white
+              onerror="handleLogoError(this)"
+            />
+            <p data-translate="footer-description">
+              Centre Hospitalier Universitaire de Yaoundé<br />
+              Excellence en santé, enseignement et recherche
+            </p>
+            <div class="social-links">
+              <a href="#" aria-label="Facebook"
+                ><i class="fab fa-facebook fa-lg"></i
+              ></a>
+              <a href="#" aria-label="Twitter"
+                ><i class="fab fa-twitter fa-lg"></i
+              ></a>
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fab fa-linkedin fa-lg"></i
+              ></a>
+              <a href="#" aria-label="YouTube"
+                ><i class="fab fa-youtube fa-lg"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="patient-services">Services Patients</h5>
+            <div class="footer-links">
+              <a href="rendezvous.html" data-translate="make-appointment"
+                >Prendre Rendez-vous</a
+              >
+              <a href="services.html" data-translate="medical-services"
+                >Services Médicaux</a
+              >
+              <a href="urgences.html" data-translate="emergency">Urgences</a>
+              <a href="infos-pratiques.html" data-translate="practical-info"
+                >Informations Pratiques</a
+              >
+              <a href="#" data-translate="pricing">Tarifs et Remboursements</a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="professionals">Professionnels</h5>
+            <div class="footer-links">
+              <a href="#" data-translate="job-offers">Offres d'Emploi</a>
+              <a href="#" data-translate="training">Formations Continues</a>
+              <a href="#" data-translate="medical-resources"
+                >Ressources Médicales</a
+              >
+              <a href="etudiants.html" data-translate="student-space"
+                >Espace Étudiant</a
+              >
+              <a href="#" data-translate="research">Recherche et Innovation</a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="contact">Contact</h5>
+            <div class="footer-links">
+              <p>
+                <i class="fas fa-map-marker-alt me-2"></i>
+                <span data-translate="address">Yaoundé, Cameroun</span>
+              </p>
+              <p>
+                <i class="fas fa-phone me-2"></i>
+                <span data-translate="emergency">Urgences</span>
+              </p>
+              <p>
+                <i class="fas fa-phone me-2"></i>
+                <span data-translate="standard">Standard</span> : +237 672 59 26
+                95
+              </p>
+              <p>
+                <i class="fas fa-envelope me-2"></i>
+                <a href="mailto:chudeyaounde@gmail.com"
+                  >chudeyaounde@gmail.com</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="mb-0">
+            &copy; 2024 CHU Yaoundé -
+            <span data-translate="all-rights">Tous droits réservés</span>. |
+            <a href="#" class="text-light" data-translate="legal"
+              >Mentions légales</a
+            >
+            |
+            <a href="#" class="text-light" data-translate="privacy"
+              >Politique de confidentialité</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget">
+      <div
+        class="chatbot-container"
+        id="chatbotContainer"
+        role="dialog"
+        aria-label="Assistant conversationnel"
+        aria-hidden="true"
+      >
+        <div class="chat-header">
+          <h6 class="mb-0">
+            <i class="fas fa-robot me-2" aria-hidden="true"></i
+            ><span data-translate="assistant-title">Assistant CHU</span>
+          </h6>
+          <small data-translate="assistant-subtitle"
+            >Comment puis-je vous aider ?</small
+          >
+        </div>
+        <div
+          class="chat-messages"
+          id="chatMessages"
+          role="log"
+          aria-live="polite"
+        >
+          <div class="message bot-message" data-translate="welcome-message">
+            Bonjour ! Je suis l'assistant du CHU Yaoundé. Comment puis-je vous
+            aider aujourd'hui ?
+          </div>
+        </div>
+        <div class="quick-actions" id="quickActions"></div>
+        <div class="chat-input">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              id="chatInput"
+              placeholder="Tapez votre message..."
+              aria-label="Message à envoyer"
+              data-translate="chat-placeholder"
+            />
+            <button
+              class="btn btn-primary"
+              id="sendMessage"
+              aria-label="Envoyer le message"
+            >
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        class="btn btn-primary chatbot-btn"
+        id="chatbotToggle"
+        aria-label="Ouvrir la conversation"
+      >
+        <i class="fas fa-robot"></i>
+      </button>
+    </div>
+
+    <!-- Panneau latéral -->
+    <div
+      class="side-panel"
+      id="sidePanel"
+      role="dialog"
+      aria-label="Menu principal"
+      aria-hidden="true"
+    >
+      <div class="panel-header">
+        <h5 class="mb-0" data-translate="menu">Menu</h5>
+        <button class="close-panel" id="closePanel" aria-label="Fermer le menu">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <nav
+        class="panel-nav"
+        role="navigation"
+        aria-label="Navigation principale"
+      >
+        <div class="panel-nav-item">
+          <a href="../index.html" data-translate="home">Accueil</a>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="presentation.html" data-translate="presentation"
+            >Présentation du CHU</a
+          >
+          <div class="panel-submenu">
+            <a href="presentation.html#histoire" data-translate="history"
+              >Histoire et Mission</a
+            >
+            <a
+              href="presentation.html#organigramme"
+              data-translate="organization"
+              >Organigramme</a
+            >
+            <a href="presentation.html#chiffres" data-translate="key-figures"
+              >Chiffres Clés</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="services.html" data-translate="services-directory"
+            >Annuaire des Services</a
+          >
+          <div class="panel-submenu" id="services-menu">
+            <a href="services.html#medical" data-translate="medical-services"
+              >Services Médicaux</a
+            >
+            <a href="services.html#surgical" data-translate="surgical-services"
+              >Services Chirurgicaux</a
+            >
+            <a
+              href="services.html#technical"
+              data-translate="technical-services"
+              >Services Techniques</a
+            >
+            <a
+              href="services.html#specialized"
+              data-translate="specialized-services"
+              >Services Spécialisés</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="infos-pratiques.html" data-translate="practical-info"
+            >Informations Pratiques</a
+          >
+          <div class="panel-submenu">
+            <a href="infos-pratiques.html#rdv" data-translate="appointment"
+              >Prise de Rendez-vous</a
+            >
+            <a href="infos-pratiques.html#admission" data-translate="admission"
+              >Admission</a
+            >
+            <a href="infos-pratiques.html#visites" data-translate="visits"
+              >Règlement des Visites</a
+            >
+            <a href="infos-pratiques.html#urgence" data-translate="emergency"
+              >Urgences</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="actualites.html" data-translate="news-publications"
+            >Actualités & Publications</a
+          >
+          <div class="panel-submenu" id="news-menu">
+            <a href="actualites.html#news" data-translate="news">Actualités</a>
+            <a href="actualites.html#events" data-translate="events"
+              >Événements</a
+            >
+            <a href="actualites.html#publications" data-translate="publications"
+              >Publications Scientifiques</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="etudiants.html" data-translate="student-space"
+            >Espace Étudiant</a
+          >
+          <div class="panel-submenu">
+            <a href="etudiants.html#stages" data-translate="internships"
+              >Stages</a
+            >
+            <a href="etudiants.html#formations" data-translate="training"
+              >Formations</a
+            >
+            <a href="etudiants.html#concours" data-translate="exams"
+              >Concours</a
+            >
+            <a href="etudiants.html#pedagogie" data-translate="platform"
+              >Plateforme Pédagogique</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="documents.html" data-translate="useful-documents"
+            >Documents Utiles</a
+          >
+          <div class="panel-submenu">
+            <a href="documents.html#formulaires" data-translate="forms"
+              >Formulaires</a
+            >
+            <a href="documents.html#appels-offres" data-translate="tenders"
+              >Appels d'Offres</a
+            >
+            <a href="documents.html#rapports" data-translate="reports"
+              >Rapports</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="contact.html" data-translate="contact-access"
+            >Contacts & Accès</a
+          >
+          <div class="panel-submenu">
+            <a href="contact.html#coordonnees" data-translate="coordinates"
+              >Coordonnées</a
+            >
+            <a href="contact.html#plan-acces" data-translate="access-plan"
+              >Plan d'Accès</a
+            >
+            <a href="contact.html#formulaire" data-translate="contact-form"
+              >Formulaire de Contact</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a
+            href="urgences.html"
+            style="color: var(--chu-red); font-weight: bold"
+          >
+            <i class="fas fa-ambulance me-2"></i>
+            <span data-translate="emergency">Urgences</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <div
+      class="panel-overlay"
+      id="panelOverlay"
+      tabindex="-1"
+      aria-hidden="true"
+    ></div>
+
+    <!-- SCRIPTS -->
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/main.js?v=2"></script>
+    <script src="../js/navigation.js"></script>
+    <script src="../js/chatbot.js?v=2"></script>
+    <script src="../js/presentation.js?v=2"></script>
+
+    <!-- Script pour la gestion des logos -->
+    <script>
+      // Fonction de gestion d'erreur pour les logos
+      function handleLogoError(img) {
+        console.warn("Logo non trouvé:", img.src);
+        img.style.opacity = "0.7";
+        img.style.border = "2px dashed #ccc";
+        img.alt = "Logo non disponible - " + img.alt;
+      }
+
+      // Initialiser la mise à jour des logos après le chargement
+      document.addEventListener("DOMContentLoaded", function () {
+        // Vérifier si l'application CHU est chargée
+        if (window.chuApp && window.chuApp.languageManager) {
+          console.log("Application CHU détectée - mise à jour des logos");
+
+          // Mettre à jour les logos avec la langue courante
+          setTimeout(() => {
+            window.chuApp.languageManager.updateLogos();
+          }, 100);
+        }
+
+        // Écouter les changements de langue
+        const langSelect = document.getElementById("languageSelector");
+        if (langSelect && window.chuApp) {
+          langSelect.value = window.chuApp.languageManager.getCurrentLanguage();
+          langSelect.addEventListener("change", function () {
+            window.chuApp.languageManager.setLanguage(this.value);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,899 @@
+/* ===== VARIABLES CSS ===== */
+:root {
+  --primary-color: #0056b3;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+  --student-primary: #2c5aa0;
+  --student-secondary: #4a90e2;
+  --student-accent: #ff6b6b;
+  --student-light: #e8f4f8;
+  --student-dark: #1a365d;
+}
+
+/* ===== HERO SECTION ===== */
+.student-hero {
+  background: linear-gradient(
+    135deg,
+    var(--student-primary) 0%,
+    var(--student-dark) 100%
+  );
+  padding: 80px 0;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.student-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("../assets/images/etudiants/pattern.svg") repeat;
+  opacity: 0.1;
+}
+
+.student-hero-image {
+  position: relative;
+  z-index: 2;
+}
+
+.student-hero .image-container {
+  background: linear-gradient(
+    45deg,
+    var(--student-secondary),
+    var(--student-primary)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.student-hero .adaptive-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.student-hero .image-placeholder {
+  background: linear-gradient(
+    45deg,
+    var(--student-secondary),
+    var(--student-primary)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* ===== NAVIGATION INTERNE ===== */
+.student-nav-section {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.student-internal-nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  color: var(--dark-color);
+  font-weight: 500;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item:hover {
+  background: var(--student-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
+}
+
+.nav-item.active {
+  background: var(--student-primary);
+  color: white;
+}
+
+/* ===== SECTIONS GÉNÉRALES ===== */
+.section-padding {
+  padding: 80px 0;
+}
+
+/* ===== CARDS STAGES ===== */
+.stage-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.stage-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.stage-header {
+  background: linear-gradient(
+    135deg,
+    var(--student-primary),
+    var(--student-secondary)
+  );
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.stage-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.stage-header h4 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.stage-body {
+  padding: 2rem;
+}
+
+.stage-features {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.stage-features li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.stage-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--success-color);
+  font-weight: bold;
+}
+
+.stage-features li:last-child {
+  border-bottom: none;
+}
+
+.stage-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+/* ===== PROCESSUS DE CANDIDATURE ===== */
+.application-process {
+  background: white;
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.process-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  position: relative;
+}
+
+.process-steps::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: var(--student-primary);
+  z-index: 1;
+}
+
+.process-step {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  flex: 1;
+}
+
+.step-number {
+  width: 80px;
+  height: 80px;
+  background: var(--student-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 auto 1rem;
+  border: 5px solid white;
+  box-shadow: 0 0 0 2px var(--student-primary);
+}
+
+.process-step h5 {
+  color: var(--student-primary);
+  margin-bottom: 0.5rem;
+}
+
+/* ===== CARDS FORMATIONS ===== */
+.formation-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.formation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.formation-image {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.formation-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.formation-card:hover .formation-image img {
+  transform: scale(1.05);
+}
+
+.formation-image .image-placeholder {
+  background: linear-gradient(
+    45deg,
+    var(--student-secondary),
+    var(--student-primary)
+  );
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.formation-content {
+  padding: 2rem;
+}
+
+.formation-category {
+  background: var(--student-light);
+  color: var(--student-primary);
+  padding: 0.25rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.formation-content h4 {
+  margin: 1rem 0;
+  color: var(--student-dark);
+}
+
+.formation-meta {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+.formation-meta span {
+  display: flex;
+  align-items: center;
+  color: var(--secondary-color);
+  font-size: 0.875rem;
+}
+
+/* ===== CALENDRIER FORMATIONS ===== */
+.formation-calendar {
+  background: white;
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.calendar-item {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  background: var(--student-light);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.calendar-item:hover {
+  background: var(--student-primary);
+  color: white;
+}
+
+.calendar-item:hover .calendar-date {
+  background: white;
+  color: var(--student-primary);
+}
+
+.calendar-date {
+  background: var(--student-primary);
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  min-width: 80px;
+  margin-right: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.calendar-date .month {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.calendar-date .day {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.calendar-content h5 {
+  margin: 0 0 0.5rem 0;
+  color: inherit;
+}
+
+.calendar-content p {
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* ===== CARDS CONCOURS ===== */
+.exam-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.exam-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.exam-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.exam-icon {
+  font-size: 2rem;
+  color: var(--student-primary);
+}
+
+.exam-header h4 {
+  margin: 0;
+  flex: 1;
+}
+
+.exam-status {
+  font-size: 0.75rem;
+}
+
+.exam-details {
+  margin: 1.5rem 0;
+}
+
+.exam-detail {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  color: var(--secondary-color);
+}
+
+.exam-detail i {
+  width: 20px;
+  margin-right: 0.5rem;
+  color: var(--student-primary);
+}
+
+.exam-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ===== PRÉPARATION CONCOURS ===== */
+.preparation-section {
+  background: white;
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.preparation-item {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.preparation-icon {
+  font-size: 3rem;
+  color: var(--student-primary);
+  margin-bottom: 1rem;
+}
+
+.preparation-item h5 {
+  color: var(--student-dark);
+  margin-bottom: 1rem;
+}
+
+/* ===== PLATEFORME PÉDAGOGIQUE ===== */
+.platform-card,
+.tools-card,
+.stats-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.platform-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--student-light);
+}
+
+.platform-header h4 {
+  margin: 0;
+  color: var(--student-dark);
+}
+
+.resource-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.resource-category {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--student-light);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.resource-category:hover {
+  background: var(--student-primary);
+  color: white;
+}
+
+.resource-category:hover .resource-icon {
+  color: white;
+}
+
+.resource-icon {
+  font-size: 2rem;
+  color: var(--student-primary);
+  min-width: 60px;
+}
+
+.resource-category h5 {
+  margin: 0 0 0.5rem 0;
+  color: inherit;
+}
+
+.resource-category p {
+  margin: 0;
+  opacity: 0.8;
+}
+
+.platform-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ===== OUTILS ===== */
+.tools-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.tool-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--student-light);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.tool-item:hover {
+  background: var(--student-primary);
+  color: white;
+}
+
+.tool-item:hover .tool-icon {
+  color: white;
+}
+
+.tool-icon {
+  color: var(--student-primary);
+  width: 20px;
+}
+
+/* ===== STATISTIQUES ===== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1rem;
+  background: var(--student-light);
+  border-radius: 10px;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--student-primary);
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--secondary-color);
+}
+
+/* ===== TÉMOIGNAGES ===== */
+.student-testimonials {
+  background: white;
+  padding: 3rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.testimonials-slider {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.testimonial-item {
+  background: var(--student-light);
+  padding: 2rem;
+  border-radius: 15px;
+  position: relative;
+}
+
+.testimonial-item::before {
+  content: '"';
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 3rem;
+  color: var(--student-primary);
+  opacity: 0.3;
+  font-family: serif;
+}
+
+.testimonial-content {
+  position: relative;
+  z-index: 2;
+}
+
+.testimonial-content p {
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-author strong {
+  color: var(--student-dark);
+}
+
+.testimonial-author span {
+  color: var(--secondary-color);
+  font-size: 0.875rem;
+}
+
+/* ===== CONTACT ÉTUDIANT ===== */
+.student-contact {
+  background: linear-gradient(
+    135deg,
+    var(--student-primary) 0%,
+    var(--student-dark) 100%
+  );
+  color: white;
+}
+
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  height: 100%;
+}
+
+.contact-icon {
+  font-size: 2rem;
+  color: var(--student-light);
+  min-width: 50px;
+  flex-shrink: 0;
+  padding-top: 0.2rem;
+}
+
+.contact-item h5 {
+  margin: 0 0 0.5rem 0;
+  color: white;
+}
+
+.contact-item p {
+  margin: 0;
+  opacity: 0.9;
+  word-break: break-word;
+}
+
+.contact-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Tablettes */
+@media (max-width: 1024px) {
+  .student-internal-nav {
+    gap: 1rem;
+  }
+
+  .nav-item {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .process-steps {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .process-steps::before {
+    display: none;
+  }
+
+  .testimonials-slider {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobiles */
+@media (max-width: 768px) {
+  .student-hero {
+    padding: 60px 0;
+    text-align: center;
+  }
+
+  .student-hero .display-4 {
+    font-size: 2rem;
+  }
+
+  .student-internal-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .nav-item {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+
+  .section-padding {
+    padding: 60px 0;
+  }
+
+  .stage-actions,
+  .exam-actions,
+  .platform-actions,
+  .contact-actions {
+    flex-direction: column;
+  }
+
+  .formation-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .calendar-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .calendar-date {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .resource-category {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contact-info {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-item {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Très petits écrans */
+@media (max-width: 480px) {
+  .student-hero {
+    padding: 40px 0;
+  }
+
+  .student-hero .btn-lg {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .application-process,
+  .formation-calendar,
+  .preparation-section,
+  .student-testimonials {
+    padding: 1.5rem;
+  }
+
+  .platform-card,
+  .tools-card,
+  .stats-card,
+  .exam-card {
+    padding: 1.5rem;
+  }
+
+  .stage-body,
+  .formation-content {
+    padding: 1.5rem;
+  }
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .stage-card,
+  .formation-card,
+  .exam-card,
+  .nav-item,
+  .calendar-item,
+  .resource-category,
+  .tool-item {
+    transition: none;
+  }
+}
+
+/* Mode sombre */
+@media (prefers-color-scheme: dark) {
+  .stage-card,
+  .formation-card,
+  .exam-card,
+  .platform-card,
+  .tools-card,
+  .stats-card,
+  .preparation-section,
+  .student-testimonials {
+    background: var(--dark-color);
+    color: white;
+  }
+
+  .stage-features li {
+    border-bottom-color: #444;
+  }
+
+  .resource-category,
+  .tool-item,
+  .stat-item {
+    background: #2d3748;
+  }
+}
+
+/* Impression */
+@media print {
+  .student-nav-section,
+  .student-contact,
+  .contact-actions,
+  .chatbot-widget {
+    display: none;
+  }
+
+  .student-hero {
+    background: white !important;
+    color: black !important;
+    padding: 20px 0;
+  }
+
+  .stage-card,
+  .formation-card,
+  .exam-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}

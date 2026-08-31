@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Services Médicaux - CHU Yaoundé</title>
+
+    <!-- CSS EXTERNES -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- NOS FICHIERS CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/header.css" />
+    <link rel="stylesheet" href="../css/footer.css" />
+    <link rel="stylesheet" href="../css/chatbot.css" />
+    <link rel="stylesheet" href="../css/services.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+
+    <!-- META TAGS -->
+    <meta
+      name="description"
+      content="Découvrez tous les services médicaux du CHU Yaoundé - Spécialités, équipements et équipes médicales"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header-top">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <span data-translate="emergency">
+              <i class="fas fa-phone me-1"></i> Urgences : 651 94 80 64
+            </span>
+            <span class="ms-3">
+              <i class="fas fa-envelope me-1"></i>
+              <a href="mailto:chudeyaounde@gmail.com">chudeyaounde@gmail.com</a>
+            </span>
+          </div>
+          <div class="col-md-6 text-end">
+            <select
+              class="form-select form-select-sm d-inline-block w-auto"
+              aria-label="Sélection de la langue"
+              id="languageSelector"
+            >
+              <option value="fr">Français</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <header class="chu-header">
+      <div class="container">
+        <div class="row align-items-center py-3">
+          <div class="col-md-6">
+            <div class="logo-container">
+              <a
+                class="navbar-brand"
+                href="../index.html"
+                aria-label="CHU Yaoundé - Retour à l'accueil"
+              >
+                <img
+                  src="../assets/logos/chu-logo.png"
+                  alt="CHU Yaoundé"
+                  class="chu-logo"
+                  data-logo
+                  id="mainLogo"
+                />
+              </a>
+              <div class="menu-container">
+                <button
+                  class="hamburger-menu"
+                  id="menuToggle"
+                  aria-label="Ouvrir le menu"
+                  aria-expanded="false"
+                >
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+                <span class="menu-text" data-translate="menu">Menu</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 text-end">
+            <div class="d-flex align-items-center justify-content-end gap-3">
+              <div class="search-box d-none-mobile">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Rechercher..."
+                  aria-label="Rechercher sur le site"
+                />
+                <button class="search-btn" aria-label="Lancer la recherche">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+              <button
+                class="btn btn-outline-primary"
+                onclick="window.location.href = 'espace-patient.html'"
+              >
+                <i class="fas fa-user me-1"></i>
+                <span data-translate="patient-space">Espace Patient</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="emergency-alert">
+        <div class="container">
+          <i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>
+          <strong data-translate="emergency-service">Service d'Urgences</strong>
+          <span class="ms-3">
+            <span data-translate="wait-time">Temps d'attente moyen</span> :
+            <strong id="waitTime">25 minutes</strong>
+          </span>
+          <a href="urgences.html" class="btn btn-light btn-sm ms-3">
+            <span data-translate="view-emergency">Voir les urgences</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section Services -->
+    <section
+      class="page-hero services-hero"
+      aria-labelledby="services-hero-title"
+    >
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <h1
+              class="display-4 fw-bold mb-4"
+              id="services-hero-title"
+              data-translate="services-title"
+            >
+              Nos Services Médicaux
+            </h1>
+            <p class="lead mb-4" data-translate="services-subtitle">
+              Des soins spécialisés de qualité avec des équipes médicales
+              expérimentées
+            </p>
+            <div class="hero-search">
+              <div class="search-box-large">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Rechercher un service..."
+                  data-translate="search-services"
+                />
+                <button class="search-btn-large">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="hero-stats-services">
+              <div class="stat-item">
+                <h3>25+</h3>
+                <p data-translate="specialties">Spécialités</p>
+              </div>
+              <div class="stat-item">
+                <h3>150+</h3>
+                <p data-translate="doctors">Médecins</p>
+              </div>
+              <div class="stat-item">
+                <h3>24h/24</h3>
+                <p data-translate="availability">Disponibilité</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Services -->
+    <section class="services-navigation">
+      <div class="container">
+        <div class="services-nav">
+          <a
+            href="#medical"
+            class="nav-item active"
+            data-translate="medical-services"
+            >Services Médicaux</a
+          >
+          <a
+            href="#surgical"
+            class="nav-item"
+            data-translate="surgical-services"
+            >Services Chirurgicaux</a
+          >
+          <a
+            href="#technical"
+            class="nav-item"
+            data-translate="technical-services"
+            >Services Techniques</a
+          >
+          <a
+            href="#specialized"
+            class="nav-item"
+            data-translate="specialized-services"
+            >Services Spécialisés</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Médicaux -->
+    <section id="medical" class="section-padding">
+      <div class="container">
+        <h2
+          class="text-center mb-5 text-primary"
+          data-translate="medical-services"
+        >
+          Services Médicaux
+        </h2>
+        <div class="row g-4" id="medicalServicesGrid">
+          <!-- Les services seront chargés dynamiquement -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Chirurgicaux -->
+    <section id="surgical" class="section-padding bg-light">
+      <div class="container">
+        <h2
+          class="text-center mb-5 text-primary"
+          data-translate="surgical-services"
+        >
+          Services Chirurgicaux
+        </h2>
+        <div class="row g-4" id="surgicalServicesGrid">
+          <!-- Les services seront chargés dynamiquement -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Techniques -->
+    <section id="technical" class="section-padding">
+      <div class="container">
+        <h2
+          class="text-center mb-5 text-primary"
+          data-translate="technical-services"
+        >
+          Services Techniques
+        </h2>
+        <div class="row g-4" id="technicalServicesGrid">
+          <!-- Les services seront chargés dynamiquement -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Spécialisés -->
+    <section id="specialized" class="section-padding bg-light">
+      <div class="container">
+        <h2
+          class="text-center mb-5 text-primary"
+          data-translate="specialized-services"
+        >
+          Services Spécialisés
+        </h2>
+        <div class="row g-4" id="specializedServicesGrid">
+          <!-- Les services seront chargés dynamiquement -->
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-padding cta-services">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <h2 data-translate="need-consultation">
+              Besoin d'une consultation ?
+            </h2>
+            <p class="lead" data-translate="cta-services-desc">
+              Prenez rendez-vous avec nos spécialistes pour une prise en charge
+              personnalisée
+            </p>
+          </div>
+          <div class="col-lg-4 text-end">
+            <a
+              href="rendezvous.html"
+              class="btn btn-primary btn-lg"
+              data-translate="make-appointment"
+            >
+              <i class="fas fa-calendar-check me-2"></i>Prendre Rendez-vous
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer" role="contentinfo">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 mb-4">
+            <img
+              src="../assets/logos/chu-logo.png"
+              alt="CHU Yaoundé"
+              class="footer-logo mb-3"
+              data-logo-white
+              id="footerLogo"
+            />
+            <p data-translate="footer-description">
+              Centre Hospitalier Universitaire de Yaoundé<br />
+              Excellence en santé, enseignement et recherche
+            </p>
+            <div class="social-links">
+              <a href="#" aria-label="Facebook"
+                ><i class="fab fa-facebook fa-lg"></i
+              ></a>
+              <a href="#" aria-label="Twitter"
+                ><i class="fab fa-twitter fa-lg"></i
+              ></a>
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fab fa-linkedin fa-lg"></i
+              ></a>
+              <a href="#" aria-label="YouTube"
+                ><i class="fab fa-youtube fa-lg"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="patient-services">Services Patients</h5>
+            <div class="footer-links">
+              <a href="rendezvous.html" data-translate="make-appointment"
+                >Prendre Rendez-vous</a
+              >
+              <a href="services.html" data-translate="medical-services"
+                >Services Médicaux</a
+              >
+              <a href="urgences.html" data-translate="emergency">Urgences</a>
+              <a href="infos-pratiques.html" data-translate="practical-info"
+                >Informations Pratiques</a
+              >
+              <a href="#" data-translate="pricing">Tarifs et Remboursements</a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="professionals">Professionnels</h5>
+            <div class="footer-links">
+              <a href="#" data-translate="job-offers">Offres d'Emploi</a>
+              <a href="#" data-translate="training">Formations Continues</a>
+              <a href="#" data-translate="medical-resources"
+                >Ressources Médicales</a
+              >
+              <a href="etudiants.html" data-translate="student-space"
+                >Espace Étudiant</a
+              >
+              <a href="#" data-translate="research">Recherche et Innovation</a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="contact">Contact</h5>
+            <div class="footer-links">
+              <p>
+                <i class="fas fa-map-marker-alt me-2"></i>
+                <span data-translate="address">Yaoundé, Cameroun</span>
+              </p>
+              <p>
+                <i class="fas fa-phone me-2"></i>
+                <span data-translate="emergency">Urgences</span>
+              </p>
+              <p>
+                <i class="fas fa-phone me-2"></i>
+                <span data-translate="standard">Standard</span> : +237 672 59 26
+                95
+              </p>
+              <p>
+                <i class="fas fa-envelope me-2"></i>
+                <a href="mailto:chudeyaounde@gmail.com"
+                  >chudeyaounde@gmail.com</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="mb-0">
+            &copy; 2024 CHU Yaoundé -
+            <span data-translate="all-rights">Tous droits réservés</span>. |
+            <a href="#" class="text-light" data-translate="legal"
+              >Mentions légales</a
+            >
+            |
+            <a href="#" class="text-light" data-translate="privacy"
+              >Politique de confidentialité</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget">
+      <div
+        class="chatbot-container"
+        id="chatbotContainer"
+        role="dialog"
+        aria-label="Assistant conversationnel"
+        aria-hidden="true"
+      >
+        <div class="chat-header">
+          <h6 class="mb-0">
+            <i class="fas fa-robot me-2" aria-hidden="true"></i
+            ><span data-translate="assistant-title">Assistant CHU</span>
+          </h6>
+          <small data-translate="assistant-subtitle"
+            >Comment puis-je vous aider ?</small
+          >
+        </div>
+        <div
+          class="chat-messages"
+          id="chatMessages"
+          role="log"
+          aria-live="polite"
+        >
+          <div class="message bot-message" data-translate="welcome-message">
+            Bonjour ! Je suis l'assistant du CHU Yaoundé. Comment puis-je vous
+            aider aujourd'hui ?
+          </div>
+        </div>
+        <div class="quick-actions" id="quickActions"></div>
+        <div class="chat-input">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              id="chatInput"
+              placeholder="Tapez votre message..."
+              aria-label="Message à envoyer"
+              data-translate="chat-placeholder"
+            />
+            <button
+              class="btn btn-primary"
+              id="sendMessage"
+              aria-label="Envoyer le message"
+            >
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        class="btn btn-primary chatbot-btn"
+        id="chatbotToggle"
+        aria-label="Ouvrir la conversation"
+      >
+        <i class="fas fa-robot"></i>
+      </button>
+    </div>
+
+    <!-- Panneau latéral -->
+    <div
+      class="side-panel"
+      id="sidePanel"
+      role="dialog"
+      aria-label="Menu principal"
+      aria-hidden="true"
+    >
+      <div class="panel-header">
+        <h5 class="mb-0" data-translate="menu">Menu</h5>
+        <button class="close-panel" id="closePanel" aria-label="Fermer le menu">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <nav
+        class="panel-nav"
+        role="navigation"
+        aria-label="Navigation principale"
+      >
+        <div class="panel-nav-item">
+          <a href="../index.html" data-translate="home">Accueil</a>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="presentation.html" data-translate="presentation"
+            >Présentation du CHU</a
+          >
+          <div class="panel-submenu">
+            <a href="presentation.html#histoire" data-translate="history"
+              >Histoire et Mission</a
+            >
+            <a
+              href="presentation.html#organigramme"
+              data-translate="organization"
+              >Organigramme</a
+            >
+            <a href="presentation.html#chiffres" data-translate="key-figures"
+              >Chiffres Clés</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="services.html" data-translate="services-directory"
+            >Annuaire des Services</a
+          >
+          <div class="panel-submenu" id="services-menu">
+            <a href="services.html#medical" data-translate="medical-services"
+              >Services Médicaux</a
+            >
+            <a href="services.html#surgical" data-translate="surgical-services"
+              >Services Chirurgicaux</a
+            >
+            <a
+              href="services.html#technical"
+              data-translate="technical-services"
+              >Services Techniques</a
+            >
+            <a
+              href="services.html#specialized"
+              data-translate="specialized-services"
+              >Services Spécialisés</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="infos-pratiques.html" data-translate="practical-info"
+            >Informations Pratiques</a
+          >
+          <div class="panel-submenu">
+            <a href="infos-pratiques.html#rdv" data-translate="appointment"
+              >Prise de Rendez-vous</a
+            >
+            <a href="infos-pratiques.html#admission" data-translate="admission"
+              >Admission</a
+            >
+            <a href="infos-pratiques.html#visites" data-translate="visits"
+              >Règlement des Visites</a
+            >
+            <a href="infos-pratiques.html#urgence" data-translate="emergency"
+              >Urgences</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="actualites.html" data-translate="news-publications"
+            >Actualités & Publications</a
+          >
+          <div class="panel-submenu" id="news-menu">
+            <a href="actualites.html#news" data-translate="news">Actualités</a>
+            <a href="actualites.html#events" data-translate="events"
+              >Événements</a
+            >
+            <a href="actualites.html#publications" data-translate="publications"
+              >Publications Scientifiques</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="etudiants.html" data-translate="student-space"
+            >Espace Étudiant</a
+          >
+          <div class="panel-submenu">
+            <a href="etudiants.html#stages" data-translate="internships"
+              >Stages</a
+            >
+            <a href="etudiants.html#formations" data-translate="training"
+              >Formations</a
+            >
+            <a href="etudiants.html#concours" data-translate="exams"
+              >Concours</a
+            >
+            <a href="etudiants.html#pedagogie" data-translate="platform"
+              >Plateforme Pédagogique</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="documents.html" data-translate="useful-documents"
+            >Documents Utiles</a
+          >
+          <div class="panel-submenu">
+            <a href="documents.html#formulaires" data-translate="forms"
+              >Formulaires</a
+            >
+            <a href="documents.html#appels-offres" data-translate="tenders"
+              >Appels d'Offres</a
+            >
+            <a href="documents.html#rapports" data-translate="reports"
+              >Rapports</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="contact.html" data-translate="contact-access"
+            >Contacts & Accès</a
+          >
+          <div class="panel-submenu">
+            <a href="contact.html#coordonnees" data-translate="coordinates"
+              >Coordonnées</a
+            >
+            <a href="contact.html#plan-acces" data-translate="access-plan"
+              >Plan d'Accès</a
+            >
+            <a href="contact.html#formulaire" data-translate="contact-form"
+              >Formulaire de Contact</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a
+            href="urgences.html"
+            style="color: var(--chu-red); font-weight: bold"
+          >
+            <i class="fas fa-ambulance me-2"></i>
+            <span data-translate="emergency">Urgences</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <div
+      class="panel-overlay"
+      id="panelOverlay"
+      tabindex="-1"
+      aria-hidden="true"
+    ></div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- NOS FICHIERS JS -->
+    <script src="../js/config.js"></script>
+    <script src="../js/main.js?v=2"></script>
+    <script src="../js/navigation.js"></script>
+    <script src="../js/chatbot.js?v=2"></script>
+    <script src="../js/services.js?v=3"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (window.chuApp) {
+          setTimeout(() => {
+            if (window.chuApp.languageManager) {
+              window.chuApp.languageManager.updateContent();
+              window.chuApp.languageManager.updateLogos();
+            }
+          }, 100);
+        }
+
+        const langSelect = document.getElementById("languageSelector");
+        if (langSelect && window.chuApp) {
+          langSelect.value = window.chuApp.languageManager.getCurrentLanguage();
+          langSelect.addEventListener("change", function () {
+            window.chuApp.languageManager.setLanguage(this.value);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,238 @@
+/* POINTS DE RUPTURE RESPONSIVE */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+    
+    .display-4 {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+    
+    .display-4 {
+        font-size: 2.5rem;
+    }
+    
+    .section-padding {
+        padding: 60px 0;
+    }
+    
+    .menu-text {
+        display: none;
+    }
+    
+    .hero-stats h4 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+    
+    .display-4 {
+        font-size: 2.2rem;
+    }
+    
+    .lead {
+        font-size: 1.1rem;
+    }
+    
+    .section-padding {
+        padding: 50px 0;
+    }
+    
+    .btn-lg {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+    
+    .chu-logo {
+        height: 40px;
+    }
+    
+    .hero-image-placeholder {
+        height: 250px;
+    }
+    
+    .service-icon {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    .section-padding {
+        padding: 40px 0;
+    }
+    
+    .chu-hero {
+        padding: 80px 0 40px;
+    }
+    
+    .hero-stats {
+        padding: 20px 15px;
+    }
+    
+    .hero-stats h4 {
+        font-size: 1.8rem;
+    }
+    
+    .service-card, .news-card, .testimonial-card {
+        margin-bottom: 20px;
+    }
+    
+    .cta-section {
+        padding: 40px 0;
+        border-radius: 15px;
+    }
+    
+    .cta-section h2 {
+        font-size: 1.8rem;
+    }
+    
+    .main-footer {
+        padding: 40px 0 20px;
+    }
+}
+
+/* UTILITAIRES RESPONSIVE */
+.d-none-mobile {
+    display: block;
+}
+
+.d-only-desktop {
+    display: block;
+}
+
+.text-center-mobile {
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    .d-none-mobile {
+        display: none !important;
+    }
+    
+    .d-only-desktop {
+        display: none !important;
+    }
+    
+    .text-center-mobile {
+        text-align: center;
+    }
+    
+    .flex-mobile-column {
+        flex-direction: column;
+    }
+    
+    .text-mobile-center {
+        text-align: center;
+    }
+}
+
+/* GRID ADAPTATIVE */
+.row.adaptive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .row.adaptive-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* IMAGES RESPONSIVES */
+.img-fluid-optimized {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .img-fluid-optimized {
+        width: 100%;
+    }
+}
+
+/* NAVIGATION MOBILE OPTIMISÉE */
+.mobile-optimized-nav {
+    touch-action: manipulation;
+}
+
+.mobile-optimized-nav a,
+.mobile-optimized-nav button {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* PERFORMANCE MOBILE */
+@media (max-width: 768px) {
+    .reduce-motion * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ORIENTATION SUPPORT */
+@media (max-width: 768px) and (orientation: landscape) {
+    .chu-hero {
+        padding: 80px 0 40px;
+    }
+    
+    .hero-image-placeholder {
+        height: 200px;
+    }
+}
+
+/* HIGH DPI SCREENS */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .chu-logo {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* DARK MODE SUPPORT (optionnel) */
+@media (prefers-color-scheme: dark) {
+    .auto-dark-mode {
+        background: #1a1a1a;
+        color: #ffffff;
+    }
+}
+
+/* PRINT STYLES */
+@media print {
+    .chu-header,
+    .chatbot-widget,
+    .main-footer .social-links {
+        display: none;
+    }
+    
+    .chu-hero {
+        background: white !important;
+        color: black !important;
+        padding: 40px 0;
+    }
+    
+    a {
+        color: black !important;
+        text-decoration: underline !important;
+    }
+}

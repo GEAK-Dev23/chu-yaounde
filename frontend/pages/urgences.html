@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Urgences - CHU Yaoundé</title>
+
+    <!-- CSS EXTERNES -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- NOS FICHIERS CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/header.css" />
+    <link rel="stylesheet" href="../css/footer.css" />
+    <link rel="stylesheet" href="../css/chatbot.css" />
+    <link rel="stylesheet" href="../css/urgences.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+
+    <!-- META TAGS -->
+    <meta
+      name="description"
+      content="Service d'Urgences du CHU Yaoundé - Prise en charge immédiate 24h/24"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header-top">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <span data-translate="emergency">
+              <i class="fas fa-phone me-1"></i> Urgences : 651 94 80 64
+            </span>
+            <span class="ms-3">
+              <i class="fas fa-envelope me-1"></i> <a href="mailto:chudeyaounde@gmail.com">chudeyaounde@gmail.com</a>
+            </span>
+          </div>
+          <div class="col-md-6 text-end">
+            <select
+              class="form-select form-select-sm d-inline-block w-auto"
+              aria-label="Sélection de la langue"
+              id="languageSelector"
+            >
+              <option value="fr">Français</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <header class="chu-header">
+      <div class="container">
+        <div class="row align-items-center py-3">
+          <div class="col-md-6">
+            <div class="logo-container">
+              <a
+                class="navbar-brand"
+                href="../index.html"
+                aria-label="CHU Yaoundé - Retour à l'accueil"
+              >
+                <img
+                  src="../assets/logos/chu-logo-fr.jpeg"
+                  alt="CHU Yaoundé"
+                  class="chu-logo"
+                  data-logo
+                  onerror="this.onerror=null; this.src='../assets/logos/chu-logo.jpeg';"
+                />
+              </a>
+              <div class="menu-container">
+                <button
+                  class="hamburger-menu"
+                  id="menuToggle"
+                  aria-label="Ouvrir le menu"
+                  aria-expanded="false"
+                >
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+                <span class="menu-text" data-translate="menu">Menu</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 text-end">
+            <div class="d-flex align-items-center justify-content-end gap-3">
+              <div class="search-box d-none-mobile">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Rechercher..."
+                  aria-label="Rechercher sur le site"
+                />
+                <button class="search-btn" aria-label="Lancer la recherche">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+              <button
+                class="btn btn-outline-primary"
+                onclick="window.location.href = 'espace-patient.html'"
+              >
+                <i class="fas fa-user me-1"></i>
+                <span data-translate="patient-space">Espace Patient</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="emergency-alert urgent-alert">
+        <div class="container">
+          <i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>
+          <strong data-translate="emergency-service">Service d'Urgences</strong>
+          <span class="ms-3">
+            <span data-translate="wait-time">Temps d'attente moyen</span> :
+            <strong id="waitTime">25 minutes</strong>
+          </span>
+          <span class="ms-3 status-indicator">
+            <i class="fas fa-circle me-1"></i>
+            <span data-translate="status-open">Ouvert</span>
+          </span>
+          <button
+            class="btn btn-light btn-sm ms-3"
+            onclick="urgencesPage.callEmergency()"
+          >
+            <i class="fas fa-phone me-1"></i>
+            <span data-translate="call-119">Appeler le 651 94 80 64</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section Urgences -->
+    <section
+      class="page-hero urgences-hero"
+      aria-labelledby="urgences-hero-title"
+    >
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h1 class="display-4 fw-bold mb-4" id="urgences-hero-title">
+              <i class="fas fa-ambulance me-3"></i>
+              <span data-translate="emergency-department"
+                >Service d'Urgences</span
+              >
+            </h1>
+            <p class="lead mb-4" data-translate="emergency-subtitle">
+              Prise en charge immédiate 24 heures sur 24, 7 jours sur 7
+            </p>
+
+            <div class="emergency-actions">
+              <button
+                class="btn btn-danger btn-lg me-3"
+                onclick="urgencesPage.callEmergency()"
+              >
+                <i class="fas fa-phone me-2"></i>
+                <span data-translate="emergency-call"
+                  >Urgences : 651 94 80 64</span
+                >
+              </button>
+              <button
+                class="btn btn-outline-light btn-lg"
+                onclick="urgencesPage.showEmergencyGuide()"
+              >
+                <i class="fas fa-info-circle me-2"></i>
+                <span data-translate="emergency-guide">Guide des Urgences</span>
+              </button>
+            </div>
+
+            <div class="emergency-info-cards">
+              <div class="info-card">
+                <i class="fas fa-clock"></i>
+                <div>
+                  <strong data-translate="open-24h">Ouvert 24h/24</strong>
+                  <small data-translate="everyday">7j/7</small>
+                </div>
+              </div>
+              <div class="info-card">
+                <i class="fas fa-user-md"></i>
+                <div>
+                  <strong data-translate="medical-team">Équipe médicale</strong>
+                  <small data-translate="available">Disponible</small>
+                </div>
+              </div>
+              <div class="info-card">
+                <i class="fas fa-ambulance"></i>
+                <div>
+                  <strong data-translate="ambulance">Ambulance</strong>
+                  <small data-translate="on-site">Sur place</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="emergency-map-container">
+              <div class="map-placeholder">
+                <i class="fas fa-map-marker-alt fa-4x mb-3"></i>
+                <h4 data-translate="our-location">Notre Localisation</h4>
+                <p data-translate="emergency-access">
+                  Accès direct au service d'urgences
+                </p>
+                <button
+                  class="btn btn-outline-primary mt-3"
+                  onclick="urgencesPage.showDirections()"
+                >
+                  <i class="fas fa-directions me-2"></i>
+                  <span data-translate="get-directions">Itinéraire</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Triage et Priorités -->
+    <section class="section-padding bg-light">
+      <div class="container">
+        <h2
+          class="text-center mb-5 text-primary"
+          data-translate="triage-priority"
+        >
+          Triage et Niveaux de Priorité
+        </h2>
+
+        <div class="priority-levels">
+          <div class="priority-item critical">
+            <div class="priority-header">
+              <span class="priority-number">1</span>
+              <h4 data-translate="priority-critical">Critique</h4>
+              <span class="priority-badge" data-translate="immediate"
+                >Immédiat</span
+              >
+            </div>
+            <p data-translate="priority-critical-desc">
+              Arrêt cardiaque, trauma sévère, détresse respiratoire - Prise en
+              charge immédiate
+            </p>
+            <div class="priority-examples">
+              <span class="example-tag" data-translate="cardiac-arrest"
+                >Arrêt cardiaque</span
+              >
+              <span class="example-tag" data-translate="severe-trauma"
+                >Trauma sévère</span
+              >
+              <span class="example-tag" data-translate="respiratory-distress"
+                >Détresse respiratoire</span
+              >
+            </div>
+          </div>
+
+          <div class="priority-item urgent">
+            <div class="priority-header">
+              <span class="priority-number">2</span>
+              <h4 data-translate="priority-urgent">Urgent</h4>
+              <span class="priority-badge" data-translate="very-urgent"
+                >Très urgent</span
+              >
+            </div>
+            <p data-translate="priority-urgent-desc">
+              Douleur thoracique, trauma modéré, hémorragie - Prise en charge
+              sous 15 minutes
+            </p>
+            <div class="priority-examples">
+              <span class="example-tag" data-translate="chest-pain"
+                >Douleur thoracique</span
+              >
+              <span class="example-tag" data-translate="moderate-trauma"
+                >Trauma modéré</span
+              >
+              <span class="example-tag" data-translate="hemorrhage"
+                >Hémorragie</span
+              >
+            </div>
+          </div>
+
+          <div class="priority-item semi-urgent">
+            <div class="priority-header">
+              <span class="priority-number">3</span>
+              <h4 data-translate="priority-semi-urgent">Semi-Urgent</h4>
+              <span class="priority-badge" data-translate="urgent">Urgent</span>
+            </div>
+            <p data-translate="priority-semi-urgent-desc">
+              Douleur abdominale, fièvre élevée, fracture simple - Prise en
+              charge sous 1 heure
+            </p>
+            <div class="priority-examples">
+              <span class="example-tag" data-translate="abdominal-pain"
+                >Douleur abdominale</span
+              >
+              <span class="example-tag" data-translate="high-fever"
+                >Fièvre élevée</span
+              >
+              <span class="example-tag" data-translate="simple-fracture"
+                >Fracture simple</span
+              >
+            </div>
+          </div>
+
+          <div class="priority-item non-urgent">
+            <div class="priority-header">
+              <span class="priority-number">4</span>
+              <h4 data-translate="priority-non-urgent">Non Urgent</h4>
+              <span class="priority-badge" data-translate="standard"
+                >Standard</span
+              >
+            </div>
+            <p data-translate="priority-non-urgent-desc">
+              Consultation simple, renouvellement ordonnance - Prise en charge
+              selon disponibilité
+            </p>
+            <div class="priority-examples">
+              <span class="example-tag" data-translate="simple-consultation"
+                >Consultation simple</span
+              >
+              <span class="example-tag" data-translate="prescription-renewal"
+                >Renouvellement ordonnance</span
+              >
+              <span class="example-tag" data-translate="minor-injury"
+                >Blessure mineure</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Procédure d'Admission -->
+    <section class="section-padding">
+      <div class="container">
+        <h2
+          class="text-center mb-5 text-primary"
+          data-translate="admission-process"
+        >
+          Procédure d'Admission aux Urgences
+        </h2>
+
+        <div class="admission-steps">
+          <div class="step">
+            <div class="step-icon">
+              <i class="fas fa-clipboard-check"></i>
+              <span class="step-number">1</span>
+            </div>
+            <h4 data-translate="step-triage">Triage</h4>
+            <p data-translate="step-triage-desc">
+              Évaluation initiale par une infirmière pour déterminer le niveau
+              de priorité
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-icon">
+              <i class="fas fa-user-md"></i>
+              <span class="step-number">2</span>
+            </div>
+            <h4 data-translate="step-medical-eval">Évaluation Médicale</h4>
+            <p data-translate="step-medical-eval-desc">
+              Examen complet par un médecin urgentiste
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-icon">
+              <i class="fas fa-vial"></i>
+              <span class="step-number">3</span>
+            </div>
+            <h4 data-translate="step-exams">Examens Complémentaires</h4>
+            <p data-translate="step-exams-desc">
+              Analyses, radiographies ou autres examens si nécessaires
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-icon">
+              <i class="fas fa-procedures"></i>
+              <span class="step-number">4</span>
+            </div>
+            <h4 data-translate="step-treatment">Traitement</h4>
+            <p data-translate="step-treatment-desc">
+              Soins et traitement adaptés à votre condition
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-icon">
+              <i class="fas fa-home"></i>
+              <span class="step-number">5</span>
+            </div>
+            <h4 data-translate="step-orientation">Orientation</h4>
+            <p data-translate="step-orientation-desc">
+              Retour à domicile, hospitalisation ou consultation spécialisée
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Informations Pratiques -->
+    <section class="section-padding bg-light">
+      <div class="container">
+        <h2
+          class="text-center mb-5 text-primary"
+          data-translate="practical-info"
+        >
+          Informations Pratiques
+        </h2>
+
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="info-card-large">
+              <i class="fas fa-file-medical"></i>
+              <div>
+                <h4 data-translate="documents-required">
+                  Documents à Apporter
+                </h4>
+                <ul>
+                  <li data-translate="id-card">Carte d'identité</li>
+                  <li data-translate="insurance-card">
+                    Carte d'assurance maladie
+                  </li>
+                  <li data-translate="medical-records">
+                    Dossier médical (si disponible)
+                  </li>
+                  <li data-translate="medication-list">
+                    Liste des médicaments
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="info-card-large">
+              <i class="fas fa-clock"></i>
+              <div>
+                <h4 data-translate="waiting-times">Temps d'Attente</h4>
+                <div class="waiting-info">
+                  <div class="waiting-item">
+                    <span class="priority-dot critical"></span>
+                    <span data-translate="priority-critical">Critique</span>
+                    <strong data-translate="immediate">Immédiat</strong>
+                  </div>
+                  <div class="waiting-item">
+                    <span class="priority-dot urgent"></span>
+                    <span data-translate="priority-urgent">Urgent</span>
+                    <strong>&lt; 15 min</strong>
+                  </div>
+                  <div class="waiting-item">
+                    <span class="priority-dot semi-urgent"></span>
+                    <span data-translate="priority-semi-urgent"
+                      >Semi-Urgent</span
+                    >
+                    <strong>&lt; 1 heure</strong>
+                  </div>
+                  <div class="waiting-item">
+                    <span class="priority-dot non-urgent"></span>
+                    <span data-translate="priority-non-urgent">Non Urgent</span>
+                    <strong>1-3 heures</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="info-card-large">
+              <i class="fas fa-phone-alt"></i>
+              <div>
+                <h4 data-translate="contact-info">Coordonnées</h4>
+                <div class="contact-info">
+                  <p>
+                    <strong data-translate="emergency">Urgences</strong>: 651 94
+                    80 64
+                  </p>
+                  <p>
+                    <strong data-translate="direct-line">Ligne directe</strong>:
+                    651 94 80 64
+                  </p>
+                  <p>
+                    <strong data-translate="email">Email</strong>:
+                    <a href="mailto:chudeyaounde@gmail.com">chudeyaounde@gmail.com</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="info-card-large">
+              <i class="fas fa-map-marked-alt"></i>
+              <div>
+                <h4 data-translate="access-info">Accès</h4>
+                <div class="access-info">
+                  <p data-translate="emergency-entrance">
+                    Entrée des Urgences: Porte principale, côté Est
+                  </p>
+                  <p data-translate="parking-available">
+                    Parking dédié aux urgences disponible
+                  </p>
+                  <p data-translate="ambulance-access">
+                    Accès ambulance 24h/24
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Urgences Vitales -->
+    <section class="section-padding emergency-cases-section">
+      <div class="container">
+        <h2
+          class="text-center mb-5 text-primary"
+          data-translate="emergency-cases"
+        >
+          Cas d'Urgences Vitales
+        </h2>
+
+        <div class="alert alert-danger mb-5">
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          <strong data-translate="immediate-action"
+            >Action Immédiate Requise</strong
+          >
+          <span data-translate="call-119-immediately">
+            - Appelez immédiatement le 651 94 80 64 dans ces situations</span
+          >
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="emergency-case-card cardiac">
+              <i class="fas fa-heartbeat"></i>
+              <h5 data-translate="cardiac-emergency">Urgence Cardiaque</h5>
+              <ul>
+                <li data-translate="chest-pain">Douleur thoracique</li>
+                <li data-translate="shortness-breath">Essoufflement sévère</li>
+                <li data-translate="palpitations">Palpitations</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="emergency-case-card trauma">
+              <i class="fas fa-car-crash"></i>
+              <h5 data-translate="trauma-emergency">Traumatisme</h5>
+              <ul>
+                <li data-translate="accident">Accident grave</li>
+                <li data-translate="head-injury">Trauma crânien</li>
+                <li data-translate="fracture">Fracture ouverte</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="emergency-case-card neurological">
+              <i class="fas fa-brain"></i>
+              <h5 data-translate="neuro-emergency">Neurologique</h5>
+              <ul>
+                <li data-translate="stroke">Suspicion AVC</li>
+                <li data-translate="seizure">Crise convulsive</li>
+                <li data-translate="paralysis">Paralysie soudaine</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer" role="contentinfo">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 mb-4">
+            <img
+              src="../assets/logos/chu-logo-fr-blanc.jpeg"
+              alt="CHU Yaoundé"
+              class="footer-logo mb-3"
+              data-logo-white
+              onerror="this.onerror=null; this.src='../assets/logos/chu-logo-blanc.png';"
+            />
+            <p data-translate="footer-description">
+              Centre Hospitalier Universitaire de Yaoundé<br> Excellence en santé, enseignement et recherche
+            </p>
+            <div class="social-links">
+              <a href="#" aria-label="Facebook"
+                ><i class="fab fa-facebook fa-lg"></i
+              ></a>
+              <a href="#" aria-label="Twitter"
+                ><i class="fab fa-twitter fa-lg"></i
+              ></a>
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fab fa-linkedin fa-lg"></i
+              ></a>
+              <a href="#" aria-label="YouTube"
+                ><i class="fab fa-youtube fa-lg"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="patient-services">Services Patients</h5>
+            <div class="footer-links">
+              <a href="rendezvous.html" data-translate="make-appointment"
+                >Prendre Rendez-vous</a
+              >
+              <a href="services.html" data-translate="medical-services"
+                >Services Médicaux</a
+              >
+              <a href="urgences.html" data-translate="emergency">Urgences</a>
+              <a href="infos-pratiques.html" data-translate="practical-info"
+                >Informations Pratiques</a
+              >
+              <a href="#" data-translate="pricing">Tarifs et Remboursements</a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="professionals">Professionnels</h5>
+            <div class="footer-links">
+              <a href="#" data-translate="job-offers">Offres d'Emploi</a>
+              <a href="#" data-translate="training">Formations Continues</a>
+              <a href="#" data-translate="medical-resources"
+                >Ressources Médicales</a
+              >
+              <a href="etudiants.html" data-translate="student-space"
+                >Espace Étudiant</a
+              >
+              <a href="#" data-translate="research">Recherche et Innovation</a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="contact">Contact</h5>
+            <div class="footer-links">
+              <p>
+                <i class="fas fa-map-marker-alt me-2"></i>
+                <span data-translate="address">Yaoundé, Cameroun</span>
+              </p>
+              <p>
+                <i class="fas fa-phone me-2"></i>
+                <span data-translate="emergency">Urgences</span> 
+              </p>
+              <p>
+                <i class="fas fa-phone me-2"></i>
+                <span data-translate="standard">Standard</span> : +237 672 59 26
+                95
+              </p>
+              <p><i class="fas fa-envelope me-2"></i> <a href="mailto:chudeyaounde@gmail.com">chudeyaounde@gmail.com</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="mb-0">
+            &copy; 2025 CHU Yaoundé -
+            <span data-translate="all-rights">Tous droits réservés</span>. |
+            <a href="#" class="text-light" data-translate="legal"
+              >Mentions légales</a
+            >
+            |
+            <a href="#" class="text-light" data-translate="privacy"
+              >Politique de confidentialité</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget">
+      <div
+        class="chatbot-container"
+        id="chatbotContainer"
+        role="dialog"
+        aria-label="Assistant conversationnel"
+        aria-hidden="true"
+      >
+        <div class="chat-header">
+          <h6 class="mb-0">
+            <i class="fas fa-robot me-2" aria-hidden="true"></i
+            ><span data-translate="assistant-title">Assistant CHU</span>
+          </h6>
+          <small data-translate="assistant-subtitle"
+            >Comment puis-je vous aider ?</small
+          >
+        </div>
+        <div
+          class="chat-messages"
+          id="chatMessages"
+          role="log"
+          aria-live="polite"
+        >
+          <div class="message bot-message" data-translate="welcome-message">
+            Bonjour ! Je suis l'assistant du CHU Yaoundé. Comment puis-je vous
+            aider aujourd'hui ?
+          </div>
+        </div>
+        <div class="quick-actions" id="quickActions"></div>
+        <div class="chat-input">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              id="chatInput"
+              placeholder="Tapez votre message..."
+              aria-label="Message à envoyer"
+              data-translate="chat-placeholder"
+            />
+            <button
+              class="btn btn-primary"
+              id="sendMessage"
+              aria-label="Envoyer le message"
+            >
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        class="btn btn-primary chatbot-btn"
+        id="chatbotToggle"
+        aria-label="Ouvrir la conversation"
+      >
+        <i class="fas fa-robot"></i>
+      </button>
+    </div>
+
+    <!-- Panneau latéral -->
+    <div
+      class="side-panel"
+      id="sidePanel"
+      role="dialog"
+      aria-label="Menu principal"
+      aria-hidden="true"
+    >
+      <div class="panel-header">
+        <h5 class="mb-0" data-translate="menu">Menu</h5>
+        <button class="close-panel" id="closePanel" aria-label="Fermer le menu">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <nav
+        class="panel-nav"
+        role="navigation"
+        aria-label="Navigation principale"
+      >
+        <div class="panel-nav-item">
+          <a href="../index.html" data-translate="home">Accueil</a>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="presentation.html" data-translate="presentation"
+            >Présentation du CHU</a
+          >
+          <div class="panel-submenu">
+            <a href="presentation.html#histoire" data-translate="history"
+              >Histoire et Mission</a
+            >
+            <a
+              href="presentation.html#organigramme"
+              data-translate="organization"
+              >Organigramme</a
+            >
+            <a href="presentation.html#chiffres" data-translate="key-figures"
+              >Chiffres Clés</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="services.html" data-translate="services-directory"
+            >Annuaire des Services</a
+          >
+          <div class="panel-submenu" id="services-menu">
+            <a href="services.html#medical" data-translate="medical-services"
+              >Services Médicaux</a
+            >
+            <a href="services.html#surgical" data-translate="surgical-services"
+              >Services Chirurgicaux</a
+            >
+            <a
+              href="services.html#technical"
+              data-translate="technical-services"
+              >Services Techniques</a
+            >
+            <a
+              href="services.html#specialized"
+              data-translate="specialized-services"
+              >Services Spécialisés</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="infos-pratiques.html" data-translate="practical-info"
+            >Informations Pratiques</a
+          >
+          <div class="panel-submenu">
+            <a href="infos-pratiques.html#rdv" data-translate="appointment"
+              >Prise de Rendez-vous</a
+            >
+            <a href="infos-pratiques.html#admission" data-translate="admission"
+              >Admission</a
+            >
+            <a href="infos-pratiques.html#visites" data-translate="visits"
+              >Règlement des Visites</a
+            >
+            <a href="infos-pratiques.html#urgence" data-translate="emergency"
+              >Urgences</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="actualites.html" data-translate="news-publications"
+            >Actualités & Publications</a
+          >
+          <div class="panel-submenu" id="news-menu">
+            <a href="actualites.html#news" data-translate="news">Actualités</a>
+            <a href="actualites.html#events" data-translate="events"
+              >Événements</a
+            >
+            <a href="actualites.html#publications" data-translate="publications"
+              >Publications Scientifiques</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="etudiants.html" data-translate="student-space"
+            >Espace Étudiant</a
+          >
+          <div class="panel-submenu">
+            <a href="etudiants.html#stages" data-translate="internships"
+              >Stages</a
+            >
+            <a href="etudiants.html#formations" data-translate="training"
+              >Formations</a
+            >
+            <a href="etudiants.html#concours" data-translate="exams"
+              >Concours</a
+            >
+            <a href="etudiants.html#pedagogie" data-translate="platform"
+              >Plateforme Pédagogique</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="documents.html" data-translate="useful-documents"
+            >Documents Utiles</a
+          >
+          <div class="panel-submenu">
+            <a href="documents.html#formulaires" data-translate="forms"
+              >Formulaires</a
+            >
+            <a href="documents.html#appels-offres" data-translate="tenders"
+              >Appels d'Offres</a
+            >
+            <a href="documents.html#rapports" data-translate="reports"
+              >Rapports</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="contact.html" data-translate="contact-access"
+            >Contacts & Accès</a
+          >
+          <div class="panel-submenu">
+            <a href="contact.html#coordonnees" data-translate="coordinates"
+              >Coordonnées</a
+            >
+            <a href="contact.html#plan-acces" data-translate="access-plan"
+              >Plan d'Accès</a
+            >
+            <a href="contact.html#formulaire" data-translate="contact-form"
+              >Formulaire de Contact</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a
+            href="urgences.html"
+            style="color: var(--chu-red); font-weight: bold"
+          >
+            <i class="fas fa-ambulance me-2"></i>
+            <span data-translate="emergency">Urgences</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <div
+      class="panel-overlay"
+      id="panelOverlay"
+      tabindex="-1"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Modal Guide Urgences -->
+    <div
+      class="modal fade"
+      id="emergencyGuideModal"
+      tabindex="-1"
+      aria-labelledby="emergencyGuideModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title"
+              id="emergencyGuideModalLabel"
+              data-translate="emergency-guide"
+            >
+              Guide des Urgences
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div id="emergencyGuideContent">
+              <!-- Le contenu sera chargé dynamiquement -->
+            </div>
+          </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- NOS FICHIERS JS -->
+    <script src="../js/config.js"></script>
+    <script src="../js/main.js?v=2"></script>
+    <script src="../js/navigation.js"></script>
+    <script src="../js/chatbot.js?v=2"></script>
+    <script src="../js/urgences.js?v=2"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (window.chuApp) {
+          setTimeout(() => {
+            if (window.chuApp.languageManager) {
+              window.chuApp.languageManager.updateContent();
+              window.chuApp.languageManager.updateLogos();
+            }
+          }, 100);
+        }
+
+        const langSelect = document.getElementById("languageSelector");
+        if (langSelect && window.chuApp) {
+          langSelect.value = window.chuApp.languageManager.getCurrentLanguage();
+          langSelect.addEventListener("change", function () {
+            window.chuApp.languageManager.setLanguage(this.value);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

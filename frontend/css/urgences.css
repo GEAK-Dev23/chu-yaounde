@@ -1,0 +1,541 @@
+/* URGENCES PAGE STYLES */
+.urgent-alert {
+    background: linear-gradient(45deg, var(--chu-red) 0%, #c62828 100%);
+    animation: pulse-alert 2s infinite;
+}
+
+@keyframes pulse-alert {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.status-indicator {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.status-indicator .fa-circle {
+    color: #4CAF50;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+}
+
+/* Hero Section Urgences */
+.page-hero.urgences-hero {
+    background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+    color: white;
+    padding: 120px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.urgences-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../assets/images/urgences/emergency-pattern.svg') no-repeat center center;
+    background-size: cover;
+    opacity: 0.1;
+}
+
+.urgences-hero h1 .fa-ambulance {
+    animation: shake 0.5s ease-in-out infinite;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.emergency-actions {
+    margin-bottom: 40px;
+}
+
+.emergency-actions .btn-danger {
+    background: linear-gradient(45deg, #ff4444 0%, #cc0000 100%);
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    box-shadow: 0 5px 20px rgba(255, 68, 68, 0.4);
+    animation: pulse-emergency 1.5s infinite;
+}
+
+@keyframes pulse-emergency {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.emergency-info-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.info-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-width: 200px;
+}
+
+.info-card i {
+    font-size: 1.5rem;
+    color: #ffeb3b;
+}
+
+.info-card strong {
+    display: block;
+    font-size: 0.9rem;
+}
+
+.info-card small {
+    opacity: 0.8;
+    font-size: 0.8rem;
+}
+
+.emergency-map-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+
+.map-placeholder {
+    color: white;
+}
+
+.map-placeholder i {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+/* Priority Levels */
+.priority-levels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.priority-item {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.priority-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: inherit;
+    opacity: 0.3;
+}
+
+.priority-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.priority-item.critical {
+    border-left-color: #d32f2f;
+    background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+}
+
+.priority-item.urgent {
+    border-left-color: #ff9800;
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+}
+
+.priority-item.semi-urgent {
+    border-left-color: #2196f3;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+}
+
+.priority-item.non-urgent {
+    border-left-color: #4caf50;
+    background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+}
+
+.priority-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.priority-number {
+    background: currentColor;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.priority-item.critical .priority-number { background: #d32f2f; }
+.priority-item.urgent .priority-number { background: #ff9800; }
+.priority-item.semi-urgent .priority-number { background: #2196f3; }
+.priority-item.non-urgent .priority-number { background: #4caf50; }
+
+.priority-header h4 {
+    margin: 0;
+    flex: 1;
+    color: var(--chu-dark);
+}
+
+.priority-badge {
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+}
+
+.priority-item.critical .priority-badge { background: #d32f2f; }
+.priority-item.urgent .priority-badge { background: #ff9800; }
+.priority-item.semi-urgent .priority-badge { background: #2196f3; }
+.priority-item.non-urgent .priority-badge { background: #4caf50; }
+
+.priority-item p {
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.priority-examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.example-tag {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    color: var(--chu-dark);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Admission Steps */
+.admission-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.step {
+    text-align: center;
+    padding: 25px 15px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.step-icon {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.step-icon i {
+    font-size: 3rem;
+    color: var(--chu-blue);
+    margin-bottom: 10px;
+}
+
+.step-number {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--chu-blue);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.step h4 {
+    color: var(--chu-dark);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.step p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Info Cards Large */
+.info-card-large {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.info-card-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.info-card-large i {
+    font-size: 2.5rem;
+    color: var(--chu-blue);
+    margin-top: 5px;
+}
+
+.info-card-large h4 {
+    color: var(--chu-dark);
+    margin-bottom: 15px;
+}
+
+.info-card-large ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-card-large li {
+    padding: 5px 0;
+    color: #666;
+    position: relative;
+    padding-left: 20px;
+}
+
+.info-card-large li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--chu-blue);
+    font-weight: bold;
+}
+
+.waiting-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.waiting-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.waiting-item:last-child {
+    border-bottom: none;
+}
+
+.priority-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.priority-dot.critical { background: #d32f2f; }
+.priority-dot.urgent { background: #ff9800; }
+.priority-dot.semi-urgent { background: #2196f3; }
+.priority-dot.non-urgent { background: #4caf50; }
+
+.waiting-item strong {
+    margin-left: auto;
+    color: var(--chu-dark);
+}
+
+.contact-info p,
+.access-info p {
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.contact-info strong,
+.access-info strong {
+    color: var(--chu-dark);
+}
+
+/* Emergency Cases */
+.emergency-cases-section .alert-danger {
+    background: linear-gradient(45deg, #ffebee 0%, #ffcdd2 100%);
+    border: 2px solid #d32f2f;
+    color: #d32f2f;
+    border-radius: 10px;
+    font-size: 1.1rem;
+}
+
+.emergency-case-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: all 0.3s ease;
+    border-top: 4px solid;
+    height: 100%;
+}
+
+.emergency-case-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.emergency-case-card.cardiac {
+    border-top-color: #d32f2f;
+}
+
+.emergency-case-card.trauma {
+    border-top-color: #ff9800;
+}
+
+.emergency-case-card.neurological {
+    border-top-color: #2196f3;
+}
+
+.emergency-case-card i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.emergency-case-card.cardiac i { color: #d32f2f; }
+.emergency-case-card.trauma i { color: #ff9800; }
+.emergency-case-card.neurological i { color: #2196f3; }
+
+.emergency-case-card h5 {
+    color: var(--chu-dark);
+    margin-bottom: 15px;
+}
+
+.emergency-case-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.emergency-case-card li {
+    padding: 5px 0;
+    color: #666;
+    position: relative;
+    padding-left: 20px;
+}
+
+.emergency-case-card li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: currentColor;
+    font-weight: bold;
+}
+
+/* Responsive Urgences */
+@media (max-width: 768px) {
+    .emergency-info-cards {
+        flex-direction: column;
+    }
+    
+    .info-card {
+        min-width: auto;
+    }
+    
+    .priority-levels {
+        grid-template-columns: 1fr;
+    }
+    
+    .admission-steps {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .emergency-actions {
+        text-align: center;
+    }
+    
+    .emergency-actions .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .status-indicator {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .urgences-hero {
+        padding: 100px 0 60px;
+        text-align: center;
+    }
+    
+    .priority-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .info-card-large {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .waiting-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
+    }
+    
+    .waiting-item strong {
+        margin-left: 0;
+    }
+}

@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Diagnostic Personnel — CHU</title>
+    <style>
+      body {
+        font-family: monospace;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      h2 {
+        color: #0d6efd;
+      }
+      .ok {
+        color: green;
+        font-weight: bold;
+      }
+      .err {
+        color: red;
+        font-weight: bold;
+      }
+      .warn {
+        color: orange;
+        font-weight: bold;
+      }
+      pre {
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 12px;
+        border-radius: 6px;
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+      .card-preview {
+        display: inline-block;
+        border: 2px solid #0d6efd;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 8px;
+        text-align: center;
+        background: #fff;
+        width: 170px;
+      }
+      .card-preview img {
+        width: 170px;
+        height: 200px;
+        object-fit: cover;
+        object-position: center top;
+        border-radius: 8px;
+        display: block;
+      }
+      .card-preview .ph {
+        width: 170px;
+        height: 200px;
+        background: linear-gradient(145deg, #e3effd, #ccdff5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        border-radius: 8px;
+      }
+      .card-preview p {
+        margin: 6px 0 2px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .card-preview small {
+        color: #0d6efd;
+        font-size: 11px;
+      }
+      button {
+        padding: 8px 16px;
+        background: #0d6efd;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>🔍 Diagnostic — Section "Notre Personnel"</h2>
+    <p>Cette page teste chaque étape du chargement du personnel.</p>
+
+    <hr />
+    <h3>Étape 1 — URL backend détectée</h3>
+    <pre id="step1">En cours...</pre>
+
+    <h3>Étape 2 — Appel API <code>GET /api/personnel</code></h3>
+    <pre id="step2">En cours...</pre>
+
+    <h3>Étape 3 — Données reçues (brut JSON)</h3>
+    <pre id="step3">En cours...</pre>
+
+    <h3>Étape 4 — Prévisualisation des cartes</h3>
+    <div id="step4">En cours...</div>
+
+    <h3>Étape 5 — Vérification des URLs de photos</h3>
+    <div id="step5">En cours...</div>
+
+    <hr />
+    <p>
+      <button onclick="relancer()">🔄 Relancer le diagnostic</button>
+      <button onclick="window.location = '/'">🏠 Retour accueil</button>
+    </p>
+
+    <script>
+      // ── Résolution URL backend (même logique que personnel.js) ──
+      function getBase() {
+        if (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL)
+          return window.APP_CONFIG.API_BASE_URL.replace(/\/api\/?$/, "");
+        var h = window.location.hostname;
+        if (h === "localhost" || h === "127.0.0.1")
+          return "http://localhost:5000";
+        return window.location.origin;
+      }
+
+      function relancer() {
+        document.getElementById("step1").innerHTML = "En cours...";
+        document.getElementById("step2").innerHTML = "En cours...";
+        document.getElementById("step3").innerHTML = "En cours...";
+        document.getElementById("step4").innerHTML = "En cours...";
+        document.getElementById("step5").innerHTML = "En cours...";
+        lancer();
+      }
+
+      function lancer() {
+        var base = getBase();
+        var apiUrl = base + "/api/personnel";
+
+        // ── Étape 1 ──
+        document.getElementById("step1").innerHTML =
+          '<span class="ok">✓</span> Base URL = <strong>' +
+          base +
+          "</strong>\n" +
+          "→ URL de l'API = <strong>" +
+          apiUrl +
+          "</strong>";
+
+        // ── Étape 2 & 3 ──
+        fetch(apiUrl)
+          .then(function (r) {
+            var status = r.status;
+            var ok = r.ok;
+            document.getElementById("step2").innerHTML =
+              (ok
+                ? '<span class="ok">✓</span>'
+                : '<span class="err">✗</span>') +
+              " Statut HTTP : <strong>" +
+              status +
+              "</strong>" +
+              (ok
+                ? " (succès)"
+                : " (ERREUR — vérifier CORS ou que le serveur tourne)");
+            return r.json();
+          })
+          .then(function (json) {
+            // Étape 3 — JSON brut
+            document.getElementById("step3").innerHTML = JSON.stringify(
+              json,
+              null,
+              2,
+            );
+
+            // Étape 4 — Prévisualisation
+            var div4 = document.getElementById("step4");
+            if (!json.success) {
+              div4.innerHTML =
+                '<span class="err">✗ json.success = false</span>';
+              return;
+            }
+            if (!json.data || json.data.length === 0) {
+              div4.innerHTML =
+                '<span class="warn">⚠ Aucun membre dans json.data (tableau vide)</span>';
+              return;
+            }
+
+            div4.innerHTML =
+              '<span class="ok">✓ ' +
+              json.data.length +
+              " membre(s) reçu(s)</span><br><br>";
+            json.data.forEach(function (m) {
+              var photoUrl = m.photo ? base + m.photo : null;
+              var photoHtml = photoUrl
+                ? '<img src="' +
+                  photoUrl +
+                  '" onerror="this.outerHTML=\'<div class=&quot;ph&quot;>👤</div>\'">'
+                : '<div class="ph">👤</div>';
+
+              var card = document.createElement("div");
+              card.className = "card-preview";
+              card.innerHTML =
+                photoHtml +
+                "<p>" +
+                (m.name || "<em>sans nom</em>") +
+                "</p>" +
+                "<small>" +
+                (m.poste || "<em>sans poste</em>") +
+                "</small>" +
+                (m.photo
+                  ? '<br><small style="color:#888;font-size:10px">📷 ' +
+                    m.photo +
+                    "</small>"
+                  : '<br><small style="color:orange">⚠ pas de photo</small>');
+              div4.appendChild(card);
+            });
+
+            // Étape 5 — Vérifier les URLs de photos
+            var div5 = document.getElementById("step5");
+            var avecPhoto = json.data.filter(function (m) {
+              return m.photo;
+            });
+            if (avecPhoto.length === 0) {
+              div5.innerHTML =
+                '<span class="warn">⚠ Aucun membre n\'a de photo enregistrée dans la base de données.<br>→ Allez dans l\'admin, cliquez sur "Photo" pour chaque membre et uploadez une image.</span>';
+              return;
+            }
+
+            div5.innerHTML = "";
+            avecPhoto.forEach(function (m) {
+              var url = base + m.photo;
+              var row = document.createElement("p");
+              fetch(url, { method: "HEAD" })
+                .then(function (r) {
+                  row.innerHTML =
+                    (r.ok
+                      ? '<span class="ok">✓</span>'
+                      : '<span class="err">✗</span>') +
+                    " <code>" +
+                    url +
+                    "</code> → HTTP " +
+                    r.status;
+                })
+                .catch(function () {
+                  row.innerHTML =
+                    '<span class="err">✗</span> <code>' +
+                    url +
+                    "</code> → inaccessible (CORS ou 404)";
+                });
+              div5.appendChild(row);
+            });
+          })
+          .catch(function (err) {
+            document.getElementById("step2").innerHTML =
+              '<span class="err">✗ ERREUR FETCH : ' +
+              err.message +
+              "</span>\n\n" +
+              "Causes possibles :\n" +
+              "• Le serveur backend n'est pas démarré (npm start dans /backend)\n" +
+              "• Le port 5000 est bloqué\n" +
+              "• Problème CORS (origin http://localhost:8080 non autorisé)";
+            document.getElementById("step3").innerHTML = "—";
+            document.getElementById("step4").innerHTML = "—";
+            document.getElementById("step5").innerHTML = "—";
+          });
+      }
+
+      // Charger APP_CONFIG si disponible, puis lancer
+      window.addEventListener("load", function () {
+        lancer();
+      });
+    </script>
+  </body>
+</html>

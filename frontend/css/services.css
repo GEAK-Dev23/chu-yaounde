@@ -1,0 +1,332 @@
+/* SERVICES PAGE STYLES */
+.page-hero.services-hero {
+    background: linear-gradient(135deg, var(--chu-blue) 0%, var(--chu-dark-blue) 100%);
+    color: white;
+    padding: 120px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.services-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../assets/images/hero/services-pattern.svg') no-repeat center center;
+    background-size: cover;
+    opacity: 0.1;
+}
+
+.hero-search {
+    margin-top: 40px;
+}
+
+.search-box-large {
+    position: relative;
+    max-width: 500px;
+}
+
+.search-box-large .form-control {
+    border-radius: 50px;
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    border: none;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.search-btn-large {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--chu-blue);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.search-btn-large:hover {
+    background: var(--chu-dark-blue);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.hero-stats-services {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-item h3 {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.stat-item p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 0.9rem;
+}
+
+/* Services Navigation */
+.services-navigation {
+    background: var(--chu-light-blue);
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.services-nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.nav-item {
+    color: var(--chu-dark);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: var(--chu-blue);
+    color: white;
+}
+
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--chu-blue);
+}
+
+/* Service Detail Cards */
+.service-detail-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+    overflow: hidden;
+    height: 100%;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 0.8s ease forwards;
+}
+
+.service-detail-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.service-image {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.service-detail-card:hover .service-image img {
+    transform: scale(1.1);
+}
+
+.service-content {
+    padding: 30px;
+}
+
+.service-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.service-icon-large {
+    font-size: 2.5rem;
+    color: var(--chu-blue);
+    background: var(--chu-light-blue);
+    padding: 15px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.service-detail-card:hover .service-icon-large {
+    transform: scale(1.1);
+    background: var(--chu-blue);
+    color: white;
+}
+
+.service-header h3 {
+    margin: 0;
+    color: var(--chu-dark);
+    font-size: 1.5rem;
+}
+
+.service-content p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.service-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.feature {
+    background: var(--chu-light-blue);
+    color: var(--chu-blue);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.feature:hover {
+    background: var(--chu-blue);
+    color: white;
+}
+
+.service-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.service-actions .btn {
+    flex: 1;
+    min-width: 120px;
+}
+
+/* CTA Services */
+.cta-services {
+    background: linear-gradient(135deg, var(--chu-green) 0%, #45a049 100%);
+    color: white;
+    border-radius: 20px;
+    margin: 40px auto;
+    max-width: 95%;
+}
+
+.cta-services h2 {
+    margin-bottom: 10px;
+}
+
+.cta-services .lead {
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+/* Animations */
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.service-detail-card:nth-child(1) { animation-delay: 0.1s; }
+.service-detail-card:nth-child(2) { animation-delay: 0.2s; }
+.service-detail-card:nth-child(3) { animation-delay: 0.3s; }
+.service-detail-card:nth-child(4) { animation-delay: 0.4s; }
+.service-detail-card:nth-child(5) { animation-delay: 0.5s; }
+.service-detail-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Responsive Services */
+@media (max-width: 768px) {
+    .services-nav {
+        gap: 15px;
+    }
+    
+    .nav-item {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .nav-item.active::after {
+        display: none;
+    }
+    
+    .service-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .service-actions {
+        justify-content: center;
+    }
+    
+    .search-box-large {
+        max-width: 100%;
+    }
+    
+    .hero-stats-services {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .cta-services .text-end {
+        text-align: center !important;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .services-hero {
+        padding: 100px 0 60px;
+        text-align: center;
+    }
+    
+    .services-nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .service-features {
+        justify-content: center;
+    }
+    
+    .service-actions {
+        flex-direction: column;
+    }
+    
+    .service-actions .btn {
+        width: 100%;
+    }
+}

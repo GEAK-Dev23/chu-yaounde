@@ -1,0 +1,134 @@
+/* ================================================
+   NOTRE PERSONNEL — CHU YAOUNDÉ
+   Carrousel infini droite vers gauche
+   ================================================ */
+
+.personnel-section {
+  background: #ffffff;
+  padding: 60px 0;
+}
+
+.personnel-carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.personnel-carousel-wrapper::before,
+.personnel-carousel-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.personnel-carousel-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, #ffffff, transparent);
+}
+.personnel-carousel-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, #ffffff, transparent);
+}
+
+/* IMPORTANT : width:max-content pour que translateX(-50%)
+   soit calculé sur la largeur réelle des cartes */
+.personnel-track {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  gap: 24px;
+  padding: 16px 40px 24px;
+  will-change: transform;
+}
+
+.personnel-track.is-ready {
+  animation: personnelScroll 20s linear infinite;
+}
+
+.personnel-section:hover .personnel-track.is-ready {
+  animation-play-state: paused;
+}
+
+.personnel-card {
+  flex: 0 0 160px;
+  width: 160px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.personnel-card:hover {
+  transform: translateY(-6px);
+}
+
+.personnel-photo-frame {
+  width: 160px;
+  height: 190px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #e8f0fe;
+  margin: 0 auto 10px;
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 14px rgba(13, 110, 253, 0.15);
+}
+
+.personnel-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.personnel-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+  color: #90afd4;
+  background: linear-gradient(145deg, #e3effd, #ccdff5);
+}
+
+.personnel-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.personnel-poste {
+  font-size: 11px;
+  color: #0d6efd;
+  font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes personnelScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 576px) {
+  .personnel-card {
+    flex: 0 0 130px;
+    width: 130px;
+  }
+  .personnel-photo-frame {
+    width: 130px;
+    height: 155px;
+  }
+}

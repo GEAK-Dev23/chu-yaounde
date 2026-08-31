@@ -1,0 +1,802 @@
+/* documents.css - Styles spécifiques à la page Documents */
+
+/* Hero Section Documents */
+.documents-hero {
+  background: linear-gradient(
+    135deg,
+    var(--chu-blue) 0%,
+    var(--chu-dark-blue) 100%
+  );
+  color: white;
+  padding: 100px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.documents-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("../assets/images/hero/medical-pattern.svg") no-repeat center
+    center;
+  background-size: cover;
+  opacity: 0.1;
+  animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(1deg);
+  }
+}
+
+.documents-hero h1 {
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.documents-hero .lead {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.documents-nav {
+  margin-top: 2rem;
+}
+
+.documents-nav .btn {
+  border-width: 2px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.documents-nav .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.documents-icon {
+  font-size: 8rem;
+  opacity: 0.8;
+  animation: float 3s ease-in-out infinite;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Section Padding */
+.section-padding {
+  padding: 80px 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-header h2 {
+  font-weight: 700;
+  color: var(--chu-dark);
+}
+
+.section-header .lead {
+  color: #7f8c8d;
+  font-size: 1.2rem;
+}
+
+/* Cards de Documents */
+.document-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.document-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    135deg,
+    var(--chu-blue) 0%,
+    var(--chu-dark-blue) 100%
+  );
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.document-card:hover::before {
+  transform: scaleX(1);
+}
+
+.document-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.document-icon {
+  font-size: 3rem;
+  color: var(--chu-blue);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.document-card:hover .document-icon {
+  transform: scale(1.1);
+  color: var(--chu-dark-blue);
+}
+
+.document-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.document-content h5 {
+  color: var(--chu-dark);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.document-content p {
+  color: #7f8c8d;
+  flex: 1;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.document-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.document-meta .badge {
+  font-size: 0.75rem;
+  padding: 0.375rem 0.75rem;
+}
+
+.file-size {
+  color: #95a5a6;
+  font-size: 0.875rem;
+}
+
+.document-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.document-actions .btn {
+  flex: 1;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+}
+
+/* Filtres Appels d'Offres */
+.tenders-filter {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  border: 1px solid #e9ecef;
+}
+
+/* Cards Appels d'Offres */
+.tender-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+  position: relative;
+}
+
+.tender-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    135deg,
+    var(--chu-blue) 0%,
+    var(--chu-dark-blue) 100%
+  );
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.tender-card:hover::before {
+  transform: scaleX(1);
+}
+
+.tender-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.tender-header {
+  background: #f8f9fa;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tender-ref {
+  color: #7f8c8d;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.tender-body {
+  padding: 1.5rem;
+}
+
+.tender-body h5 {
+  color: var(--chu-dark);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.tender-body p {
+  color: #7f8c8d;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.tender-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #5d6d7e;
+  font-size: 0.9rem;
+}
+
+.detail-item i {
+  color: var(--chu-blue);
+  width: 16px;
+}
+
+.tender-actions {
+  padding: 1rem 1.5rem;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.tender-actions .btn {
+  flex: 1;
+}
+
+/* Cards Rapports */
+.report-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  padding-top: 5rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+  height: 100%;
+  position: relative;
+  overflow: visible;
+}
+
+.report-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    135deg,
+    var(--chu-blue) 0%,
+    var(--chu-dark-blue) 100%
+  );
+  border-radius: 15px 15px 0 0;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.report-card:hover::before {
+  transform: scaleX(1);
+}
+
+.report-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.report-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: var(--chu-blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 86, 166, 0.3);
+  transition: all 0.3s ease;
+}
+
+.report-card:hover .report-badge {
+  transform: scale(1.1);
+  background: var(--chu-dark-blue);
+}
+
+.report-content {
+  margin-top: 0;
+}
+
+.report-content h5 {
+  color: var(--chu-dark);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.report-content p {
+  color: #7f8c8d;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.report-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  color: #95a5a6;
+}
+
+.report-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat strong {
+  display: block;
+  font-size: 1.5rem;
+  color: var(--chu-dark);
+  font-weight: 700;
+}
+
+.stat span {
+  font-size: 0.75rem;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.report-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.report-actions .btn {
+  flex: 1;
+}
+
+/* Tableau des Rapports */
+.reports-table {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
+}
+
+.reports-table h4 {
+  color: var(--chu-dark);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.reports-table .table {
+  margin-bottom: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.reports-table .table th {
+  background: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  color: var(--chu-dark);
+  font-weight: 600;
+  padding: 1rem;
+}
+
+.reports-table .table td {
+  padding: 1rem;
+  vertical-align: middle;
+  border-color: #e9ecef;
+}
+
+.reports-table .table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Cards Publications */
+.publication-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.publication-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    135deg,
+    var(--chu-blue) 0%,
+    var(--chu-dark-blue) 100%
+  );
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.publication-card:hover::before {
+  transform: scaleX(1);
+}
+
+.publication-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.publication-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.journal {
+  color: var(--chu-red);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.publication-header .date {
+  color: #95a5a6;
+  font-size: 0.875rem;
+}
+
+.publication-card h5 {
+  color: var(--chu-dark);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.authors {
+  color: var(--chu-blue);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.publication-card p:not(.authors) {
+  color: #7f8c8d;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.publication-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  color: #95a5a6;
+}
+
+.doi {
+  font-family: monospace;
+  background: #f8f9fa;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.citations {
+  background: #e8f6f3;
+  color: var(--chu-green);
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-weight: 500;
+}
+
+.publication-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.publication-actions .btn {
+  flex: 1;
+  font-size: 0.875rem;
+}
+
+/* Badges */
+.badge {
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+.bg-success {
+  background-color: var(--chu-green) !important;
+}
+.bg-warning {
+  background-color: var(--chu-orange) !important;
+}
+.bg-info {
+  background-color: var(--chu-blue) !important;
+}
+.bg-primary {
+  background-color: var(--chu-dark-blue) !important;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.document-card,
+.tender-card,
+.report-card,
+.publication-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Toast de téléchargement */
+.download-toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1060;
+  animation: slideInRight 0.3s ease-out;
+  border-left: 4px solid var(--chu-green);
+  max-width: 300px;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .documents-hero {
+    padding: 80px 0 60px;
+    text-align: center;
+  }
+
+  .documents-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .documents-icon {
+    font-size: 5rem;
+    margin-top: 2rem;
+  }
+
+  .section-padding {
+    padding: 60px 0;
+  }
+
+  .document-actions,
+  .tender-actions,
+  .report-actions,
+  .publication-actions {
+    flex-direction: column;
+  }
+
+  .tender-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .publication-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .publication-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 576px) {
+  .documents-hero h1 {
+    font-size: 2rem;
+  }
+
+  .documents-hero .lead {
+    font-size: 1rem;
+  }
+
+  .documents-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .documents-nav .btn {
+    margin: 0;
+  }
+
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .document-card,
+  .tender-card,
+  .report-card,
+  .publication-card {
+    padding: 1.5rem;
+  }
+
+  .document-icon {
+    font-size: 2.5rem;
+  }
+
+  .report-badge {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    top: 15px;
+    right: 15px;
+  }
+
+  .reports-table {
+    padding: 1rem;
+  }
+
+  .reports-table .table-responsive {
+    font-size: 0.875rem;
+  }
+
+  .tenders-filter .row {
+    gap: 1rem;
+  }
+}
+
+/* Mode impression */
+@media print {
+  .documents-hero,
+  .documents-nav,
+  .tenders-filter,
+  .chatbot-widget,
+  .chu-header,
+  .header-top,
+  .main-footer {
+    display: none !important;
+  }
+
+  .document-card,
+  .tender-card,
+  .report-card,
+  .publication-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+  }
+
+  .section-padding {
+    padding: 20px 0 !important;
+  }
+
+  .btn {
+    display: none !important;
+  }
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .document-card,
+  .tender-card,
+  .report-card,
+  .publication-card,
+  .documents-icon,
+  .report-badge {
+    animation: none;
+    transition: none;
+  }
+
+  .documents-nav .btn:hover,
+  .document-card:hover,
+  .tender-card:hover,
+  .report-card:hover,
+  .publication-card:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,1312 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Espace Étudiant - CHU Yaoundé</title>
+
+    <!-- CSS EXTERNES -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- NOS FICHIERS CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/header.css" />
+    <link rel="stylesheet" href="../css/footer.css" />
+    <link rel="stylesheet" href="../css/chatbot.css" />
+    <link rel="stylesheet" href="../css/etudiants.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+
+    <!-- META TAGS -->
+    <meta
+      name="description"
+      content="Espace Étudiant du CHU Yaoundé - Stages, formations, concours et plateforme pédagogique"
+    />
+    <meta property="og:title" content="Espace Étudiant - CHU Yaoundé" />
+    <meta
+      property="og:description"
+      content="Stages, formations, concours et plateforme pédagogique pour les étudiants en médecine"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="../assets/logos/chu-logo.png" />
+  </head>
+  <body>
+    <!-- Header Top Bar -->
+    <div class="header-top">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <span data-translate="emergency">
+              <i class="fas fa-phone me-1"></i> Urgences : 651 94 80 64
+            </span>
+            <span class="ms-3">
+              <i class="fas fa-envelope me-1"></i>
+              <a href="mailto:chudeyaounde@gmail.com">chudeyaounde@gmail.com</a>
+            </span>
+          </div>
+          <div class="col-md-6 text-end">
+            <select
+              class="form-select form-select-sm d-inline-block w-auto"
+              aria-label="Sélection de la langue"
+              id="languageSelector"
+            >
+              <option value="fr">Français</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="chu-header">
+      <div class="container">
+        <div class="row align-items-center py-3">
+          <!-- Logo + Menu Hamburger -->
+          <div class="col-md-6">
+            <div class="logo-container">
+              <a
+                class="navbar-brand"
+                href="../index.html"
+                aria-label="CHU Yaoundé - Retour à l'accueil"
+              >
+                <img
+                  src="../assets/logos/chu-logo-fr.jpeg"
+                  alt="CHU Yaoundé"
+                  class="chu-logo"
+                  data-logo
+                  onerror="
+                    this.onerror = null;
+                    this.src = '../assets/logos/chu-logo.jpeg';
+                  "
+                />
+              </a>
+              <div class="menu-container">
+                <button
+                  class="hamburger-menu"
+                  id="menuToggle"
+                  aria-label="Ouvrir le menu"
+                  aria-expanded="false"
+                >
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+                <span class="menu-text" data-translate="menu">Menu</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Search et Actions -->
+          <div class="col-md-6 text-end">
+            <div class="d-flex align-items-center justify-content-end gap-3">
+              <div class="search-box d-none-mobile">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Rechercher..."
+                  aria-label="Rechercher sur le site"
+                />
+                <button class="search-btn" aria-label="Lancer la recherche">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+              <button
+                class="btn btn-outline-primary"
+                onclick="window.location.href = 'espace-patient.html'"
+              >
+                <i class="fas fa-user me-1"></i>
+                <span data-translate="patient-space">Espace Patient</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emergency Banner -->
+      <div class="emergency-alert">
+        <div class="container">
+          <i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>
+          <strong data-translate="emergency-service">Service d'Urgences</strong>
+          <span class="ms-3">
+            <span data-translate="wait-time">Temps d'attente moyen</span> :
+            <strong id="waitTime">25 minutes</strong>
+          </span>
+          <a href="urgences.html" class="btn btn-light btn-sm ms-3">
+            <span data-translate="view-emergency">Voir les urgences</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Panneau latéral (Menu) - Même que l'accueil -->
+    <div
+      class="side-panel"
+      id="sidePanel"
+      role="dialog"
+      aria-label="Menu principal"
+      aria-hidden="true"
+    >
+      <div class="panel-header">
+        <h5 class="mb-0" data-translate="menu">Menu</h5>
+        <button class="close-panel" id="closePanel" aria-label="Fermer le menu">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <nav
+        class="panel-nav"
+        role="navigation"
+        aria-label="Navigation principale"
+      >
+        <div class="panel-nav-item">
+          <a href="../index.html" data-translate="home">Accueil</a>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="presentation.html" data-translate="presentation"
+            >Présentation du CHU</a
+          >
+          <div class="panel-submenu">
+            <a href="presentation.html#histoire" data-translate="history"
+              >Histoire et Mission</a
+            >
+            <a
+              href="presentation.html#organigramme"
+              data-translate="organization"
+              >Organigramme</a
+            >
+            <a href="presentation.html#chiffres" data-translate="key-figures"
+              >Chiffres Clés</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="services.html" data-translate="services-directory"
+            >Annuaire des Services</a
+          >
+          <div class="panel-submenu" id="services-menu">
+            <a href="services.html#medical" data-translate="medical-services"
+              >Services Médicaux</a
+            >
+            <a
+              href="services.html#chirurgicaux"
+              data-translate="surgical-services"
+              >Services Chirurgicaux</a
+            >
+            <a
+              href="services.html#techniques"
+              data-translate="technical-services"
+              >Services Techniques</a
+            >
+            <a
+              href="services.html#specialises"
+              data-translate="specialized-services"
+              >Services Spécialisés</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="infos-pratiques.html" data-translate="practical-info"
+            >Informations Pratiques</a
+          >
+          <div class="panel-submenu">
+            <a href="infos-pratiques.html#rdv" data-translate="appointment"
+              >Prise de Rendez-vous</a
+            >
+            <a href="infos-pratiques.html#admission" data-translate="admission"
+              >Admission</a
+            >
+            <a href="infos-pratiques.html#visites" data-translate="visits"
+              >Règlement des Visites</a
+            >
+            <a href="infos-pratiques.html#urgence" data-translate="emergency"
+              >Urgences</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="actualites.html" data-translate="news-publications"
+            >Actualités & Publications</a
+          >
+          <div class="panel-submenu" id="news-menu">
+            <a href="actualites.html#news" data-translate="news">Actualités</a>
+            <a href="actualites.html#events" data-translate="events"
+              >Événements</a
+            >
+            <a href="actualites.html#publications" data-translate="publications"
+              >Publications Scientifiques</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item active">
+          <a href="etudiants.html" data-translate="student-space"
+            >Espace Étudiant</a
+          >
+          <div class="panel-submenu">
+            <a href="etudiants.html#stages" data-translate="internships"
+              >Stages</a
+            >
+            <a href="etudiants.html#formations" data-translate="training"
+              >Formations</a
+            >
+            <a href="etudiants.html#concours" data-translate="exams"
+              >Concours</a
+            >
+            <a href="etudiants.html#pedagogie" data-translate="platform"
+              >Plateforme Pédagogique</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="documents.html" data-translate="useful-documents"
+            >Documents Utiles</a
+          >
+          <div class="panel-submenu">
+            <a href="documents.html#formulaires" data-translate="forms"
+              >Formulaires</a
+            >
+            <a href="documents.html#appels-offres" data-translate="tenders"
+              >Appels d'Offres</a
+            >
+            <a href="documents.html#rapports" data-translate="reports"
+              >Rapports</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a href="contact.html" data-translate="contact-access"
+            >Contacts & Accès</a
+          >
+          <div class="panel-submenu">
+            <a href="contact.html#coordonnees" data-translate="coordinates"
+              >Coordonnées</a
+            >
+            <a href="contact.html#plan-acces" data-translate="access-plan"
+              >Plan d'Accès</a
+            >
+            <a href="contact.html#formulaire" data-translate="contact-form"
+              >Formulaire de Contact</a
+            >
+          </div>
+        </div>
+
+        <div class="panel-nav-item">
+          <a
+            href="urgences.html"
+            style="color: var(--chu-red); font-weight: bold"
+          >
+            <i class="fas fa-ambulance me-2"></i>
+            <span data-translate="emergency">Urgences</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <div
+      class="panel-overlay"
+      id="panelOverlay"
+      tabindex="-1"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Fil d'Ariane" class="bg-light py-3">
+      <div class="container">
+        <ol class="breadcrumb mb-0" id="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="../index.html" data-translate="home">Accueil</a>
+          </li>
+          <li class="breadcrumb-item active" data-translate="student-space">
+            Espace Étudiant
+          </li>
+        </ol>
+      </div>
+    </nav>
+
+    <!-- Hero Section Étudiant -->
+    <section class="student-hero" aria-labelledby="student-hero-title">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h1
+              class="display-4 fw-bold mb-4 text-white"
+              id="student-hero-title"
+              data-translate="student-hero-title"
+            >
+              Espace Étudiant
+            </h1>
+            <p
+              class="lead mb-4 text-white"
+              data-translate="student-hero-description"
+            >
+              Formation médicale d'excellence au cœur du CHU Yaoundé
+            </p>
+            <p class="text-white mb-4" data-translate="student-hero-mission">
+              Développez vos compétences médicales grâce à nos programmes de
+              stages, formations et ressources pédagogiques innovantes.
+            </p>
+            <div class="d-flex gap-3 flex-wrap">
+              <a href="#stages" class="btn btn-light btn-lg">
+                <i class="fas fa-briefcase me-2"></i>
+                <span data-translate="internships">Stages</span>
+              </a>
+              <a href="#formations" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-graduation-cap me-2"></i>
+                <span data-translate="training">Formations</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="student-hero-image">
+              <div
+                class="image-container"
+                style="height: 400px; border-radius: 20px"
+              >
+                <img
+                  src="../assets/images/etudiants/et1.jpg"
+                  alt="Étudiants en médecine au CHU Yaoundé"
+                  class="adaptive-image"
+                  onerror="
+                    this.style.display = 'none';
+                    this.nextElementSibling.style.display = 'flex';
+                  "
+                />
+                <div
+                  class="image-placeholder"
+                  style="height: 400px; display: none; border-radius: 20px"
+                >
+                  <div class="text-center text-white">
+                    <i
+                      class="fas fa-user-graduate fa-4x mb-3"
+                      aria-hidden="true"
+                    ></i>
+                    <p data-translate="student-hero-image">
+                      Étudiants en médecine<br /><small
+                        >À remplacer par votre image</small
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Interne -->
+    <section class="student-nav-section py-4 bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <nav class="student-internal-nav">
+              <a href="#stages" class="nav-item" data-translate="internships">
+                <i class="fas fa-briefcase me-2"></i>Stages
+              </a>
+              <a href="#formations" class="nav-item" data-translate="training">
+                <i class="fas fa-graduation-cap me-2"></i>Formations
+              </a>
+              <a href="#concours" class="nav-item" data-translate="exams">
+                <i class="fas fa-file-alt me-2"></i>Concours
+              </a>
+              <a href="#pedagogie" class="nav-item" data-translate="platform">
+                <i class="fas fa-laptop me-2"></i>Plateforme Pédagogique
+              </a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Stages -->
+    <section id="stages" class="section-padding" aria-labelledby="stages-title">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <h2
+              class="text-primary mb-3"
+              id="stages-title"
+              data-translate="internships"
+            >
+              Stages Hospitaliers
+            </h2>
+            <p class="lead" data-translate="stages-description">
+              Acquérez une expérience pratique dans nos différents services
+              médicaux
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-4" id="stages-container">
+          <!-- Chargé dynamiquement depuis l'API -->
+        </div>
+
+        <!-- Processus de Candidature -->
+        <div class="row mt-5">
+          <div class="col-12">
+            <div class="application-process">
+              <h3 class="text-center mb-4" data-translate="application-process">
+                Processus de Candidature
+              </h3>
+              <div class="process-steps">
+                <div class="process-step">
+                  <div class="step-number">1</div>
+                  <h5 data-translate="step-1">Dépôt de dossier</h5>
+                  <p data-translate="step-1-desc">
+                    CV, lettre de motivation, relevés de notes
+                  </p>
+                </div>
+                <div class="process-step">
+                  <div class="step-number">2</div>
+                  <h5 data-translate="step-2">Entretien</h5>
+                  <p data-translate="step-2-desc">
+                    Rencontre avec le comité de sélection
+                  </p>
+                </div>
+                <div class="process-step">
+                  <div class="step-number">3</div>
+                  <h5 data-translate="step-3">Validation</h5>
+                  <p data-translate="step-3-desc">
+                    Notification d'acceptation et convention
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Formations -->
+    <section
+      id="formations"
+      class="section-padding bg-light"
+      aria-labelledby="formations-title"
+    >
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <h2
+              class="text-primary mb-3"
+              id="formations-title"
+              data-translate="training"
+            >
+              Formations Continues
+            </h2>
+            <p class="lead" data-translate="training-description">
+              Perfectionnez-vous avec nos programmes de formation spécialisés
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-4" id="formations-container">
+          <!-- Chargé dynamiquement depuis l'API -->
+        </div>
+
+        <!-- Calendrier des Formations -->
+        <div class="row mt-5">
+          <div class="col-12">
+            <div class="formation-calendar">
+              <h3 class="text-center mb-4" data-translate="training-calendar">
+                Calendrier des Formations 2024
+              </h3>
+              <div class="calendar-grid">
+                <div class="calendar-item">
+                  <div class="calendar-date">
+                    <span class="month" data-translate="january">Janvier</span>
+                    <span class="day">15</span>
+                  </div>
+                  <div class="calendar-content">
+                    <h5 data-translate="echo-training">Échographie Médicale</h5>
+                    <p data-translate="echo-training-desc">
+                      Formation aux techniques d'échographie diagnostique
+                    </p>
+                  </div>
+                </div>
+                <div class="calendar-item">
+                  <div class="calendar-date">
+                    <span class="month" data-translate="march">Mars</span>
+                    <span class="day">10</span>
+                  </div>
+                  <div class="calendar-content">
+                    <h5 data-translate="cardio-training">
+                      Cardiologie Interventionnelle
+                    </h5>
+                    <p data-translate="cardio-training-desc">
+                      Initiation aux procédures de cardiologie interventionnelle
+                    </p>
+                  </div>
+                </div>
+                <div class="calendar-item">
+                  <div class="calendar-date">
+                    <span class="month" data-translate="june">Juin</span>
+                    <span class="day">05</span>
+                  </div>
+                  <div class="calendar-content">
+                    <h5 data-translate="neuro-training">Neurologie Avancée</h5>
+                    <p data-translate="neuro-training-desc">
+                      Perfectionnement en pathologies neurologiques complexes
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Concours -->
+    <section
+      id="concours"
+      class="section-padding"
+      aria-labelledby="concours-title"
+    >
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <h2
+              class="text-primary mb-3"
+              id="concours-title"
+              data-translate="exams"
+            >
+              Concours et Examens
+            </h2>
+            <p class="lead" data-translate="exams-description">
+              Informations sur les concours d'entrée et examens spécialisés
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-4" id="concours-container">
+          <!-- Chargé dynamiquement depuis l'API -->
+        </div>
+
+        <!-- Préparation aux Concours -->
+        <div class="row mt-5">
+          <div class="col-12">
+            <div class="preparation-section">
+              <h3 class="text-center mb-4" data-translate="exam-preparation">
+                Préparation aux Concours
+              </h3>
+              <div class="row g-4">
+                <div class="col-md-4">
+                  <div class="preparation-item">
+                    <i class="fas fa-book preparation-icon"></i>
+                    <h5 data-translate="revision-courses">
+                      Stages de Révision
+                    </h5>
+                    <p data-translate="revision-courses-desc">
+                      Sessions intensives de révision avec des professeurs
+                      expérimentés
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="preparation-item">
+                    <i class="fas fa-file-alt preparation-icon"></i>
+                    <h5 data-translate="mock-exams">Concours Blancs</h5>
+                    <p data-translate="mock-exams-desc">
+                      Simulations d'examens dans les conditions réelles
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="preparation-item">
+                    <i class="fas fa-chalkboard-teacher preparation-icon"></i>
+                    <h5 data-translate="coaching">Coaching Personnalisé</h5>
+                    <p data-translate="coaching-desc">
+                      Accompagnement individuel pour optimiser votre préparation
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Plateforme Pédagogique -->
+    <section
+      id="pedagogie"
+      class="section-padding bg-light"
+      aria-labelledby="platform-title"
+    >
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <h2
+              class="text-primary mb-3"
+              id="platform-title"
+              data-translate="platform"
+            >
+              Plateforme Pédagogique
+            </h2>
+            <p class="lead" data-translate="platform-description">
+              Accédez à nos ressources pédagogiques en ligne
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <!-- Ressources en Ligne -->
+          <div class="col-lg-8">
+            <div class="platform-card">
+              <div class="platform-header">
+                <h4 data-translate="online-resources">
+                  Ressources Pédagogiques
+                </h4>
+                <span class="badge bg-success" data-translate="available"
+                  >Indisponible</span
+                >
+              </div>
+              <div class="platform-body">
+                <div class="resource-categories">
+                  <div class="resource-category">
+                    <i class="fas fa-video resource-icon"></i>
+                    <div>
+                      <h5 data-translate="video-courses">Cours Vidéo</h5>
+                      <p data-translate="video-courses-desc">
+                        +500 heures de cours enregistrés par nos experts
+                      </p>
+                    </div>
+                  </div>
+                  <div class="resource-category">
+                    <i class="fas fa-file-pdf resource-icon"></i>
+                    <div>
+                      <h5 data-translate="documents">Documents</h5>
+                      <p data-translate="documents-desc">
+                        Polycopiés, articles scientifiques, protocoles
+                      </p>
+                    </div>
+                  </div>
+                  <div class="resource-category">
+                    <i class="fas fa-database resource-icon"></i>
+                    <div>
+                      <h5 data-translate="case-studies">Études de Cas</h5>
+                      <p data-translate="case-studies-desc">
+                        Cas cliniques réels avec corrigés détaillés
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="platform-actions">
+                  <button
+                    class="btn btn-primary"
+                    data-translate="access-platform"
+                  >
+                    Accéder à la plateforme
+                  </button>
+                  <button class="btn btn-outline-primary" data-translate="demo">
+                    Voir la démo
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Outils d'Apprentissage -->
+          <div class="col-lg-4">
+            <div class="tools-card">
+              <h4 data-translate="learning-tools">Outils d'Apprentissage</h4>
+              <div class="tools-list">
+                <div class="tool-item">
+                  <i class="fas fa-comments tool-icon"></i>
+                  <span data-translate="discussion-forums"
+                    >Forums de discussion</span
+                  >
+                </div>
+                <div class="tool-item">
+                  <i class="fas fa-chart-line tool-icon"></i>
+                  <span data-translate="progress-tracking"
+                    >Suivi de progression</span
+                  >
+                </div>
+                <div class="tool-item">
+                  <i class="fas fa-mobile-alt tool-icon"></i>
+                  <span data-translate="mobile-app">Application mobile</span>
+                </div>
+                <div class="tool-item">
+                  <i class="fas fa-question-circle tool-icon"></i>
+                  <span data-translate="qna">Q/R en direct</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Statistiques -->
+            <!--<div class="stats-card mt-4">
+              <h5 data-translate="platform-stats">
+                Statistiques de la Plateforme
+              </h5>
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <span class="stat-number">2,500+</span>
+                  <span class="stat-label" data-translate="active-students"
+                    >Étudiants actifs</span
+                  >
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">150+</span>
+                  <span class="stat-label" data-translate="courses"
+                    >Cours disponibles</span
+                  >
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">95%</span>
+                  <span class="stat-label" data-translate="satisfaction"
+                    >Taux de satisfaction</span
+                  >
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+
+        <!-- Témoignages Étudiants -->
+        <div class="row mt-5">
+          <div class="col-12">
+            <div class="student-testimonials">
+              <h3
+                class="text-center mb-4"
+                data-translate="student-testimonials"
+              >
+                Témoignages d'Étudiants
+              </h3>
+              <div class="testimonials-slider">
+                <div class="testimonial-item">
+                  <div class="testimonial-content">
+                    <p data-translate="testimonial-1">
+                      "La plateforme pédagogique du CHU a révolutionné ma façon
+                      d'apprendre. Les ressources sont complètes et facilement
+                      accessibles."
+                    </p>
+                    <div class="testimonial-author">
+                      <strong>Marie K.</strong>
+                      <span data-translate="internal-medicine-student"
+                        >Étudiante en Médecine Interne</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="testimonial-item">
+                  <div class="testimonial-content">
+                    <p data-translate="testimonial-2">
+                      "Les stages au CHU m'ont offert une expérience pratique
+                      inestimable. L'encadrement par les seniors est
+                      exceptionnel."
+                    </p>
+                    <div class="testimonial-author">
+                      <strong>Jean-Paul M.</strong>
+                      <span data-translate="surgery-student"
+                        >Étudiant en Chirurgie</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Contact Étudiant -->
+    <section class="section-padding student-contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="mb-4" data-translate="student-contact-title">
+              Service des Études Médicales
+            </h2>
+            <p class="lead mb-4" data-translate="student-contact-description">
+              Notre équipe est à votre disposition pour vous accompagner dans
+              votre parcours de formation
+            </p>
+          </div>
+        </div>
+
+        <div class="row justify-content-center g-4 mb-4">
+          <div class="col-md-4 col-sm-6">
+            <div class="contact-item">
+              <i class="fas fa-envelope contact-icon"></i>
+              <div>
+                <h5 data-translate="email">Email</h5>
+                <p>
+                  <a href="mailto:chudeyaounde@gmail.com"
+                    >chudeyaounde@gmail.com</a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="contact-item">
+              <i class="fas fa-phone contact-icon"></i>
+              <div>
+                <h5 data-translate="phone">Téléphone</h5>
+                <p>651 94 80 64</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt contact-icon"></i>
+              <div>
+                <h5 data-translate="location">Localisation</h5>
+                <p data-translate="student-office">
+                  Bureau des Études Médicales, Bâtiment Principal, 2ème étage
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <div class="contact-actions mt-2">
+              <a
+                href="rendezvous.html"
+                class="btn btn-primary btn-lg me-3"
+                data-translate="make-appointment"
+              >
+                <i class="fas fa-calendar-check me-2"></i>Prendre Rendez-vous
+              </a>
+              <a
+                href="contact.html#formulaire"
+                class="btn btn-outline-primary btn-lg"
+                data-translate="contact-form"
+              >
+                <i class="fas fa-envelope me-2"></i>Formulaire de Contact
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer" role="contentinfo">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 mb-4">
+            <img
+              src="../assets/logos/chu-logo-fr-blanc.jpeg"
+              alt="CHU Yaoundé"
+              class="footer-logo mb-3"
+              data-logo-white
+              onerror="
+                this.onerror = null;
+                this.src = '../assets/logos/chu-logo-blanc.png';
+              "
+            />
+            <p data-translate="footer-description">
+              Centre Hospitalier Universitaire de Yaoundé<br />
+              Excellence en santé, enseignement et recherche
+            </p>
+            <div class="social-links">
+              <a href="#" aria-label="Facebook"
+                ><i class="fab fa-facebook fa-lg"></i
+              ></a>
+              <a href="#" aria-label="Twitter"
+                ><i class="fab fa-twitter fa-lg"></i
+              ></a>
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fab fa-linkedin fa-lg"></i
+              ></a>
+              <a href="#" aria-label="YouTube"
+                ><i class="fab fa-youtube fa-lg"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="patient-services">Services Patients</h5>
+            <div class="footer-links">
+              <a href="rendezvous.html" data-translate="make-appointment"
+                >Prendre Rendez-vous</a
+              >
+              <a href="services.html" data-translate="medical-services"
+                >Services Médicaux</a
+              >
+              <a href="urgences.html" data-translate="emergency">Urgences</a>
+              <a href="infos-pratiques.html" data-translate="practical-info"
+                >Informations Pratiques</a
+              >
+              <a href="documents.html" data-translate="useful-documents"
+                >Documents Utiles</a
+              >
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="professionals">Professionnels</h5>
+            <div class="footer-links">
+              <a href="#" data-translate="job-offers">Offres d'Emploi</a>
+              <a href="#" data-translate="training">Formations Continues</a>
+              <a href="#" data-translate="medical-resources"
+                >Ressources Médicales</a
+              >
+              <a href="etudiants.html" data-translate="student-space"
+                >Espace Étudiant</a
+              >
+              <a href="#" data-translate="research">Recherche et Innovation</a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4">
+            <h5 data-translate="contact">Contact</h5>
+            <div class="footer-links">
+              <p>
+                <i class="fas fa-map-marker-alt me-2"></i>
+                <span data-translate="address">Yaoundé, Cameroun</span>
+              </p>
+              <p>
+                <i class="fas fa-phone me-2"></i>
+                <span data-translate="emergency">Urgences</span>
+              </p>
+              <p>
+                <i class="fas fa-phone me-2"></i>
+                <span data-translate="standard">Standard</span> : +237 672 59 26
+                95
+              </p>
+              <p>
+                <i class="fas fa-envelope me-2"></i>
+                <a href="mailto:chudeyaounde@gmail.com"
+                  >chudeyaounde@gmail.com</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p class="mb-0">
+            &copy; 2024 CHU Yaoundé -
+            <span data-translate="all-rights">Tous droits réservés</span>. |
+            <a href="#" class="text-light" data-translate="legal"
+              >Mentions légales</a
+            >
+            |
+            <a href="#" class="text-light" data-translate="privacy"
+              >Politique de confidentialité</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Chatbot Widget - Même que l'accueil -->
+    <div class="chatbot-widget">
+      <div
+        class="chatbot-container"
+        id="chatbotContainer"
+        role="dialog"
+        aria-label="Assistant conversationnel"
+        aria-hidden="true"
+      >
+        <div class="chat-header">
+          <h6 class="mb-0">
+            <i class="fas fa-robot me-2" aria-hidden="true"></i
+            ><span data-translate="assistant-title">Assistant CHU</span>
+          </h6>
+          <small data-translate="assistant-subtitle"
+            >Comment puis-je vous aider ?</small
+          >
+        </div>
+        <div
+          class="chat-messages"
+          id="chatMessages"
+          role="log"
+          aria-live="polite"
+        >
+          <div class="message bot-message" data-translate="welcome-message">
+            Bonjour ! Je suis l'assistant du CHU Yaoundé. Comment puis-je vous
+            aider aujourd'hui ?
+          </div>
+        </div>
+        <div class="quick-actions" id="quickActions"></div>
+        <div class="chat-input">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              id="chatInput"
+              placeholder="Tapez votre message..."
+              aria-label="Message à envoyer"
+              data-translate="chat-placeholder"
+            />
+            <button
+              class="btn btn-primary"
+              id="sendMessage"
+              aria-label="Envoyer le message"
+            >
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        class="btn btn-primary chatbot-btn"
+        id="chatbotToggle"
+        aria-label="Ouvrir la conversation"
+      >
+        <i class="fas fa-robot"></i>
+      </button>
+    </div>
+
+    <!-- ========== MODALS STAGES ========== -->
+    <div class="modal fade" id="stageDetailModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="stageDetailTitle">Détail du stage</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body" id="stageDetailBody"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fermer
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="stageDetailApplyBtn"
+              onclick="stageDetailApply()"
+            >
+              <i class="fas fa-paper-plane me-2"></i>Postuler
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="stageApplyModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Postuler — <span id="stageApplyTitle"></span>
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-muted mb-4">
+              Envoyez votre dossier de candidature pour ce stage :
+            </p>
+            <div class="d-grid gap-2">
+              <button
+                type="button"
+                class="btn btn-primary"
+                onclick="stageDoApply()"
+              >
+                <i class="fas fa-envelope me-2"></i>Postuler par email
+              </button>
+              <a href="contact.html" class="btn btn-outline-primary">
+                <i class="fas fa-file-alt me-2"></i>Via le formulaire de contact
+              </a>
+            </div>
+            <p class="text-muted small mt-3 mb-0">
+              <i class="fas fa-info-circle me-1"></i>
+              Joignez votre CV, lettre de motivation et relevés de notes.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== MODALS FORMATIONS ========== -->
+    <div class="modal fade" id="formationRegisterModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">S'inscrire à la formation</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="fw-bold mb-1" id="formationRegisterTitle"></p>
+            <p class="text-muted small mb-4" id="formationRegisterMeta"></p>
+            <div class="d-grid gap-2">
+              <button
+                type="button"
+                class="btn btn-primary"
+                onclick="formationDoRegister()"
+              >
+                <i class="fas fa-envelope me-2"></i>S'inscrire par email
+              </button>
+              <a href="contact.html" class="btn btn-outline-primary">
+                <i class="fas fa-file-alt me-2"></i>Via le formulaire de contact
+              </a>
+            </div>
+            <p class="text-muted small mt-3 mb-0">
+              <i class="fas fa-info-circle me-1"></i>
+              Mentionnez le nom de la formation dans votre message.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== MODALS CONCOURS ========== -->
+    <div class="modal fade" id="concoursRegisterModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">S'inscrire au concours</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="fw-bold mb-1" id="concoursRegisterTitle"></p>
+            <p class="text-muted small mb-4" id="concoursRegisterMeta"></p>
+            <div class="d-grid gap-2">
+              <button
+                type="button"
+                class="btn btn-primary"
+                onclick="concoursDoRegister()"
+              >
+                <i class="fas fa-envelope me-2"></i>S'inscrire par email
+              </button>
+              <a href="contact.html" class="btn btn-outline-primary">
+                <i class="fas fa-file-alt me-2"></i>Via le formulaire de contact
+              </a>
+            </div>
+            <p class="text-muted small mt-3 mb-0">
+              <i class="fas fa-info-circle me-1"></i>
+              Joignez votre dossier complet (CV, relevés de notes, lettre de
+              motivation).
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="concoursPdfModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Programme du concours</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body text-center py-4">
+            <i class="fas fa-file-pdf fa-4x text-danger mb-3"></i>
+            <p class="fw-bold" id="concoursPdfTitle"></p>
+            <p class="text-muted small mb-4">
+              Cliquez ci-dessous pour télécharger le programme officiel.
+            </p>
+            <button
+              type="button"
+              class="btn btn-danger"
+              onclick="concoursDoPdfDownload()"
+            >
+              <i class="fas fa-download me-2"></i>Télécharger le PDF
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- NOS FICHIERS JS -->
+    <script src="../js/config.js"></script>
+    <script src="../js/main.js?v=3"></script>
+    <script src="../js/navigation.js"></script>
+    <script src="../js/chatbot.js?v=3"></script>
+    <script src="../js/etudiants.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (window.chuApp) {
+          setTimeout(() => {
+            if (window.chuApp.languageManager) {
+              window.chuApp.languageManager.updateContent();
+              window.chuApp.languageManager.updateLogos();
+            }
+          }, 100);
+        }
+
+        const langSelect = document.getElementById("languageSelector");
+        if (langSelect && window.chuApp) {
+          langSelect.value = window.chuApp.languageManager.getCurrentLanguage();
+          langSelect.addEventListener("change", function () {
+            window.chuApp.languageManager.setLanguage(this.value);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
