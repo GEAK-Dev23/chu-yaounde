@@ -2,7 +2,7 @@
  * ================================================
  * ROUTES CHATBOT INTELLIGENT — CHU YAOUNDÉ
  * ================================================
- * Moteur   : Groq API (gratuit) — llama-3.1-8b-instant
+ * Moteur   : Groq API (gratuit) — openai/gpt-oss-20b
  * Contexte : Données MongoDB en temps réel (cache 10 min)
  * Impact   : ZÉRO modification sur le frontend ou l'admin
  * Routes exposées (identiques à l'original) :
@@ -395,7 +395,7 @@ router.post("/message", optional, async (req, res) => {
     const dynamicMaxTokens = isListQuery ? 1800 : isMedicalQuery ? 1500 : 1200;
 
     const completion = await getGroq().chat.completions.create({
-      model: "llama-3.1-8b-instant",
+      model: "openai/gpt-oss-20b",
       max_tokens: dynamicMaxTokens,
       temperature: 0.3,
       messages: [
