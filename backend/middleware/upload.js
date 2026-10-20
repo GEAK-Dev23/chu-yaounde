@@ -1,26 +1,22 @@
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-const ensureDir = (dir) => {
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-};
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: (req, file) => {
     const folder = req.uploadFolder || "misc";
-    const uploadPath = path.join(__dirname, "../uploads", folder);
-    ensureDir(uploadPath);
-    cb(null, uploadPath);
-  },
-  filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname).toLowerCase();
-    const name = path
-      .basename(file.originalname, ext)
-      .replace(/[^a-z0-9]/gi, "-")
-      .toLowerCase()
-      .slice(0, 40);
-    cb(null, Date.now() + "-" + name + ext);
+    return {
+      folder: `chu-yaounde/${folder}`,
+      allowed_formats: ["jpg", "jpeg", "png", "webp", "gif"],
+      transformation: [{ quality: "auto" }],
+    };
   },
 });
 
@@ -49,3 +45,4 @@ const upload = multer({
 });
 
 module.exports = upload;
+module.exports.cloudinary = cloudinary;

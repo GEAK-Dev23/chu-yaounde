@@ -1,30 +1,44 @@
-/**
- * ================================================
- * ROUTES PERSONNEL — CHU YAOUNDÉ
- * ================================================
- * CRUD complet + upload photo (disque local)
- * Routes exposées :
- *   GET    /api/personnel          → liste publique
- *   POST   /api/personnel          → créer (admin)
- *   PUT    /api/personnel/:id      → modifier (admin)
- *   DELETE /api/personnel/:id      → supprimer (admin)
- *   POST   /api/personnel/:id/photo → uploader photo (admin)
- * ================================================
- */
-
 "use strict";
 
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const { protect, authorize } = require("../middleware/auth");
 
-// ─── Stockage des données en mémoire (JSON sur disque) ────────────────────────
-// Persistance légère sans nouveau modèle Mongoose
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+// ─── Stockage Cloudinary pour photos personnel ────────────────────────────────
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "chu-yaounde/personnel",
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+    transformation: [{ quality: "auto" }],
+  },
+});
+
+const photoUpload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    const allowed = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+    if (allowed.includes(file.mimetype)) cb(null, true);
+    else
+      cb(new Error("Format non supporté. Utilisez JPG, PNG ou WEBP."), false);
+  },
+  limits: { fileSize: 5 * 1024 * 1024 },
+}).single("photo");
+
+// ─── Stockage JSON en mémoire (MongoDB-less) ──────────────────────────────────
+const path = require("path");
+const fs = require("fs");
+
 const DATA_FILE = path.join(__dirname, "../uploads/personnel/personnel.json");
-const PHOTO_DIR = path.join(__dirname, "../uploads/personnel/photos");
 
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -45,31 +59,7 @@ function writeData(data) {
   fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), "utf8");
 }
 
-// ─── Multer pour photos ────────────────────────────────────────────────────────
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    ensureDir(PHOTO_DIR);
-    cb(null, PHOTO_DIR);
-  },
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    cb(null, `${Date.now()}-personnel${ext}`);
-  },
-});
-
-const photoUpload = multer({
-  storage,
-  fileFilter: (req, file, cb) => {
-    const allowed = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-    if (allowed.includes(file.mimetype)) cb(null, true);
-    else
-      cb(new Error("Format non supporté. Utilisez JPG, PNG ou WEBP."), false);
-  },
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
-}).single("photo");
-
 // ─── GET /api/personnel ────────────────────────────────────────────────────────
-// Liste publique, triée par ordre
 router.get("/", (req, res) => {
   try {
     const list = readData().sort((a, b) => (a.order || 0) - (b.order || 0));
@@ -80,7 +70,6 @@ router.get("/", (req, res) => {
 });
 
 // ─── POST /api/personnel ───────────────────────────────────────────────────────
-// Créer un membre (sans photo, photo uploadée séparément)
 router.post("/", protect, authorize("admin"), (req, res) => {
   try {
     const { name, poste } = req.body;
@@ -99,6 +88,7 @@ router.post("/", protect, authorize("admin"), (req, res) => {
       name: name.trim(),
       poste: poste.trim(),
       photo: null,
+      cloudinaryId: null,
       order: list.length,
       createdAt: new Date().toISOString(),
     };
@@ -111,9 +101,8 @@ router.post("/", protect, authorize("admin"), (req, res) => {
 });
 
 // ─── POST /api/personnel/:id/photo ────────────────────────────────────────────
-// Uploader / remplacer la photo d'un membre
 router.post("/:id/photo", protect, authorize("admin"), (req, res) => {
-  photoUpload(req, res, (err) => {
+  photoUpload(req, res, async (err) => {
     if (err)
       return res.status(400).json({ success: false, message: err.message });
 
@@ -124,10 +113,13 @@ router.post("/:id/photo", protect, authorize("admin"), (req, res) => {
         .status(404)
         .json({ success: false, message: "Membre introuvable" });
 
-    // Supprimer l'ancienne photo si elle existe
-    if (list[idx].photo) {
-      const oldPath = path.join(PHOTO_DIR, path.basename(list[idx].photo));
-      if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+    // Supprimer l'ancienne photo sur Cloudinary
+    if (list[idx].cloudinaryId) {
+      try {
+        await cloudinary.uploader.destroy(list[idx].cloudinaryId);
+      } catch (e) {
+        console.error("Erreur suppression Cloudinary:", e.message);
+      }
     }
 
     if (!req.file)
@@ -135,14 +127,14 @@ router.post("/:id/photo", protect, authorize("admin"), (req, res) => {
         .status(400)
         .json({ success: false, message: "Aucune photo reçue" });
 
-    list[idx].photo = `/uploads/personnel/photos/${req.file.filename}`;
+    list[idx].photo = req.file.path;
+    list[idx].cloudinaryId = req.file.filename;
     writeData(list);
     res.json({ success: true, data: list[idx] });
   });
 });
 
 // ─── PUT /api/personnel/:id ────────────────────────────────────────────────────
-// Modifier nom / poste / ordre
 router.put("/:id", protect, authorize("admin"), (req, res) => {
   try {
     const list = readData();
@@ -165,7 +157,7 @@ router.put("/:id", protect, authorize("admin"), (req, res) => {
 });
 
 // ─── DELETE /api/personnel/:id ────────────────────────────────────────────────
-router.delete("/:id", protect, authorize("admin"), (req, res) => {
+router.delete("/:id", protect, authorize("admin"), async (req, res) => {
   try {
     const list = readData();
     const idx = list.findIndex((m) => m.id === req.params.id);
@@ -174,10 +166,13 @@ router.delete("/:id", protect, authorize("admin"), (req, res) => {
         .status(404)
         .json({ success: false, message: "Membre introuvable" });
 
-    // Supprimer la photo du disque
-    if (list[idx].photo) {
-      const photoPath = path.join(PHOTO_DIR, path.basename(list[idx].photo));
-      if (fs.existsSync(photoPath)) fs.unlinkSync(photoPath);
+    // Supprimer la photo sur Cloudinary
+    if (list[idx].cloudinaryId) {
+      try {
+        await cloudinary.uploader.destroy(list[idx].cloudinaryId);
+      } catch (e) {
+        console.error("Erreur suppression Cloudinary:", e.message);
+      }
     }
 
     const [removed] = list.splice(idx, 1);
