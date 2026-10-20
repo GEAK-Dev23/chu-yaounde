@@ -13,7 +13,11 @@
 // ================================================
 
 const CONFIG = {
-  API_BASE: "http://localhost:5000/api",
+  API_BASE:
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+      ? "http://localhost:5000/api"
+      : "https://chu-yaounde-backend.onrender.com/api",
   TOKEN_KEY: "chu_admin_token",
   USER_KEY: "chu_admin_user",
 };
