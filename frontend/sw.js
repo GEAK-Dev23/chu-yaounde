@@ -6,7 +6,7 @@
  *  - CSS/JS/images      → Cache puis réseau (stale-while-revalidate)
  */
 
-const CACHE_NAME = "chu-yaounde-v10";
+const CACHE_NAME = "chu-yaounde-v11";
 
 const STATIC_ASSETS = [
   "/css/style.css",
