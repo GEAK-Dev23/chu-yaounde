@@ -1,0 +1,2297 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CHU Yaoundé — Espace Administration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <div id="login-screen" class="login-screen">
+      <div class="login-ambient"></div>
+      <div class="login-card">
+        <div class="login-logo">
+          <div class="login-logo-icon"><i class="fas fa-hospital-alt"></i></div>
+          <h1>CHU Yaoundé</h1>
+          <p>Panneau d'administration sécurisé</p>
+        </div>
+        <form id="login-form" novalidate>
+          <div class="field-group">
+            <label for="login-email">Adresse email</label>
+            <div class="input-wrap">
+              <i class="fas fa-envelope"></i>
+              <input
+                type="email"
+                id="login-email"
+                placeholder="admin@chu-yaounde.cm"
+                autocomplete="email"
+              />
+            </div>
+          </div>
+          <div class="field-group">
+            <label for="login-password">Mot de passe</label>
+            <div class="input-wrap">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                id="login-password"
+                placeholder="••••••••"
+                autocomplete="current-password"
+              />
+              <button type="button" class="toggle-pw" id="toggle-pw">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div id="login-error" class="login-error hidden"></div>
+          <button type="submit" class="btn-login" id="btn-login">
+            <span class="btn-text">Se connecter</span>
+            <span class="btn-spinner hidden"
+              ><i class="fas fa-circle-notch fa-spin"></i
+            ></span>
+          </button>
+        </form>
+        <p class="login-footer">
+          Accès réservé au personnel autorisé du CHU Yaoundé
+        </p>
+      </div>
+    </div>
+
+    <div id="admin-shell" class="admin-shell hidden">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+          <div class="brand-icon"><i class="fas fa-hospital-alt"></i></div>
+          <div class="brand-text">
+            <span class="brand-name">CHU Yaoundé</span>
+            <span class="brand-sub">Administration</span>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-section-label">Tableau de bord</div>
+          <a href="#" class="nav-item active" data-section="dashboard">
+            <i class="fas fa-chart-pie"></i><span>Vue d'ensemble</span>
+          </a>
+          <div class="nav-section-label">Gestion médicale</div>
+          <a href="#" class="nav-item" data-section="appointments">
+            <i class="fas fa-calendar-check"></i><span>Rendez-vous</span>
+            <span class="nav-badge hidden" id="badge-appointments">0</span>
+          </a>
+          <a href="#" class="nav-item" data-section="services">
+            <i class="fas fa-clinic-medical"></i><span>Services</span>
+          </a>
+          <a href="#" class="nav-item" data-section="personnel">
+            <i class="fas fa-id-badge"></i><span>Notre Personnel</span>
+          </a>
+          <div class="nav-section-label">Contenu &amp; Communication</div>
+          <a href="#" class="nav-item" data-section="news">
+            <i class="fas fa-newspaper"></i><span>Actualités</span>
+          </a>
+          <a href="#" class="nav-item" data-section="internships">
+            <i class="fas fa-briefcase"></i><span>Stages</span>
+          </a>
+          <a href="#" class="nav-item" data-section="trainings">
+            <i class="fas fa-graduation-cap"></i><span>Formations</span>
+          </a>
+          <a href="#" class="nav-item" data-section="contests">
+            <i class="fas fa-file-alt"></i><span>Concours</span>
+          </a>
+          <a href="#" class="nav-item" data-section="contacts">
+            <i class="fas fa-envelope-open-text"></i><span>Messages</span>
+            <span class="nav-badge hidden" id="badge-contacts">0</span>
+          </a>
+          <a href="#" class="nav-item" data-section="newsletter">
+            <i class="fas fa-paper-plane"></i><span>Newsletter</span>
+          </a>
+          <a href="#" class="nav-item" data-section="documents">
+            <i class="fas fa-folder-open"></i><span>Documents</span>
+          </a>
+          <div class="nav-section-label">Administration</div>
+          <a href="#" class="nav-item" data-section="users">
+            <i class="fas fa-users-cog"></i><span>Utilisateurs</span>
+          </a>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="current-user">
+            <div class="user-avatar" id="user-avatar-initials">AD</div>
+            <div class="user-details">
+              <span class="user-name" id="user-display-name"
+                >Administrateur</span
+              >
+              <span class="user-role" id="user-display-role">admin</span>
+            </div>
+          </div>
+          <button class="btn-logout" id="btn-logout" title="Déconnexion">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <button class="sidebar-toggle" id="sidebar-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="topbar-title" id="topbar-title">Vue d'ensemble</div>
+          <div class="topbar-actions">
+            <button class="topbar-btn" id="refresh-btn" title="Actualiser">
+              <i class="fas fa-sync-alt"></i>
+            </button>
+            <div class="topbar-time" id="topbar-time"></div>
+          </div>
+        </header>
+
+        <div class="content-area" id="content-area">
+          <!-- DASHBOARD -->
+          <section class="section" id="section-dashboard">
+            <div class="section-header">
+              <h2>Vue d'ensemble</h2>
+              <span class="section-date" id="dashboard-date"></span>
+            </div>
+            <div class="stats-grid">
+              <div class="stat-card stat-blue">
+                <div class="stat-icon">
+                  <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="stat-info">
+                  <span class="stat-value" id="stat-appt-today">—</span>
+                  <span class="stat-label">RDV aujourd'hui</span>
+                </div>
+              </div>
+              <div class="stat-card stat-orange">
+                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                <div class="stat-info">
+                  <span class="stat-value" id="stat-appt-pending">—</span>
+                  <span class="stat-label">RDV en attente</span>
+                </div>
+              </div>
+              <div class="stat-card stat-red">
+                <div class="stat-icon"><i class="fas fa-envelope"></i></div>
+                <div class="stat-info">
+                  <span class="stat-value" id="stat-contacts-unread">—</span>
+                  <span class="stat-label">Messages non lus</span>
+                </div>
+              </div>
+              <div class="stat-card stat-green">
+                <div class="stat-icon"><i class="fas fa-newspaper"></i></div>
+                <div class="stat-info">
+                  <span class="stat-value" id="stat-news-published">—</span>
+                  <span class="stat-label">Actualités publiées</span>
+                </div>
+              </div>
+              <div class="stat-card stat-purple">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-info">
+                  <span class="stat-value" id="stat-users-total">—</span>
+                  <span class="stat-label">Utilisateurs staff</span>
+                </div>
+              </div>
+              <div class="stat-card stat-teal">
+                <div class="stat-icon">
+                  <i class="fas fa-clinic-medical"></i>
+                </div>
+                <div class="stat-info">
+                  <span class="stat-value" id="stat-services-total">—</span>
+                  <span class="stat-label">Services actifs</span>
+                </div>
+              </div>
+            </div>
+            <div class="dashboard-grid">
+              <div class="dash-panel">
+                <div class="dash-panel-header">
+                  <h3>
+                    <i class="fas fa-calendar-alt"></i> Prochains rendez-vous
+                  </h3>
+                  <button class="link-btn" data-section="appointments">
+                    Voir tout <i class="fas fa-arrow-right"></i>
+                  </button>
+                </div>
+                <div id="dashboard-appointments" class="dash-list">
+                  <div class="loading-state">
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="dash-panel">
+                <div class="dash-panel-header">
+                  <h3>
+                    <i class="fas fa-envelope-open-text"></i> Derniers messages
+                  </h3>
+                  <button class="link-btn" data-section="contacts">
+                    Voir tout <i class="fas fa-arrow-right"></i>
+                  </button>
+                </div>
+                <div id="dashboard-contacts" class="dash-list">
+                  <div class="loading-state">
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- APPOINTMENTS -->
+          <section class="section hidden" id="section-appointments">
+            <div class="section-header">
+              <h2>Gestion des Rendez-vous</h2>
+              <div class="section-actions">
+                <select id="filter-appt-status" class="select-filter">
+                  <option value="">Tous les statuts</option>
+                  <option value="pending">En attente</option>
+                  <option value="confirmed">Confirmés</option>
+                  <option value="cancelled">Annulés</option>
+                  <option value="completed">Terminés</option>
+                </select>
+                <select id="filter-appt-service" class="select-filter">
+                  <option value="">Tous les services</option>
+                  <option value="cardiology">Cardiologie</option>
+                  <option value="pediatrics">Pédiatrie</option>
+                  <option value="surgery">Chirurgie</option>
+                  <option value="neurology">Neurologie</option>
+                  <option value="general">Médecine générale</option>
+                  <option value="dentistry">Dentisterie</option>
+                  <option value="ophthalmology">Ophtalmologie</option>
+                  <option value="dermatology">Dermatologie</option>
+                </select>
+                <input
+                  type="date"
+                  id="filter-appt-date"
+                  class="select-filter"
+                />
+                <button class="btn-secondary" id="filter-appt-btn">
+                  <i class="fas fa-filter"></i> Filtrer
+                </button>
+              </div>
+            </div>
+            <div class="table-card">
+              <div class="table-search-bar">
+                <div class="search-input-wrap">
+                  <i class="fas fa-search"></i>
+                  <input
+                    type="text"
+                    id="search-appointments"
+                    placeholder="Rechercher un patient, médecin..."
+                  />
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Patient</th>
+                      <th>Service</th>
+                      <th>Médecin</th>
+                      <th>Date &amp; Heure</th>
+                      <th>Statut</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="appointments-tbody">
+                    <tr>
+                      <td colspan="6" class="loading-row">
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                        Chargement...
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-pagination" id="appointments-pagination"></div>
+            </div>
+          </section>
+
+          <!-- SERVICES -->
+          <section class="section hidden" id="section-services">
+            <div class="section-header">
+              <h2>Gestion des Services</h2>
+              <button class="btn-primary" id="btn-add-service">
+                <i class="fas fa-plus"></i> Nouveau service
+              </button>
+            </div>
+            <div id="services-grid" class="services-grid">
+              <div class="loading-state">
+                <i class="fas fa-circle-notch fa-spin"></i>
+              </div>
+            </div>
+          </section>
+
+          <!-- NOTRE PERSONNEL -->
+          <section class="section hidden" id="section-personnel">
+            <div class="section-header">
+              <h2>Gestion du Personnel</h2>
+              <button class="btn-primary" id="btn-add-personnel-member">
+                <i class="fas fa-plus"></i> Ajouter un membre
+              </button>
+            </div>
+            <div id="personnel-admin-grid" class="personnel-admin-grid">
+              <div class="loading-state">
+                <i class="fas fa-circle-notch fa-spin"></i>
+              </div>
+            </div>
+          </section>
+
+          <!-- NEWS -->
+          <section class="section hidden" id="section-news">
+            <div class="section-header">
+              <h2>Gestion des Actualités</h2>
+              <div class="section-actions">
+                <select id="filter-news-status" class="select-filter">
+                  <option value="">Tous</option>
+                  <option value="published">Publiées</option>
+                  <option value="draft">Brouillons</option>
+                </select>
+                <select id="filter-news-category" class="select-filter">
+                  <option value="">Toutes catégories</option>
+                  <option value="actualite">Actualité</option>
+                  <option value="evenement">Événement</option>
+                  <option value="publication">Publication Scientifique</option>
+                </select>
+                <button class="btn-primary" id="btn-add-news">
+                  <i class="fas fa-plus"></i> Nouvelle actualité
+                </button>
+              </div>
+            </div>
+            <div class="news-list" id="news-list">
+              <div class="loading-state">
+                <i class="fas fa-circle-notch fa-spin"></i>
+              </div>
+            </div>
+          </section>
+
+          <!-- CONTACTS -->
+          <section class="section hidden" id="section-contacts">
+            <div class="section-header">
+              <h2>Messages de Contact</h2>
+              <div class="section-actions">
+                <select id="filter-contact-status" class="select-filter">
+                  <option value="">Tous les statuts</option>
+                  <option value="new">Nouveaux</option>
+                  <option value="read">Lus</option>
+                  <option value="in_progress">En cours</option>
+                  <option value="resolved">Résolus</option>
+                </select>
+                <select id="filter-contact-priority" class="select-filter">
+                  <option value="">Toute priorité</option>
+                  <option value="urgent">Urgent</option>
+                  <option value="high">Haute</option>
+                  <option value="medium">Moyenne</option>
+                  <option value="low">Basse</option>
+                </select>
+                <button class="btn-secondary" id="filter-contacts-btn">
+                  <i class="fas fa-filter"></i> Filtrer
+                </button>
+              </div>
+            </div>
+            <div class="table-card">
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Expéditeur</th>
+                      <th>Sujet</th>
+                      <th>Priorité</th>
+                      <th>Statut</th>
+                      <th>Date</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="contacts-tbody">
+                    <tr>
+                      <td colspan="6" class="loading-row">
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                        Chargement...
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-pagination" id="contacts-pagination"></div>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- SECTION STAGES -->
+          <!-- ============================================ -->
+          <section class="section hidden" id="section-internships">
+            <div class="section-header">
+              <h2>Gestion des Stages</h2>
+              <button class="btn-primary" id="btn-add-internship">
+                <i class="fas fa-plus"></i> Ajouter un stage
+              </button>
+            </div>
+            <div id="internships-list">
+              <div class="loading-state">
+                <i class="fas fa-circle-notch fa-spin"></i>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- SECTION FORMATIONS -->
+          <!-- ============================================ -->
+          <section class="section hidden" id="section-trainings">
+            <div class="section-header">
+              <h2>Gestion des Formations</h2>
+              <button class="btn-primary" id="btn-add-training">
+                <i class="fas fa-plus"></i> Ajouter une formation
+              </button>
+            </div>
+            <div id="trainings-list">
+              <div class="loading-state">
+                <i class="fas fa-circle-notch fa-spin"></i>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- SECTION CONCOURS -->
+          <!-- ============================================ -->
+          <section class="section hidden" id="section-contests">
+            <div class="section-header">
+              <h2>Gestion des Concours</h2>
+              <button class="btn-primary" id="btn-add-contest">
+                <i class="fas fa-plus"></i> Ajouter un concours
+              </button>
+            </div>
+            <div id="contests-list">
+              <div class="loading-state">
+                <i class="fas fa-circle-notch fa-spin"></i>
+              </div>
+            </div>
+          </section>
+
+          <!-- USERS -->
+          <section class="section hidden" id="section-users">
+            <div class="section-header">
+              <h2>Gestion des Utilisateurs</h2>
+              <button class="btn-primary" id="btn-add-user">
+                <i class="fas fa-user-plus"></i> Nouveau membre
+              </button>
+            </div>
+            <div class="table-card">
+              <div class="table-search-bar">
+                <div class="search-input-wrap">
+                  <i class="fas fa-search"></i>
+                  <input
+                    type="text"
+                    id="search-users"
+                    placeholder="Rechercher un utilisateur..."
+                  />
+                </div>
+                <select id="filter-user-role" class="select-filter">
+                  <option value="">Tous les rôles</option>
+                  <option value="admin">Administrateur</option>
+                  <option value="doctor">Médecin</option>
+                  <option value="nurse">Infirmier(e)</option>
+                  <option value="staff">Personnel</option>
+                </select>
+              </div>
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Nom</th>
+                      <th>Email</th>
+                      <th>Rôle</th>
+                      <th>Statut</th>
+                      <th>Dernière connexion</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="users-tbody">
+                    <tr>
+                      <td colspan="6" class="loading-row">
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                        Chargement...
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-pagination" id="users-pagination"></div>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- SECTION NEWSLETTER -->
+          <!-- ============================================ -->
+          <section class="section hidden" id="section-newsletter">
+            <div class="section-header">
+              <h2>Gestion Newsletter</h2>
+              <div class="section-actions">
+                <input
+                  type="text"
+                  id="newsletter-search"
+                  class="search-input"
+                  placeholder="Rechercher un abonné..."
+                  style="max-width: 220px"
+                  oninput="filterNewsletterSearch(this.value)"
+                />
+                <select
+                  id="newsletter-status-filter"
+                  class="select-filter"
+                  onchange="loadNewsletter()"
+                >
+                  <option value="">Tous les abonnés</option>
+                  <option value="active">Actifs</option>
+                  <option value="inactive">Désabonnés</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Stats newsletter -->
+            <div
+              class="stats-row"
+              style="
+                margin-bottom: 20px;
+                display: flex;
+                gap: 16px;
+                flex-wrap: wrap;
+              "
+            >
+              <div
+                class="stat-mini"
+                style="
+                  background: #e8f5e9;
+                  border-radius: 8px;
+                  padding: 12px 20px;
+                  display: flex;
+                  gap: 10px;
+                  align-items: center;
+                "
+              >
+                <i
+                  class="fas fa-user-check"
+                  style="color: #2e7d32; font-size: 20px"
+                ></i>
+                <div>
+                  <div
+                    style="font-size: 22px; font-weight: 700; color: #2e7d32"
+                    id="nl-stat-active"
+                  >
+                    —
+                  </div>
+                  <div style="font-size: 12px; color: #555">Abonnés actifs</div>
+                </div>
+              </div>
+              <div
+                class="stat-mini"
+                style="
+                  background: #fce4ec;
+                  border-radius: 8px;
+                  padding: 12px 20px;
+                  display: flex;
+                  gap: 10px;
+                  align-items: center;
+                "
+              >
+                <i
+                  class="fas fa-user-times"
+                  style="color: #c62828; font-size: 20px"
+                ></i>
+                <div>
+                  <div
+                    style="font-size: 22px; font-weight: 700; color: #c62828"
+                    id="nl-stat-inactive"
+                  >
+                    —
+                  </div>
+                  <div style="font-size: 12px; color: #555">Désabonnés</div>
+                </div>
+              </div>
+              <div
+                class="stat-mini"
+                style="
+                  background: #e3f2fd;
+                  border-radius: 8px;
+                  padding: 12px 20px;
+                  display: flex;
+                  gap: 10px;
+                  align-items: center;
+                "
+              >
+                <i
+                  class="fas fa-users"
+                  style="color: #1565c0; font-size: 20px"
+                ></i>
+                <div>
+                  <div
+                    style="font-size: 22px; font-weight: 700; color: #1565c0"
+                    id="nl-stat-total"
+                  >
+                    —
+                  </div>
+                  <div style="font-size: 12px; color: #555">Total</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Table abonnés -->
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Email</th>
+                    <th>Nom</th>
+                    <th>Statut</th>
+                    <th>Date inscription</th>
+                    <th>Source</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="newsletter-tbody">
+                  <tr>
+                    <td colspan="6" class="loading-row">
+                      <i class="fas fa-circle-notch fa-spin"></i> Chargement...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-pagination" id="newsletter-pagination"></div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- SECTION DOCUMENTS -->
+          <!-- ============================================ -->
+          <section class="section hidden" id="section-documents">
+            <div class="section-header">
+              <h2>Gestion des Documents</h2>
+              <div class="section-actions">
+                <select
+                  id="filter-doc-type"
+                  class="select-filter"
+                  onchange="loadDocuments()"
+                >
+                  <option value="">Toutes les catégories</option>
+                  <option value="formulaire">Formulaires</option>
+                  <option value="appel_offre">Appels d'Offres</option>
+                  <option value="rapport">Rapports</option>
+                </select>
+                <button class="btn-primary" id="btn-add-document">
+                  <i class="fas fa-plus"></i> Ajouter un document
+                </button>
+              </div>
+            </div>
+
+            <!-- Onglets par type -->
+            <div
+              class="doc-tabs"
+              style="
+                display: flex;
+                gap: 8px;
+                margin-bottom: 20px;
+                flex-wrap: wrap;
+              "
+            >
+              <button
+                class="doc-tab-btn active"
+                data-tab="formulaire"
+                onclick="switchDocTab('formulaire', this)"
+              >
+                <i class="fas fa-file-medical"></i> Formulaires
+              </button>
+              <button
+                class="doc-tab-btn"
+                data-tab="appel_offre"
+                onclick="switchDocTab('appel_offre', this)"
+              >
+                <i class="fas fa-gavel"></i> Appels d'Offres
+              </button>
+              <button
+                class="doc-tab-btn"
+                data-tab="rapport"
+                onclick="switchDocTab('rapport', this)"
+              >
+                <i class="fas fa-chart-bar"></i> Rapports
+              </button>
+            </div>
+
+            <div id="documents-list">
+              <div class="loading-state">
+                <i class="fas fa-circle-notch fa-spin"></i>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal-overlay hidden" id="modal-appointment">
+      <div class="modal modal-md">
+        <div class="modal-header">
+          <h3>Détail du rendez-vous</h3>
+          <button class="modal-close" data-modal="modal-appointment">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-appt-body"></div>
+        <div class="modal-footer">
+          <button
+            class="btn-secondary modal-close"
+            data-modal="modal-appointment"
+          >
+            Fermer
+          </button>
+          <button class="btn-danger hidden" id="modal-appt-cancel">
+            Annuler le RDV
+          </button>
+          <button class="btn-success hidden" id="modal-appt-confirm">
+            Confirmer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="modal-news">
+      <div class="modal modal-lg">
+        <div class="modal-header">
+          <h3 id="modal-news-title">Nouvelle actualité</h3>
+          <button class="modal-close" data-modal="modal-news">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="news-form" novalidate>
+            <input type="hidden" id="news-id" />
+            <div class="form-row">
+              <div class="field-group flex-1">
+                <label>Titre *</label>
+                <input
+                  type="text"
+                  id="news-title-input"
+                  placeholder="Titre de l'actualité"
+                  required
+                />
+              </div>
+              <div class="field-group" style="width: 180px">
+                <label>Catégorie</label>
+                <select
+                  id="news-category-input"
+                  onchange="toggleEventFields(this.value)"
+                >
+                  <option value="actualite">Actualité</option>
+                  <option value="evenement">Événement</option>
+                  <option value="publication">Publication Scientifique</option>
+                </select>
+              </div>
+            </div>
+            <!-- CHAMPS ÉVÉNEMENT (visibles seulement pour catégorie=événement) -->
+            <div
+              id="event-fields"
+              style="
+                display: none;
+                background: var(--bg);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 14px;
+                margin-bottom: 4px;
+              "
+            >
+              <p
+                style="
+                  font-size: 13px;
+                  font-weight: 600;
+                  color: var(--accent);
+                  margin-bottom: 10px;
+                "
+              >
+                <i class="fas fa-calendar-alt me-2"></i>Informations de
+                l'événement
+              </p>
+              <div class="form-row">
+                <div class="field-group flex-1">
+                  <label>Date de début *</label>
+                  <input type="datetime-local" id="event-start-input" />
+                </div>
+                <div class="field-group flex-1">
+                  <label>Date de fin</label>
+                  <input type="datetime-local" id="event-end-input" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="field-group flex-1">
+                  <label>Lieu de l'événement</label>
+                  <input
+                    type="text"
+                    id="event-location-input"
+                    placeholder="Ex: Amphithéâtre CHU, Salle de conférence A..."
+                  />
+                </div>
+                <div class="field-group" style="width: 200px">
+                  <label>Type d'événement</label>
+                  <select id="event-type-input">
+                    <option value="conference">Conférence</option>
+                    <option value="seminar">Séminaire</option>
+                    <option value="workshop">Atelier</option>
+                    <option value="training">Formation</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label>Résumé</label>
+              <textarea
+                id="news-excerpt-input"
+                rows="2"
+                placeholder="Courte description..."
+              ></textarea>
+            </div>
+            <div class="field-group">
+              <label>Contenu *</label>
+              <textarea
+                id="news-content-input"
+                rows="8"
+                placeholder="Contenu complet..."
+                required
+              ></textarea>
+            </div>
+            <div class="form-row">
+              <div class="field-group flex-1">
+                <label>Image de l'article</label>
+                <div
+                  style="
+                    display: flex;
+                    gap: 8px;
+                    align-items: center;
+                    flex-wrap: wrap;
+                  "
+                >
+                  <input
+                    type="url"
+                    id="news-image-input"
+                    placeholder="URL de l'image ou uploader ci-dessous"
+                    style="flex: 1; min-width: 0"
+                  />
+                </div>
+                <div style="margin-top: 8px">
+                  <label
+                    for="news-image-file"
+                    style="
+                      display: inline-flex;
+                      align-items: center;
+                      gap: 6px;
+                      padding: 6px 14px;
+                      background: var(--color-primary, #1a56db);
+                      color: #fff;
+                      border-radius: 6px;
+                      cursor: pointer;
+                      font-size: 13px;
+                    "
+                  >
+                    <i class="fas fa-upload"></i> Uploader une image
+                  </label>
+                  <input
+                    type="file"
+                    id="news-image-file"
+                    accept="image/*"
+                    style="display: none"
+                    onchange="uploadNewsImage(this)"
+                  />
+                  <span
+                    id="news-image-upload-status"
+                    style="font-size: 12px; color: #888; margin-left: 8px"
+                  ></span>
+                </div>
+                <div
+                  id="news-image-preview"
+                  style="margin-top: 8px; display: none"
+                >
+                  <img
+                    id="news-image-preview-img"
+                    src=""
+                    alt="Aperçu"
+                    style="
+                      max-width: 200px;
+                      max-height: 120px;
+                      border-radius: 6px;
+                      object-fit: cover;
+                      border: 1px solid #ddd;
+                    "
+                  />
+                  <button
+                    type="button"
+                    onclick="clearNewsImage()"
+                    style="
+                      margin-left: 6px;
+                      background: none;
+                      border: none;
+                      color: #e53e3e;
+                      cursor: pointer;
+                      font-size: 12px;
+                    "
+                  >
+                    <i class="fas fa-times"></i> Supprimer
+                  </button>
+                </div>
+              </div>
+              <div class="field-group" style="width: 210px">
+                <label>Date de publication</label>
+                <input type="datetime-local" id="news-publishdate-input" />
+              </div>
+            </div>
+            <!-- Champ Auteur -->
+            <div class="field-group">
+              <label>Auteur de l'article</label>
+              <input
+                type="text"
+                id="news-author-input"
+                placeholder="Nom et prénom de l'auteur (ex: Dr. Jean Dupont)"
+              />
+              <small style="color: var(--text-3); font-size: 12px">
+                Laissez vide pour utiliser votre nom de compte admin
+              </small>
+            </div>
+
+            <!-- CHAMPS PUBLICATION (visibles seulement pour catégorie=publication) -->
+            <div
+              id="publication-fields"
+              style="
+                display: none;
+                background: var(--bg);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                padding: 14px;
+                margin-bottom: 4px;
+              "
+            >
+              <p
+                style="
+                  font-size: 13px;
+                  font-weight: 600;
+                  color: #0a9396;
+                  margin-bottom: 10px;
+                "
+              >
+                <i class="fas fa-flask me-2"></i>Informations de la publication
+                scientifique
+              </p>
+              <div class="form-row">
+                <div class="field-group flex-1">
+                  <label>Spécialité médicale</label>
+                  <select id="publication-specialty-input">
+                    <option value="general">Général</option>
+                    <option value="cardiology">Cardiologie</option>
+                    <option value="oncology">Oncologie</option>
+                    <option value="neurology">Neurologie</option>
+                    <option value="pediatrics">Pédiatrie</option>
+                    <option value="surgery">Chirurgie</option>
+                  </select>
+                </div>
+                <div class="field-group flex-1">
+                  <label>Type de publication</label>
+                  <select id="publication-type-input">
+                    <option value="journal">Article de journal</option>
+                    <option value="conference">Communication</option>
+                    <option value="thesis">Thèse</option>
+                    <option value="book">Livre</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Champ PDF téléchargeable -->
+            <div class="field-group">
+              <label>Document PDF téléchargeable</label>
+              <div
+                style="
+                  display: flex;
+                  gap: 8px;
+                  align-items: center;
+                  flex-wrap: wrap;
+                "
+              >
+                <input
+                  type="text"
+                  id="news-pdf-input"
+                  placeholder="URL du PDF ou uploader ci-dessous"
+                  style="flex: 1; min-width: 0"
+                />
+              </div>
+              <div style="margin-top: 8px">
+                <label
+                  for="news-pdf-file"
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                    padding: 6px 14px;
+                    background: #e53e3e;
+                    color: #fff;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-size: 13px;
+                  "
+                >
+                  <i class="fas fa-file-pdf"></i> Uploader un PDF
+                </label>
+                <input
+                  type="file"
+                  id="news-pdf-file"
+                  accept="application/pdf"
+                  style="display: none"
+                  onchange="uploadNewsPdf(this)"
+                />
+                <span
+                  id="news-pdf-upload-status"
+                  style="font-size: 12px; color: #888; margin-left: 8px"
+                ></span>
+              </div>
+              <div id="news-pdf-preview" style="margin-top: 8px; display: none">
+                <span style="font-size: 13px; color: #2e7d32">
+                  <i class="fas fa-file-pdf" style="color: #e53e3e"></i>
+                  <span id="news-pdf-filename"></span>
+                </span>
+                <button
+                  type="button"
+                  onclick="clearNewsPdf()"
+                  style="
+                    margin-left: 8px;
+                    background: none;
+                    border: none;
+                    color: #e53e3e;
+                    cursor: pointer;
+                    font-size: 12px;
+                  "
+                >
+                  <i class="fas fa-times"></i> Supprimer
+                </button>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="news-published-input" />
+                  <span>Publier immédiatement</span>
+                </label>
+              </div>
+              <div class="field-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="news-featured-input" />
+                  <span>Mettre en avant</span>
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary modal-close" data-modal="modal-news">
+            Annuler
+          </button>
+          <button class="btn-outline" id="btn-save-draft">Brouillon</button>
+          <button class="btn-primary" id="btn-save-news">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="modal-service">
+      <div class="modal modal-lg">
+        <div class="modal-header">
+          <h3 id="modal-service-title">Nouveau service</h3>
+          <button class="modal-close" data-modal="modal-service">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="service-form" novalidate>
+            <input type="hidden" id="service-id" />
+            <div class="form-row">
+              <div class="field-group flex-1">
+                <label>Nom du service *</label>
+                <input
+                  type="text"
+                  id="service-name-input"
+                  placeholder="Ex: Cardiologie"
+                  required
+                />
+              </div>
+              <div class="field-group" style="width: 160px">
+                <label>Catégorie</label>
+                <select id="service-category-input">
+                  <option value="medical">Médical</option>
+                  <option value="surgical">Chirurgical</option>
+                  <option value="technical">Technique</option>
+                  <option value="specialized">Spécialisé</option>
+                </select>
+              </div>
+              <div class="field-group" style="width: 160px">
+                <label>Slug (RDV)</label>
+                <input
+                  type="text"
+                  id="service-slug-input"
+                  placeholder="Ex: cardiology"
+                />
+                <small style="color: var(--text-3); font-size: 11px"
+                  >Identifiant pour les rendez-vous</small
+                >
+              </div>
+            </div>
+            <div class="field-group">
+              <label>Département</label>
+              <input
+                type="text"
+                id="service-dept-input"
+                placeholder="Ex: Médecine"
+              />
+            </div>
+            <div class="field-group">
+              <label
+                >Description courte
+                <small style="color: var(--text-3); font-weight: 400"
+                  >(affichée sur la carte)</small
+                ></label
+              >
+              <textarea
+                id="service-desc-input"
+                rows="2"
+                placeholder="Description courte affichée sur la carte du service..."
+              ></textarea>
+            </div>
+            <div class="field-group">
+              <label
+                >Description détaillée
+                <small style="color: var(--text-3); font-weight: 400"
+                  >(affichée dans "En savoir plus")</small
+                ></label
+              >
+              <textarea
+                id="service-longdesc-input"
+                rows="4"
+                placeholder="Description complète : équipements, spécialités, prise en charge, conditions d'accès..."
+              ></textarea>
+            </div>
+            <div class="field-group">
+              <label
+                >Prestations / Fonctionnalités
+                <small style="color: var(--text-3); font-weight: 400"
+                  >(séparées par des virgules)</small
+                ></label
+              >
+              <input
+                type="text"
+                id="service-features-input"
+                placeholder="Ex: Consultation, Échographie, Holter ECG"
+              />
+            </div>
+            <div class="form-row">
+              <div class="field-group flex-1">
+                <label>Horaires</label>
+                <input
+                  type="text"
+                  id="service-hours-input"
+                  placeholder="Lun-Ven 8h-17h"
+                />
+              </div>
+              <div class="field-group flex-1">
+                <label>Téléphone</label>
+                <input
+                  type="text"
+                  id="service-phone-input"
+                  placeholder="+237 6XX XXX XXX"
+                />
+              </div>
+              <div class="field-group flex-1">
+                <label>Localisation</label>
+                <input
+                  type="text"
+                  id="service-location-input"
+                  placeholder="Bâtiment A, 2e étage"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field-group flex-1">
+                <label>Icône FontAwesome</label>
+                <input
+                  type="text"
+                  id="service-icon-input"
+                  placeholder="fas fa-heart"
+                />
+              </div>
+              <div class="field-group flex-1">
+                <label>Image du service</label>
+                <div style="display: flex; gap: 8px; align-items: flex-start">
+                  <input
+                    type="text"
+                    id="service-image-input"
+                    placeholder="https://... ou laisser vide"
+                    style="flex: 1"
+                  />
+                  <label
+                    id="upload-image-btn"
+                    style="
+                      cursor: pointer;
+                      white-space: nowrap;
+                      padding: 8px 12px;
+                      background: var(--bg);
+                      border: 1px solid var(--border);
+                      border-radius: 6px;
+                      font-size: 13px;
+                      display: flex;
+                      align-items: center;
+                      gap: 6px;
+                      color: var(--text-1);
+                    "
+                  >
+                    <i class="fas fa-upload"></i> Uploader
+                    <input
+                      type="file"
+                      id="service-image-file"
+                      accept="image/jpeg,image/png,image/webp,image/gif"
+                      style="display: none"
+                      onchange="uploadServiceImage(this)"
+                    />
+                  </label>
+                </div>
+                <div
+                  id="upload-image-preview"
+                  style="margin-top: 8px; display: none"
+                >
+                  <img
+                    id="upload-preview-img"
+                    src=""
+                    alt="Aperçu"
+                    style="
+                      max-height: 80px;
+                      max-width: 160px;
+                      border-radius: 6px;
+                      border: 1px solid var(--border);
+                      object-fit: cover;
+                    "
+                  />
+                  <span
+                    id="upload-status"
+                    style="
+                      font-size: 11px;
+                      color: var(--text-3);
+                      margin-left: 8px;
+                    "
+                  ></span>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="service-available-input" checked />
+                  <span>Service disponible</span>
+                </label>
+              </div>
+              <div class="field-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="service-featured-input" />
+                  <span>Mettre en avant</span>
+                </label>
+              </div>
+            </div>
+            <div class="personnel-section">
+              <div class="personnel-header">
+                <h4><i class="fas fa-user-md"></i> Personnel du service</h4>
+                <button
+                  type="button"
+                  class="btn-sm btn-outline"
+                  id="btn-add-personnel"
+                >
+                  <i class="fas fa-plus"></i> Ajouter
+                </button>
+              </div>
+              <div id="personnel-list" class="personnel-list"></div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary modal-close" data-modal="modal-service">
+            Annuler
+          </button>
+          <button class="btn-primary" id="btn-save-service">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="modal-contact">
+      <div class="modal modal-md">
+        <div class="modal-header">
+          <h3>Message de contact</h3>
+          <button class="modal-close" data-modal="modal-contact">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-contact-body"></div>
+        <div class="modal-footer">
+          <button class="btn-secondary modal-close" data-modal="modal-contact">
+            Fermer
+          </button>
+          <button class="btn-primary" id="btn-reply-contact">Répondre</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="modal-reply">
+      <div class="modal modal-md">
+        <div class="modal-header">
+          <h3>Répondre au message</h3>
+          <button class="modal-close" data-modal="modal-reply">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="field-group">
+            <label>Destinataire</label>
+            <input type="text" id="reply-to" readonly />
+          </div>
+          <div class="field-group">
+            <label>Réponse *</label>
+            <textarea
+              id="reply-message"
+              rows="6"
+              placeholder="Votre réponse..."
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary modal-close" data-modal="modal-reply">
+            Annuler
+          </button>
+          <button class="btn-primary" id="btn-send-reply">Envoyer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="modal-user">
+      <div class="modal modal-md">
+        <div class="modal-header">
+          <h3 id="modal-user-title">Nouveau membre du personnel</h3>
+          <button class="modal-close" data-modal="modal-user">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="user-form" novalidate>
+            <input type="hidden" id="user-id" />
+            <div class="form-row">
+              <div class="field-group flex-1">
+                <label>Prénom *</label>
+                <input
+                  type="text"
+                  id="user-firstname"
+                  placeholder="Prénom"
+                  required
+                />
+              </div>
+              <div class="field-group flex-1">
+                <label>Nom *</label>
+                <input
+                  type="text"
+                  id="user-lastname"
+                  placeholder="Nom"
+                  required
+                />
+              </div>
+            </div>
+            <div class="field-group">
+              <label>Email *</label>
+              <input
+                type="email"
+                id="user-email"
+                placeholder="email@chu-yaounde.cm"
+                required
+              />
+            </div>
+            <div class="form-row">
+              <div class="field-group flex-1">
+                <label>Rôle *</label>
+                <select id="user-role">
+                  <option value="staff">Personnel</option>
+                  <option value="nurse">Infirmier(e)</option>
+                  <option value="doctor">Médecin</option>
+                  <option value="admin">Administrateur</option>
+                </select>
+              </div>
+              <div class="field-group flex-1">
+                <label>Téléphone</label>
+                <input
+                  type="text"
+                  id="user-phone"
+                  placeholder="+237 6XX XXX XXX"
+                />
+              </div>
+            </div>
+            <div class="field-group" id="user-password-field">
+              <label>Mot de passe *</label>
+              <div class="input-wrap">
+                <i class="fas fa-lock"></i>
+                <input
+                  type="password"
+                  id="user-password"
+                  placeholder="Minimum 8 caractères"
+                />
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="user-active" checked />
+                <span>Compte actif</span>
+              </label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary modal-close" data-modal="modal-user">
+            Annuler
+          </button>
+          <button class="btn-primary" id="btn-save-user">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="modal-confirm">
+      <div class="modal modal-sm">
+        <div class="modal-header">
+          <h3>Confirmer la suppression</h3>
+          <button class="modal-close" data-modal="modal-confirm">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="confirm-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <p id="confirm-message">
+            Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est
+            irréversible.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary modal-close" data-modal="modal-confirm">
+            Annuler
+          </button>
+          <button class="btn-danger" id="btn-confirm-delete">Supprimer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay hidden" id="modal-cancel-appt">
+      <div class="modal modal-sm">
+        <div class="modal-header">
+          <h3>Annuler le rendez-vous</h3>
+          <button class="modal-close" data-modal="modal-cancel-appt">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="field-group">
+            <label>Motif d'annulation *</label>
+            <textarea
+              id="cancel-reason"
+              rows="3"
+              placeholder="Précisez le motif..."
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn-secondary modal-close"
+            data-modal="modal-cancel-appt"
+          >
+            Retour
+          </button>
+          <button class="btn-danger" id="btn-confirm-cancel-appt">
+            Confirmer l'annulation
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== MODAL STAGE ========== -->
+    <div class="modal-overlay hidden" id="modal-internship">
+      <div class="modal modal-lg">
+        <div class="modal-header">
+          <h3 id="modal-internship-title">Nouveau stage</h3>
+          <button class="modal-close" data-modal="modal-internship">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="internship-id" />
+          <div class="form-row">
+            <div class="field-group flex-1">
+              <label>Titre *</label>
+              <input
+                type="text"
+                id="internship-title"
+                placeholder="Ex: Médecine Interne"
+              />
+            </div>
+            <div class="field-group" style="width: 180px">
+              <label>Icône FontAwesome</label>
+              <input
+                type="text"
+                id="internship-icon"
+                placeholder="fa-stethoscope"
+              />
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Description courte *</label>
+            <textarea
+              id="internship-description"
+              rows="2"
+              placeholder="Description du stage..."
+            ></textarea>
+          </div>
+          <div class="field-group">
+            <label>Détails (affiché dans "Plus d'infos")</label>
+            <textarea
+              id="internship-details"
+              rows="3"
+              placeholder="Informations détaillées..."
+            ></textarea>
+          </div>
+          <div class="form-row">
+            <div class="field-group flex-1">
+              <label>Durée</label>
+              <input
+                type="text"
+                id="internship-duration"
+                placeholder="3-6 mois"
+              />
+            </div>
+            <div class="field-group flex-1">
+              <label>Niveau requis</label>
+              <input
+                type="text"
+                id="internship-level"
+                placeholder="Master 2 et plus"
+              />
+            </div>
+            <div class="field-group flex-1">
+              <label>Encadrement</label>
+              <input
+                type="text"
+                id="internship-supervision"
+                placeholder="Praticiens seniors"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field-group flex-1">
+              <label>Email de candidature</label>
+              <input
+                type="email"
+                id="internship-email"
+                placeholder="stages@chuyaounde.cm"
+              />
+            </div>
+            <div class="field-group flex-1">
+              <label>Lien candidature en ligne</label>
+              <input
+                type="url"
+                id="internship-link"
+                placeholder="https://..."
+              />
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="internship-active" checked />
+              <span>Stage actif (visible sur le site)</span>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn-secondary modal-close"
+            data-modal="modal-internship"
+          >
+            Annuler
+          </button>
+          <button class="btn-primary" id="btn-save-internship">
+            Enregistrer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== MODAL FORMATION ========== -->
+    <div class="modal-overlay hidden" id="modal-training">
+      <div class="modal modal-lg">
+        <div class="modal-header">
+          <h3 id="modal-training-title">Nouvelle formation</h3>
+          <button class="modal-close" data-modal="modal-training">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="training-id" />
+          <div class="form-row">
+            <div class="field-group flex-1">
+              <label>Titre *</label>
+              <input
+                type="text"
+                id="training-title"
+                placeholder="Ex: Médecine d'Urgence"
+              />
+            </div>
+            <div class="field-group" style="width: 180px">
+              <label>Catégorie *</label>
+              <input
+                type="text"
+                id="training-category"
+                placeholder="Urgences, Chirurgie..."
+              />
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Description *</label>
+            <textarea
+              id="training-description"
+              rows="2"
+              placeholder="Description de la formation..."
+            ></textarea>
+          </div>
+          <div class="form-row">
+            <div class="field-group flex-1">
+              <label>Durée</label>
+              <input type="text" id="training-duration" placeholder="3 mois" />
+            </div>
+            <div class="field-group flex-1">
+              <label>Nombre de places</label>
+              <input
+                type="number"
+                id="training-places"
+                placeholder="20"
+                min="0"
+              />
+            </div>
+            <div class="field-group flex-1">
+              <label>Prochaine session</label>
+              <input
+                type="text"
+                id="training-session"
+                placeholder="Mars 2025"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field-group flex-1">
+              <label>Email d'inscription</label>
+              <input
+                type="email"
+                id="training-email"
+                placeholder="formations@chuyaounde.cm"
+              />
+            </div>
+            <div class="field-group flex-1">
+              <label>Lien d'inscription en ligne</label>
+              <input type="url" id="training-link" placeholder="https://..." />
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Image de la formation</label>
+            <input type="hidden" id="training-image" />
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+                margin-bottom: 6px;
+              "
+            >
+              <label
+                class="btn-secondary"
+                style="
+                  cursor: pointer;
+                  padding: 6px 14px;
+                  border-radius: 6px;
+                  font-size: 13px;
+                  margin: 0;
+                "
+              >
+                <i class="fas fa-upload" style="margin-right: 5px"></i>Choisir
+                une image
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp,image/gif"
+                  style="display: none"
+                  onchange="uploadTrainingImage(this)"
+                />
+              </label>
+              <span
+                id="training-image-status"
+                style="font-size: 13px; color: #888"
+              ></span>
+            </div>
+            <div
+              id="training-image-preview"
+              style="display: none; margin-top: 8px"
+            >
+              <img
+                id="training-image-preview-img"
+                src=""
+                alt="Aperçu"
+                style="
+                  max-width: 100%;
+                  max-height: 180px;
+                  border-radius: 8px;
+                  border: 1px solid var(--border);
+                "
+              />
+              <div style="margin-top: 4px">
+                <button
+                  onclick="clearTrainingImage()"
+                  style="
+                    background: none;
+                    border: none;
+                    color: #e53e3e;
+                    cursor: pointer;
+                    font-size: 12px;
+                  "
+                >
+                  <i class="fas fa-times"></i> Supprimer l'image
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="training-active" checked />
+              <span>Formation active (visible sur le site)</span>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary modal-close" data-modal="modal-training">
+            Annuler
+          </button>
+          <button class="btn-primary" id="btn-save-training">
+            Enregistrer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== MODAL CONCOURS ========== -->
+    <div class="modal-overlay hidden" id="modal-contest">
+      <div class="modal modal-lg">
+        <div class="modal-header">
+          <h3 id="modal-contest-title">Nouveau concours</h3>
+          <button class="modal-close" data-modal="modal-contest">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="contest-id" />
+          <div class="form-row">
+            <div class="field-group flex-1">
+              <label>Titre *</label>
+              <input
+                type="text"
+                id="contest-title"
+                placeholder="Ex: Concours d'Internat"
+              />
+            </div>
+            <div class="field-group" style="width: 160px">
+              <label>Icône FontAwesome</label>
+              <input
+                type="text"
+                id="contest-icon"
+                placeholder="fa-file-medical"
+              />
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Description *</label>
+            <textarea
+              id="contest-description"
+              rows="2"
+              placeholder="Description du concours..."
+            ></textarea>
+          </div>
+          <div class="form-row">
+            <div class="field-group flex-1">
+              <label>Date de l'épreuve</label>
+              <input
+                type="text"
+                id="contest-examdate"
+                placeholder="15 Mai 2025"
+              />
+            </div>
+            <div class="field-group flex-1">
+              <label>Date limite d'inscription</label>
+              <input
+                type="text"
+                id="contest-deadline"
+                placeholder="30 Avril 2025"
+              />
+            </div>
+            <div class="field-group" style="width: 160px">
+              <label>Statut</label>
+              <select id="contest-status">
+                <option value="soon">Bientôt</option>
+                <option value="open">Inscriptions ouvertes</option>
+                <option value="closed">Clôturé</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Matières / Spécialités</label>
+            <input
+              type="text"
+              id="contest-subjects"
+              placeholder="Médecine, Chirurgie, Spécialités..."
+            />
+          </div>
+          <div class="form-row">
+            <div class="field-group flex-1">
+              <label>Email d'inscription</label>
+              <input
+                type="email"
+                id="contest-email"
+                placeholder="concours@chuyaounde.cm"
+              />
+            </div>
+            <div class="field-group flex-1">
+              <label>Lien d'inscription en ligne</label>
+              <input type="url" id="contest-link" placeholder="https://..." />
+            </div>
+          </div>
+          <div class="field-group">
+            <label>PDF du programme</label>
+            <input type="hidden" id="contest-pdf" />
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+                margin-bottom: 6px;
+              "
+            >
+              <label
+                class="btn-secondary"
+                style="
+                  cursor: pointer;
+                  padding: 6px 14px;
+                  border-radius: 6px;
+                  font-size: 13px;
+                  margin: 0;
+                "
+              >
+                <i class="fas fa-upload" style="margin-right: 5px"></i>Choisir
+                un PDF
+                <input
+                  type="file"
+                  accept=".pdf"
+                  style="display: none"
+                  onchange="uploadContestPdf(this)"
+                />
+              </label>
+              <span
+                id="contest-pdf-status"
+                style="font-size: 13px; color: #888"
+              ></span>
+            </div>
+            <div
+              id="contest-pdf-preview"
+              style="
+                display: none;
+                padding: 8px 12px;
+                background: var(--bg);
+                border: 1px solid var(--border);
+                border-radius: 6px;
+                font-size: 13px;
+              "
+            >
+              <i
+                class="fas fa-file-pdf"
+                style="color: #e53e3e; margin-right: 6px"
+              ></i>
+              <span id="contest-pdf-filename"></span>
+              <button
+                onclick="clearContestPdf()"
+                style="
+                  margin-left: 10px;
+                  background: none;
+                  border: none;
+                  color: #e53e3e;
+                  cursor: pointer;
+                  font-size: 12px;
+                "
+              >
+                <i class="fas fa-times"></i> Supprimer
+              </button>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="contest-active" checked />
+              <span>Concours actif (visible sur le site)</span>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary modal-close" data-modal="modal-contest">
+            Annuler
+          </button>
+          <button class="btn-primary" id="btn-save-contest">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== MODAL DOCUMENT ========== -->
+    <div class="modal-overlay hidden" id="modal-document">
+      <div class="modal modal-lg">
+        <div class="modal-header">
+          <h3 id="modal-document-title">Nouveau document</h3>
+          <button class="modal-close" data-modal="modal-document">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="document-id" />
+          <div class="form-row">
+            <div class="field-group flex-1">
+              <label>Titre *</label>
+              <input
+                type="text"
+                id="document-title"
+                placeholder="Ex: Formulaire d'Admission"
+                required
+              />
+            </div>
+            <div class="field-group" style="width: 200px">
+              <label>Catégorie *</label>
+              <select id="document-category">
+                <option value="formulaire">Formulaire</option>
+                <option value="appel_offre">Appel d'Offres</option>
+                <option value="rapport">Rapport</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Description</label>
+            <textarea
+              id="document-description"
+              rows="2"
+              placeholder="Description courte du document..."
+            ></textarea>
+          </div>
+
+          <!-- Champs spécifiques Formulaire -->
+          <div id="doc-fields-formulaire">
+            <div class="form-row">
+              <div class="field-group flex-1">
+                <label>Icône FontAwesome</label>
+                <input
+                  type="text"
+                  id="document-icon"
+                  placeholder="fas fa-file-medical"
+                />
+              </div>
+              <div class="field-group flex-1">
+                <label>Taille du fichier</label>
+                <input
+                  type="text"
+                  id="document-filesize"
+                  placeholder="Ex: 245 KB"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Champs spécifiques Appel d'offres -->
+          <div id="doc-fields-appel_offre" style="display: none">
+            <div class="form-row">
+              <div class="field-group flex-1">
+                <label>Référence</label>
+                <input
+                  type="text"
+                  id="document-ref"
+                  placeholder="Ex: AO-2025-001"
+                />
+              </div>
+              <div class="field-group flex-1">
+                <label>Statut</label>
+                <select id="document-tender-status">
+                  <option value="open">Ouvert</option>
+                  <option value="closed">Clôturé</option>
+                  <option value="awarded">Attribué</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field-group flex-1">
+                <label>Date limite</label>
+                <input
+                  type="text"
+                  id="document-deadline"
+                  placeholder="Ex: 30 Mars 2025"
+                />
+              </div>
+              <div class="field-group flex-1">
+                <label>Budget</label>
+                <input
+                  type="text"
+                  id="document-budget"
+                  placeholder="Ex: 150.000.000 FCFA"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Champs spécifiques Rapport -->
+          <div id="doc-fields-rapport" style="display: none">
+            <div class="form-row">
+              <div class="field-group flex-1">
+                <label>Icône FontAwesome</label>
+                <input
+                  type="text"
+                  id="document-report-icon"
+                  placeholder="fas fa-chart-line"
+                />
+              </div>
+              <div class="field-group flex-1">
+                <label>Date de publication</label>
+                <input
+                  type="text"
+                  id="document-pubdate"
+                  placeholder="Ex: 15 Jan 2025"
+                />
+              </div>
+              <div class="field-group flex-1">
+                <label>Nombre de pages</label>
+                <input
+                  type="text"
+                  id="document-pages"
+                  placeholder="Ex: 156 pages"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group" style="margin-top: 12px">
+            <label>Fichier PDF</label>
+            <div
+              style="
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                flex-wrap: wrap;
+              "
+            >
+              <input
+                type="text"
+                id="document-url"
+                placeholder="URL du PDF ou uploader ci-dessous"
+                style="flex: 1; min-width: 0"
+              />
+            </div>
+            <div style="margin-top: 8px">
+              <label
+                for="document-pdf-file"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 6px;
+                  padding: 6px 14px;
+                  background: #e53e3e;
+                  color: #fff;
+                  border-radius: 6px;
+                  cursor: pointer;
+                  font-size: 13px;
+                "
+              >
+                <i class="fas fa-file-pdf"></i> Uploader un PDF
+              </label>
+              <input
+                type="file"
+                id="document-pdf-file"
+                accept="application/pdf"
+                style="display: none"
+                onchange="uploadDocumentPdf(this)"
+              />
+              <span
+                id="document-pdf-upload-status"
+                style="font-size: 12px; color: #888; margin-left: 8px"
+              ></span>
+            </div>
+            <div
+              id="document-pdf-preview"
+              style="
+                margin-top: 8px;
+                display: none;
+                padding: 8px 12px;
+                background: var(--bg);
+                border: 1px solid var(--border);
+                border-radius: 6px;
+                font-size: 13px;
+              "
+            >
+              <i
+                class="fas fa-file-pdf"
+                style="color: #e53e3e; margin-right: 6px"
+              ></i>
+              <span id="document-pdf-filename"></span>
+              <button
+                type="button"
+                onclick="clearDocumentPdf()"
+                style="
+                  margin-left: 10px;
+                  background: none;
+                  border: none;
+                  color: #e53e3e;
+                  cursor: pointer;
+                  font-size: 12px;
+                "
+              >
+                <i class="fas fa-times"></i> Supprimer
+              </button>
+            </div>
+            <small style="color: var(--text-3); font-size: 12px"
+              >Lien utilisé pour le bouton Télécharger sur la page
+              publique</small
+            >
+          </div>
+          <div class="field-group">
+            <label>Lien aperçu (optionnel)</label>
+            <input
+              type="text"
+              id="document-preview-url"
+              placeholder="https://... URL de prévisualisation"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary modal-close" data-modal="modal-document">
+            Annuler
+          </button>
+          <button class="btn-primary" id="btn-save-document">
+            Enregistrer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL PERSONNEL — Ajouter / Modifier un membre -->
+    <div class="modal-overlay hidden" id="modal-personnel-member">
+      <div class="modal modal-sm">
+        <div class="modal-header">
+          <h3 id="modal-personnel-title">Ajouter un membre</h3>
+          <button class="modal-close" data-modal="modal-personnel-member">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="personnel-member-id" value="" />
+          <div class="field-group">
+            <label
+              >Nom complet <span style="color: var(--danger)">*</span></label
+            >
+            <input
+              type="text"
+              id="personnel-member-name"
+              placeholder="Ex: Dr. Martin Dupont"
+              maxlength="80"
+            />
+          </div>
+          <div class="field-group">
+            <label
+              >Poste / Spécialité
+              <span style="color: var(--danger)">*</span></label
+            >
+            <input
+              type="text"
+              id="personnel-member-poste"
+              placeholder="Ex: Chef de service Cardiologie"
+              maxlength="80"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn-secondary modal-close"
+            data-modal="modal-personnel-member"
+          >
+            Annuler
+          </button>
+          <button class="btn-primary" id="btn-save-personnel-member">
+            <i class="fas fa-save"></i> Enregistrer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL PERSONNEL — Uploader une photo -->
+    <div class="modal-overlay hidden" id="modal-personnel-photo">
+      <div class="modal modal-sm">
+        <div class="modal-header">
+          <h3>Changer la photo</h3>
+          <button class="modal-close" data-modal="modal-personnel-photo">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="font-size: 13px; color: var(--text-2); margin-bottom: 18px">
+            Sélectionnez une image JPG, PNG ou WEBP (max 5 Mo). L'image sera
+            automatiquement recadrée dans le cadre
+            <strong>170 × 200 px</strong>.
+          </p>
+          <input type="hidden" id="personnel-photo-member-id" value="" />
+          <div class="field-group">
+            <label>Fichier image</label>
+            <input
+              type="file"
+              id="personnel-photo-file"
+              accept="image/jpeg,image/jpg,image/png,image/webp"
+            />
+          </div>
+          <div
+            id="personnel-photo-preview-wrap"
+            style="display: none; margin-top: 16px; text-align: center"
+          >
+            <img
+              id="personnel-photo-preview"
+              src=""
+              alt="Aperçu"
+              style="
+                width: 120px;
+                height: 141px;
+                object-fit: cover;
+                object-position: center top;
+                border-radius: 10px;
+                border: 2px solid var(--border);
+                display: inline-block;
+              "
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn-secondary modal-close"
+            data-modal="modal-personnel-photo"
+          >
+            Annuler
+          </button>
+          <button class="btn-primary" id="btn-upload-personnel-photo">
+            <i class="fas fa-upload"></i> Télécharger
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+    <script src="admin.js"></script>
+  </body>
+</html>
