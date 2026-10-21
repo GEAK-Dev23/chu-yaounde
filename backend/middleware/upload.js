@@ -14,7 +14,7 @@ const storage = new CloudinaryStorage({
     const folder = req.uploadFolder || "misc";
     return {
       folder: `chu-yaounde/${folder}`,
-      allowed_formats: ["jpg", "jpeg", "png", "webp", "gif"],
+      allowed_formats: "jpg,jpeg,png,webp,gif",
       transformation: [{ quality: "auto" }],
     };
   },

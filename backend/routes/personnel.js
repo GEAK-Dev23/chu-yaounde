@@ -57,10 +57,8 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "chu-yaounde/personnel",
-    allowed_formats: ["jpg", "jpeg", "png", "webp"],
-    transformation: [
-      { width: 400, height: 500, crop: "fill", quality: "auto" },
-    ],
+    allowed_formats: "jpg,jpeg,png,webp",
+    transformation: [{ width: 400, height: 500, crop: "fill", quality: "auto" }],
   },
 });
 
@@ -69,8 +67,7 @@ const photoUpload = multer({
   fileFilter: (req, file, cb) => {
     const allowed = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
     if (allowed.includes(file.mimetype)) cb(null, true);
-    else
-      cb(new Error("Format non supporté. Utilisez JPG, PNG ou WEBP."), false);
+    else cb(new Error("Format non supporté. Utilisez JPG, PNG ou WEBP."), false);
   },
   limits: { fileSize: 5 * 1024 * 1024 },
 }).single("photo");
@@ -90,13 +87,9 @@ router.post("/", protect, authorize("admin"), (req, res) => {
   try {
     const { name, poste } = req.body;
     if (!name || !name.trim())
-      return res
-        .status(400)
-        .json({ success: false, message: "Le nom est requis" });
+      return res.status(400).json({ success: false, message: "Le nom est requis" });
     if (!poste || !poste.trim())
-      return res
-        .status(400)
-        .json({ success: false, message: "Le poste est requis" });
+      return res.status(400).json({ success: false, message: "Le poste est requis" });
 
     const list = readData();
     const membre = {
@@ -125,14 +118,10 @@ router.post("/:id/photo", protect, authorize("admin"), (req, res) => {
     const list = readData();
     const idx = list.findIndex((m) => m.id === req.params.id);
     if (idx === -1)
-      return res
-        .status(404)
-        .json({ success: false, message: "Membre introuvable" });
+      return res.status(404).json({ success: false, message: "Membre introuvable" });
 
     if (!req.file)
-      return res
-        .status(400)
-        .json({ success: false, message: "Aucune photo reçue" });
+      return res.status(400).json({ success: false, message: "Aucune photo reçue" });
 
     // Supprimer l'ancienne photo sur Cloudinary
     if (list[idx].cloudinaryId) {
@@ -143,7 +132,7 @@ router.post("/:id/photo", protect, authorize("admin"), (req, res) => {
       }
     }
 
-    list[idx].photo = req.file.path; // URL Cloudinary
+    list[idx].photo = req.file.path;            // URL Cloudinary
     list[idx].cloudinaryId = req.file.filename; // public_id Cloudinary
     writeData(list);
     res.json({ success: true, data: list[idx] });
@@ -156,9 +145,7 @@ router.put("/:id", protect, authorize("admin"), (req, res) => {
     const list = readData();
     const idx = list.findIndex((m) => m.id === req.params.id);
     if (idx === -1)
-      return res
-        .status(404)
-        .json({ success: false, message: "Membre introuvable" });
+      return res.status(404).json({ success: false, message: "Membre introuvable" });
 
     const { name, poste, order } = req.body;
     if (name !== undefined) list[idx].name = name.trim();
@@ -178,9 +165,7 @@ router.delete("/:id", protect, authorize("admin"), async (req, res) => {
     const list = readData();
     const idx = list.findIndex((m) => m.id === req.params.id);
     if (idx === -1)
-      return res
-        .status(404)
-        .json({ success: false, message: "Membre introuvable" });
+      return res.status(404).json({ success: false, message: "Membre introuvable" });
 
     // Supprimer la photo sur Cloudinary
     if (list[idx].cloudinaryId) {
