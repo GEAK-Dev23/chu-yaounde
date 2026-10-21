@@ -5,8 +5,6 @@
 (function () {
   /* --- URL du backend --- */
   function apiUrl() {
-    /* APP_CONFIG est défini par config.js (chargé avant ce script)
-       APP_CONFIG.API_BASE_URL = "http://localhost:5000/api"          */
     var base =
       window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL
         ? window.APP_CONFIG.API_BASE_URL.replace(/\/api\/?$/, "")
@@ -30,13 +28,14 @@
         ? window.APP_CONFIG.API_BASE_URL.replace(/\/api\/?$/, "")
         : "http://localhost:5000";
 
-    var photo = m.photo
-      ? '<img src="' +
-        base +
-        m.photo +
-        '" alt="' +
-        h(m.name) +
-        '" loading="lazy">'
+    var photoSrc;
+    if (m.photo) {
+      // Si c'est déjà une URL absolue (Cloudinary), l'utiliser directement
+      photoSrc = m.photo.startsWith("http") ? m.photo : base + m.photo;
+    }
+
+    var photo = photoSrc
+      ? '<img src="' + photoSrc + '" alt="' + h(m.name) + '" loading="lazy">'
       : '<div class="personnel-photo-placeholder"><i class="fas fa-user-md"></i></div>';
 
     var el = document.createElement("div");
@@ -77,7 +76,7 @@
       for (var j = 0; j < data.length; j++) frag.appendChild(carte(data[j]));
     track.appendChild(frag);
 
-    /* Durée : 3 s par membre, 18 s minimum */
+    /* Durée : 10 s par membre, 18 s minimum */
     track.style.animationDuration = Math.max(18, data.length * 10) + "s";
 
     /* Forcer recalcul layout AVANT d'activer l'animation */
