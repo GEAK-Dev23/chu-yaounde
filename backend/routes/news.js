@@ -506,11 +506,10 @@ router.post(
         .json({ success: false, message: "Aucune image reçue" });
     }
 
-    const imageUrl = `/uploads/news/${req.file.filename}`;
     res.status(200).json({
       success: true,
       message: "Image uploadée avec succès",
-      url: imageUrl,
+      url: req.file.path,
       filename: req.file.filename,
     });
   },
@@ -530,25 +529,15 @@ router.post(
     next();
   },
   (req, res, next) => {
-    // Override file filter for PDF
+    const cloudinary = require("cloudinary").v2;
+    const { CloudinaryStorage } = require("multer-storage-cloudinary");
     const multer = require("multer");
-    const path = require("path");
-    const fs = require("fs");
-    const storage = multer.diskStorage({
-      destination: (req, file, cb) => {
-        const uploadPath = path.join(__dirname, "../uploads/news/pdf");
-        if (!fs.existsSync(uploadPath))
-          fs.mkdirSync(uploadPath, { recursive: true });
-        cb(null, uploadPath);
-      },
-      filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname).toLowerCase();
-        const name = path
-          .basename(file.originalname, ext)
-          .replace(/[^a-z0-9]/gi, "-")
-          .toLowerCase()
-          .slice(0, 40);
-        cb(null, Date.now() + "-" + name + ext);
+    const storage = new CloudinaryStorage({
+      cloudinary,
+      params: {
+        folder: "chu-yaounde/news/pdf",
+        resource_type: "raw",
+        allowed_formats: ["pdf"],
       },
     });
     const pdfUpload = multer({
@@ -557,7 +546,7 @@ router.post(
         if (file.mimetype === "application/pdf") cb(null, true);
         else cb(new Error("Seuls les fichiers PDF sont acceptés"), false);
       },
-      limits: { fileSize: 20 * 1024 * 1024 }, // 20MB
+      limits: { fileSize: 20 * 1024 * 1024 },
     }).single("pdf");
     pdfUpload(req, res, next);
   },
@@ -567,11 +556,10 @@ router.post(
         .status(400)
         .json({ success: false, message: "Aucun PDF reçu" });
     }
-    const pdfUrl = `/uploads/news/pdf/${req.file.filename}`;
     res.status(200).json({
       success: true,
       message: "PDF uploadé avec succès",
-      url: pdfUrl,
+      url: req.file.path,
       filename: req.file.filename,
     });
   },

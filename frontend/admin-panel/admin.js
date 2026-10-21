@@ -1161,7 +1161,7 @@ function openNewsModal(news = null) {
   if (news?.image && previewDiv && previewImg) {
     const imgUrl = news.image.startsWith("http")
       ? news.image
-      : `http://localhost:5000${news.image}`;
+      : (news.image.startsWith("/") ? "https://chu-yaounde-backend.onrender.com" + news.image : news.image);
     previewImg.src = imgUrl;
     previewDiv.style.display = "block";
   } else if (previewDiv) {
@@ -2004,7 +2004,7 @@ async function uploadNewsImage(input) {
     if (!res.ok || !data.success)
       throw new Error(data.message || "Erreur upload");
 
-    const imageUrl = `http://localhost:5000${data.url}`;
+    const imageUrl = data.url.startsWith("http") ? data.url : "https://chu-yaounde-backend.onrender.com" + data.url;
     document.getElementById("news-image-input").value = data.url;
     previewImg.src = imageUrl;
     previewDiv.style.display = "block";
@@ -2258,9 +2258,7 @@ function openTrainingModal(t = null) {
   if (t?.image) {
     const url = t.image.startsWith("http")
       ? t.image
-      : "http://localhost:5000" +
-        (t.image.startsWith("/") ? "" : "/") +
-        t.image;
+      : (t.image.startsWith("/") ? "https://chu-yaounde-backend.onrender.com" + t.image : t.image);
     previewImg.src = url;
     preview.style.display = "block";
   } else {
@@ -2362,7 +2360,7 @@ async function uploadTrainingImage(input) {
     if (!res.ok || !data.success)
       throw new Error(data.message || "Erreur upload");
     document.getElementById("training-image").value = data.url;
-    previewImg.src = `http://localhost:5000${data.url}`;
+    previewImg.src = data.url.startsWith("http") ? data.url : "https://chu-yaounde-backend.onrender.com" + data.url;
     previewEl.style.display = "block";
     statusEl.textContent = "✓ Image uploadée";
     statusEl.style.color = "#2e7d32";

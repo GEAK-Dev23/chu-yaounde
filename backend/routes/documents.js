@@ -20,37 +20,25 @@ router.post(
   protect,
   authorize("admin"),
   (req, res, next) => {
+    const cloudinary = require("cloudinary").v2;
+    const { CloudinaryStorage } = require("multer-storage-cloudinary");
     const multer = require("multer");
-    const path = require("path");
-    const fs = require("fs");
-
-    const storage = multer.diskStorage({
-      destination: (req, file, cb) => {
-        const uploadPath = path.join(__dirname, "../uploads/documents");
-        if (!fs.existsSync(uploadPath))
-          fs.mkdirSync(uploadPath, { recursive: true });
-        cb(null, uploadPath);
-      },
-      filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname).toLowerCase();
-        const name = path
-          .basename(file.originalname, ext)
-          .replace(/[^a-z0-9]/gi, "-")
-          .toLowerCase()
-          .slice(0, 40);
-        cb(null, Date.now() + "-" + name + ext);
+    const storage = new CloudinaryStorage({
+      cloudinary,
+      params: {
+        folder: "chu-yaounde/documents",
+        resource_type: "raw",
+        allowed_formats: ["pdf"],
       },
     });
-
     const pdfUpload = multer({
       storage,
       fileFilter: (req, file, cb) => {
         if (file.mimetype === "application/pdf") cb(null, true);
         else cb(new Error("Seuls les fichiers PDF sont acceptés"), false);
       },
-      limits: { fileSize: 20 * 1024 * 1024 }, // 20 MB
+      limits: { fileSize: 20 * 1024 * 1024 },
     }).single("pdf");
-
     pdfUpload(req, res, next);
   },
   (req, res) => {
@@ -59,11 +47,10 @@ router.post(
         .status(400)
         .json({ success: false, message: "Aucun PDF reçu" });
     }
-    const pdfUrl = `/uploads/documents/${req.file.filename}`;
     res.status(200).json({
       success: true,
       message: "PDF uploadé avec succès",
-      url: pdfUrl,
+      url: req.file.path,
       filename: req.file.filename,
     });
   },

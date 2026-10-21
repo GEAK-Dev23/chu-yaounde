@@ -38,21 +38,14 @@ router.post(
   protect,
   authorize("admin"),
   (req, res, next) => {
-    const storage = multer.diskStorage({
-      destination: (req, file, cb) => {
-        const uploadPath = path.join(__dirname, "../uploads/contests/pdf");
-        if (!fs.existsSync(uploadPath))
-          fs.mkdirSync(uploadPath, { recursive: true });
-        cb(null, uploadPath);
-      },
-      filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname).toLowerCase();
-        const name = path
-          .basename(file.originalname, ext)
-          .replace(/[^a-z0-9]/gi, "-")
-          .toLowerCase()
-          .slice(0, 40);
-        cb(null, Date.now() + "-" + name + ext);
+    const cloudinary = require("cloudinary").v2;
+    const { CloudinaryStorage } = require("multer-storage-cloudinary");
+    const storage = new CloudinaryStorage({
+      cloudinary,
+      params: {
+        folder: "chu-yaounde/contests/pdf",
+        resource_type: "raw",
+        allowed_formats: ["pdf"],
       },
     });
     const pdfUpload = multer({
@@ -73,7 +66,7 @@ router.post(
     res.json({
       success: true,
       message: "PDF uploadé avec succès",
-      url: `/uploads/contests/pdf/${req.file.filename}`,
+      url: req.file.path,
       filename: req.file.filename,
     });
   },

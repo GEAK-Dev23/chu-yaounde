@@ -221,8 +221,7 @@ router.post(
       return res
         .status(400)
         .json({ success: false, message: "Aucun fichier recu" });
-    const imageUrl = "/uploads/services/" + req.file.filename;
-    res.status(200).json({ success: true, data: { url: imageUrl } });
+    res.status(200).json({ success: true, data: { url: req.file.path } });
   },
 );
 
