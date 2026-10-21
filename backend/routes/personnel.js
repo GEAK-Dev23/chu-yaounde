@@ -1,43 +1,36 @@
+/**
+ * ================================================
+ * ROUTES PERSONNEL — CHU YAOUNDÉ
+ * ================================================
+ * CRUD complet + upload photo (Cloudinary)
+ * Routes exposées :
+ *   GET    /api/personnel           → liste publique
+ *   POST   /api/personnel           → créer (admin)
+ *   PUT    /api/personnel/:id       → modifier (admin)
+ *   DELETE /api/personnel/:id       → supprimer (admin)
+ *   POST   /api/personnel/:id/photo → uploader photo (admin)
+ * ================================================
+ */
+
 "use strict";
 
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const multer = require("multer");
 const { protect, authorize } = require("../middleware/auth");
 
+// ─── Config Cloudinary ─────────────────────────────────────────────────────────
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// ─── Stockage Cloudinary pour photos personnel ────────────────────────────────
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: "chu-yaounde/personnel",
-    allowed_formats: ["jpg", "jpeg", "png", "webp"],
-    transformation: [{ quality: "auto" }],
-  },
-});
-
-const photoUpload = multer({
-  storage,
-  fileFilter: (req, file, cb) => {
-    const allowed = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-    if (allowed.includes(file.mimetype)) cb(null, true);
-    else
-      cb(new Error("Format non supporté. Utilisez JPG, PNG ou WEBP."), false);
-  },
-  limits: { fileSize: 5 * 1024 * 1024 },
-}).single("photo");
-
-// ─── Stockage JSON en mémoire (MongoDB-less) ──────────────────────────────────
-const path = require("path");
-const fs = require("fs");
-
+// ─── Stockage des données (JSON sur disque) ────────────────────────────────────
 const DATA_FILE = path.join(__dirname, "../uploads/personnel/personnel.json");
 
 function ensureDir(dir) {
@@ -58,6 +51,29 @@ function writeData(data) {
   ensureDir(path.dirname(DATA_FILE));
   fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), "utf8");
 }
+
+// ─── Multer → Cloudinary ───────────────────────────────────────────────────────
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "chu-yaounde/personnel",
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+    transformation: [
+      { width: 400, height: 500, crop: "fill", quality: "auto" },
+    ],
+  },
+});
+
+const photoUpload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    const allowed = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+    if (allowed.includes(file.mimetype)) cb(null, true);
+    else
+      cb(new Error("Format non supporté. Utilisez JPG, PNG ou WEBP."), false);
+  },
+  limits: { fileSize: 5 * 1024 * 1024 },
+}).single("photo");
 
 // ─── GET /api/personnel ────────────────────────────────────────────────────────
 router.get("/", (req, res) => {
@@ -113,6 +129,11 @@ router.post("/:id/photo", protect, authorize("admin"), (req, res) => {
         .status(404)
         .json({ success: false, message: "Membre introuvable" });
 
+    if (!req.file)
+      return res
+        .status(400)
+        .json({ success: false, message: "Aucune photo reçue" });
+
     // Supprimer l'ancienne photo sur Cloudinary
     if (list[idx].cloudinaryId) {
       try {
@@ -122,13 +143,8 @@ router.post("/:id/photo", protect, authorize("admin"), (req, res) => {
       }
     }
 
-    if (!req.file)
-      return res
-        .status(400)
-        .json({ success: false, message: "Aucune photo reçue" });
-
-    list[idx].photo = req.file.path;
-    list[idx].cloudinaryId = req.file.filename;
+    list[idx].photo = req.file.path; // URL Cloudinary
+    list[idx].cloudinaryId = req.file.filename; // public_id Cloudinary
     writeData(list);
     res.json({ success: true, data: list[idx] });
   });
