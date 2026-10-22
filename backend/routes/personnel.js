@@ -2,7 +2,8 @@
  * ================================================
  * ROUTES PERSONNEL — CHU YAOUNDÉ
  * ================================================
- * CRUD complet + upload photo (Cloudinary)
+ * Données : MongoDB (modèle Personnel) → persistant sur Render
+ * Photos  : Cloudinary
  * Routes exposées :
  *   GET    /api/personnel           → liste publique
  *   POST   /api/personnel           → créer (admin)
@@ -16,12 +17,12 @@
 
 const express = require("express");
 const router = express.Router();
-const path = require("path");
-const fs = require("fs");
+const mongoose = require("mongoose");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const multer = require("multer");
 const { protect, authorize } = require("../middleware/auth");
+const Personnel = require("../models/Personnel");
 
 // ─── Config Cloudinary ─────────────────────────────────────────────────────────
 cloudinary.config({
@@ -30,35 +31,15 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// ─── Stockage des données (JSON sur disque) ────────────────────────────────────
-const DATA_FILE = path.join(__dirname, "../uploads/personnel/personnel.json");
-
-function ensureDir(dir) {
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-}
-
-function readData() {
-  ensureDir(path.dirname(DATA_FILE));
-  if (!fs.existsSync(DATA_FILE)) return [];
-  try {
-    return JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
-  } catch {
-    return [];
-  }
-}
-
-function writeData(data) {
-  ensureDir(path.dirname(DATA_FILE));
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), "utf8");
-}
-
 // ─── Multer → Cloudinary ───────────────────────────────────────────────────────
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "chu-yaounde/personnel",
     allowed_formats: "jpg,jpeg,png,webp",
-    transformation: [{ width: 400, height: 500, crop: "fill", quality: "auto" }],
+    transformation: [
+      { width: 400, height: 500, crop: "fill", quality: "auto" },
+    ],
   },
 });
 
@@ -67,15 +48,28 @@ const photoUpload = multer({
   fileFilter: (req, file, cb) => {
     const allowed = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
     if (allowed.includes(file.mimetype)) cb(null, true);
-    else cb(new Error("Format non supporté. Utilisez JPG, PNG ou WEBP."), false);
+    else
+      cb(new Error("Format non supporté. Utilisez JPG, PNG ou WEBP."), false);
   },
   limits: { fileSize: 5 * 1024 * 1024 },
 }).single("photo");
 
-// ─── GET /api/personnel ────────────────────────────────────────────────────────
-router.get("/", (req, res) => {
+// ─── Helpers ───────────────────────────────────────────────────────────────────
+const isValidId = (id) => mongoose.Types.ObjectId.isValid(id);
+
+async function destroyCloudinary(publicId) {
+  if (!publicId) return;
   try {
-    const list = readData().sort((a, b) => (a.order || 0) - (b.order || 0));
+    await cloudinary.uploader.destroy(publicId);
+  } catch (e) {
+    console.error("Erreur suppression Cloudinary:", e.message);
+  }
+}
+
+// ─── GET /api/personnel ────────────────────────────────────────────────────────
+router.get("/", async (req, res) => {
+  try {
+    const list = await Personnel.find().sort({ order: 1, createdAt: 1 });
     res.json({ success: true, count: list.length, data: list });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -83,26 +77,24 @@ router.get("/", (req, res) => {
 });
 
 // ─── POST /api/personnel ───────────────────────────────────────────────────────
-router.post("/", protect, authorize("admin"), (req, res) => {
+router.post("/", protect, authorize("admin"), async (req, res) => {
   try {
     const { name, poste } = req.body;
     if (!name || !name.trim())
-      return res.status(400).json({ success: false, message: "Le nom est requis" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Le nom est requis" });
     if (!poste || !poste.trim())
-      return res.status(400).json({ success: false, message: "Le poste est requis" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Le poste est requis" });
 
-    const list = readData();
-    const membre = {
-      id: `p_${Date.now()}`,
+    const count = await Personnel.countDocuments();
+    const membre = await Personnel.create({
       name: name.trim(),
       poste: poste.trim(),
-      photo: null,
-      cloudinaryId: null,
-      order: list.length,
-      createdAt: new Date().toISOString(),
-    };
-    list.push(membre);
-    writeData(list);
+      order: count,
+    });
     res.status(201).json({ success: true, data: membre });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
@@ -115,70 +107,82 @@ router.post("/:id/photo", protect, authorize("admin"), (req, res) => {
     if (err)
       return res.status(400).json({ success: false, message: err.message });
 
-    const list = readData();
-    const idx = list.findIndex((m) => m.id === req.params.id);
-    if (idx === -1)
-      return res.status(404).json({ success: false, message: "Membre introuvable" });
+    try {
+      if (!req.file)
+        return res
+          .status(400)
+          .json({ success: false, message: "Aucune photo reçue" });
 
-    if (!req.file)
-      return res.status(400).json({ success: false, message: "Aucune photo reçue" });
+      const membre = isValidId(req.params.id)
+        ? await Personnel.findById(req.params.id)
+        : null;
 
-    // Supprimer l'ancienne photo sur Cloudinary
-    if (list[idx].cloudinaryId) {
-      try {
-        await cloudinary.uploader.destroy(list[idx].cloudinaryId);
-      } catch (e) {
-        console.error("Erreur suppression Cloudinary:", e.message);
+      if (!membre) {
+        // Membre inexistant : supprimer la photo qui vient d'être envoyée
+        await destroyCloudinary(req.file.filename);
+        return res
+          .status(404)
+          .json({ success: false, message: "Membre introuvable" });
       }
-    }
 
-    list[idx].photo = req.file.path;            // URL Cloudinary
-    list[idx].cloudinaryId = req.file.filename; // public_id Cloudinary
-    writeData(list);
-    res.json({ success: true, data: list[idx] });
+      // Supprimer l'ancienne photo sur Cloudinary
+      await destroyCloudinary(membre.cloudinaryId);
+
+      membre.photo = req.file.path; // URL Cloudinary
+      membre.cloudinaryId = req.file.filename; // public_id Cloudinary
+      await membre.save();
+
+      res.json({ success: true, data: membre });
+    } catch (e) {
+      res.status(500).json({ success: false, message: e.message });
+    }
   });
 });
 
 // ─── PUT /api/personnel/:id ────────────────────────────────────────────────────
-router.put("/:id", protect, authorize("admin"), (req, res) => {
+router.put("/:id", protect, authorize("admin"), async (req, res) => {
   try {
-    const list = readData();
-    const idx = list.findIndex((m) => m.id === req.params.id);
-    if (idx === -1)
-      return res.status(404).json({ success: false, message: "Membre introuvable" });
+    if (!isValidId(req.params.id))
+      return res
+        .status(404)
+        .json({ success: false, message: "Membre introuvable" });
+
+    const membre = await Personnel.findById(req.params.id);
+    if (!membre)
+      return res
+        .status(404)
+        .json({ success: false, message: "Membre introuvable" });
 
     const { name, poste, order } = req.body;
-    if (name !== undefined) list[idx].name = name.trim();
-    if (poste !== undefined) list[idx].poste = poste.trim();
-    if (order !== undefined) list[idx].order = parseInt(order);
+    if (name !== undefined) membre.name = String(name).trim();
+    if (poste !== undefined) membre.poste = String(poste).trim();
+    if (order !== undefined && !isNaN(parseInt(order)))
+      membre.order = parseInt(order);
 
-    writeData(list);
-    res.json({ success: true, data: list[idx] });
+    await membre.save();
+    res.json({ success: true, data: membre });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    const status = err.name === "ValidationError" ? 400 : 500;
+    res.status(status).json({ success: false, message: err.message });
   }
 });
 
 // ─── DELETE /api/personnel/:id ────────────────────────────────────────────────
 router.delete("/:id", protect, authorize("admin"), async (req, res) => {
   try {
-    const list = readData();
-    const idx = list.findIndex((m) => m.id === req.params.id);
-    if (idx === -1)
-      return res.status(404).json({ success: false, message: "Membre introuvable" });
+    if (!isValidId(req.params.id))
+      return res
+        .status(404)
+        .json({ success: false, message: "Membre introuvable" });
 
-    // Supprimer la photo sur Cloudinary
-    if (list[idx].cloudinaryId) {
-      try {
-        await cloudinary.uploader.destroy(list[idx].cloudinaryId);
-      } catch (e) {
-        console.error("Erreur suppression Cloudinary:", e.message);
-      }
-    }
+    const membre = await Personnel.findByIdAndDelete(req.params.id);
+    if (!membre)
+      return res
+        .status(404)
+        .json({ success: false, message: "Membre introuvable" });
 
-    const [removed] = list.splice(idx, 1);
-    writeData(list);
-    res.json({ success: true, data: removed });
+    await destroyCloudinary(membre.cloudinaryId);
+    res.json({ success: true, data: membre });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }

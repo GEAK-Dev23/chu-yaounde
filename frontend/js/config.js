@@ -143,3 +143,7 @@ if (typeof module !== "undefined" && module.exports) {
     formatDate,
   };
 }
+
+// Rendre la config accessible via window.APP_CONFIG
+// (une "const" globale n'est PAS une propriété de window)
+window.APP_CONFIG = APP_CONFIG;

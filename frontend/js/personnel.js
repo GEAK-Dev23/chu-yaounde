@@ -3,12 +3,21 @@
    Charger depuis /api/personnel + carrousel infini
    ================================================ */
 (function () {
+  /* --- Base du backend (sans /api) --- */
+  function backendBase() {
+    var cfg =
+      typeof APP_CONFIG !== "undefined" ? APP_CONFIG : window.APP_CONFIG;
+    if (cfg && cfg.API_BASE_URL)
+      return cfg.API_BASE_URL.replace(/\/api\/?$/, "");
+    var host = window.location.hostname;
+    return host === "localhost" || host === "127.0.0.1"
+      ? "http://localhost:5000"
+      : "https://chu-yaounde-backend.onrender.com";
+  }
+
   /* --- URL du backend --- */
   function apiUrl() {
-    var base =
-      window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL
-        ? window.APP_CONFIG.API_BASE_URL.replace(/\/api\/?$/, "")
-        : "http://localhost:5000";
+    var base = backendBase();
     return base + "/api/personnel";
   }
 
@@ -23,10 +32,7 @@
 
   /* --- Créer une carte --- */
   function carte(m) {
-    var base =
-      window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL
-        ? window.APP_CONFIG.API_BASE_URL.replace(/\/api\/?$/, "")
-        : "http://localhost:5000";
+    var base = backendBase();
 
     var photoSrc;
     if (m.photo) {
